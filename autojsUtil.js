@@ -557,12 +557,13 @@ const AutojsUtil = {
 
     console.setTitle(title || "");
     console.show(true);
-    console.setCanInput(false);
 
     console.setMaxLines(500);
     sleep(100); //等待一会，才能设置尺寸成功
+    console.setCanInput(false);
+
     console.setSize(cw, ch); //需要前面等待一会
-    console.setPosition(dw - cw, 200);
+    console.setPosition(dw - cw, (device.height / 2) - ch);
 
     let now = new Date();
     let logPath = "/storage/emulated/0/autojs/";
@@ -711,7 +712,7 @@ const AutojsUtil = {
         log("%s 次 搞定", times);
         break;
       } else {
-        log("没搞定")
+        // log("没搞定")
       }
     } while (times < timeLimit);
 
