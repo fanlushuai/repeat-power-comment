@@ -125,6 +125,8 @@ const AutojsUtil = {
           try {
             taskFunc();
             sleep(1);
+            log("任务结束");
+            break;
           } catch (error) {
             log(error);
           }
