@@ -218,8 +218,6 @@ const AutojsUtil = {
     return ele;
   },
 
-
-
   getEleBySelectorWithAutoRefresh: function (
     selector,
     targetName,
@@ -351,51 +349,52 @@ const AutojsUtil = {
     return {
       点击: (x, y) => shell("input tap " + x + " " + y, false),
 
-      滑动: (x, y, xx, yy, d) => shell("input swipe " + x + " " + y + " " + xx + " " + yy + " " + d, false),
+      滑动: (x, y, xx, yy, d) =>
+        shell(
+          "input swipe " + x + " " + y + " " + xx + " " + yy + " " + d,
+          false
+        ),
 
       输入: (str) => shell("input text " + str, false),
 
-      模拟: (str) => shell("input keyevent " + str, false)
-    }
+      模拟: (str) => shell("input keyevent " + str, false),
+    };
   },
   clickByShell: function (x, y) {
-    let result = this.shell().点击(x, y)
+    let result = this.shell().点击(x, y);
 
     if (result.code != 0) {
-      log("点击失败")
-      log(result)
-      return false
+      log("点击失败");
+      log(result);
+      return false;
     }
 
-    return true
-
+    return true;
   },
   clickEleByShell: function (ele) {
-
     if (ele == null || ele == undefined) {
-      log("无元素，不点击")
-      return
+      log("无元素，不点击");
+      return;
     }
 
-    let b = ele.bounds()
+    let b = ele.bounds();
 
-    let x = random(b.left + 1, b.right - 1)
-    let y = random(b.top + 1, b.bottom - 1)
+    let x = random(b.left + 1, b.right - 1);
+    let y = random(b.top + 1, b.bottom - 1);
 
-    this.clickByShell(x, y)
+    this.clickByShell(x, y);
   },
   clickEle: function (ele) {
-
     if (ele == null || ele == undefined) {
-      log("无元素")
-      return false
+      log("无元素");
+      return false;
     }
 
     // 快速切换，shell点击模式，或者无障碍模式
-    let shellMode = false
+    let shellMode = false;
 
     if (shellMode) {
-      this.clickEleByShell(ele)
+      this.clickEleByShell(ele);
     } else {
       if (ele.clickable()) {
         // log("点元素" + ele);
@@ -420,7 +419,7 @@ const AutojsUtil = {
   },
   press: function (ele) {
     let b = ele.bounds();
-    return this.pressBounds(b)
+    return this.pressBounds(b);
   },
   refreshUI: function (appName) {
     log("刷新控件");
@@ -480,24 +479,21 @@ const AutojsUtil = {
     return excuteOK;
   },
   loadUI: function (projectJsonPath, uiPath) {
-
     let projectJsonStr = files.read(projectJsonPath).toString();
     let projectData = JSON.parse(projectJsonStr);
 
-    let scriptName = projectData.name
+    let scriptName = projectData.name;
     let version = "1.0.0    --- " + (projectData.updateTime || "");
     let themeColor = "#FF3123";
     let scriptTitle = scriptName + " v" + version;
 
     let ScriptUIAllStr = files.read(uiPath).toString();
-    let ScriptUIStr = ScriptUIAllStr.replace(/项目标题/g, scriptTitle).replace(
-      /#4EBFDD/g,
-      themeColor
-    )
+    let ScriptUIStr = ScriptUIAllStr.replace(/项目标题/g, scriptTitle)
+      .replace(/#4EBFDD/g, themeColor)
       .replace("{Name1}", scriptName.charAt(0))
       .replace("{Name2}", scriptName.charAt(1))
       .replace("{Name3}", scriptName.charAt(2))
-      .replace("{Name4}", scriptName.charAt(3))
+      .replace("{Name4}", scriptName.charAt(3));
 
     configIDArr = ScriptUIStr.match(/ id( )?=( )?["|'].*?["|']/g).map((item) =>
       item.replace(/ id( )?=( )?["|']|"|'/g, "")
@@ -563,7 +559,7 @@ const AutojsUtil = {
     console.setCanInput(false);
 
     console.setSize(cw, ch); //需要前面等待一会
-    console.setPosition(dw - cw, (device.height / 2) - ch);
+    console.setPosition(dw - cw, device.height / 2 - ch);
 
     let now = new Date();
     let logPath = "/storage/emulated/0/autojs/";
@@ -583,6 +579,37 @@ const AutojsUtil = {
     console.setGlobalLogConfig({
       file: logFileName,
     });
+  },
+  configBaseConsole: (title) => {
+    log("开启控制台");
+
+    console.setTitle(title || "");
+    console.show(true);
+
+    console.setMaxLines(500);
+    sleep(100); //等待一会，才能设置尺寸成功
+    console.setCanInput(false);
+
+    let now = new Date();
+    let logPath = "/storage/emulated/0/autojs/";
+    let logFileName =
+      logPath +
+      "autoLog-" +
+      (now.getMonth() + 1) +
+      "_" +
+      now.getDate() +
+      "_" +
+      now.getHours() +
+      "_" +
+      now.getMinutes() +
+      "-" +
+      random(1, 100) +
+      ".txt";
+    console.setGlobalLogConfig({
+      file: logFileName,
+    });
+
+    return console;
   },
   waitFor: function (selector, timeoutSec) {
     let startTime = new Date().getTime();
@@ -611,7 +638,7 @@ const AutojsUtil = {
     );
     w.setTouchable(false);
     w.setSize(-1, -1);
-    setInterval(() => { }, 1000);
+    setInterval(() => {}, 1000);
 
     let paint = new Paint();
     //设置画笔为填充，则绘制出来的图形都是实心的
@@ -665,12 +692,12 @@ const AutojsUtil = {
       }
     }
 
-    log("启动 %s", appName)
+    log("启动 %s", appName);
     app.launchApp(appName);
     sleep(3000);
   },
   killApp: function (name) {
-    log("强杀 %s", name)
+    log("强杀 %s", name);
     let packageName = getPackageName(name) || getAppName(name);
     if (!packageName) {
       log("找不到packageName" + packageName);
@@ -700,7 +727,7 @@ const AutojsUtil = {
         break;
       }
     }
-    log("设置已打开")
+    log("设置已打开");
 
     log("进行盲点");
     // 执行盲点流程 （多点几次不过分。都是非阻塞的。）
@@ -719,20 +746,20 @@ const AutojsUtil = {
     sleep(random(800, 1000));
     back();
 
-    return true
+    return true;
     // 盲点
     function stop() {
       let is_sure = textMatches(
         /(.{0,3}强.{0,3}|.{0,3}停.{0,3}|.{0,3}结.{0,3}|.{0,3}行.{0,3})/
       ).findOnce();
       if (is_sure) {
-        AutojsUtil.clickEle(is_sure)
+        AutojsUtil.clickEle(is_sure);
         sleep(random(500, 600));
       }
 
       let b = textMatches(/(.*确.*|.*定.*)/).findOnce();
       if (b) {
-        AutojsUtil.clickEle(b)
+        AutojsUtil.clickEle(b);
         sleep(random(500, 600));
         return true;
       }
@@ -755,8 +782,8 @@ const AutojsUtil = {
   },
   autoPermisionScreenCapture: once(function () {
     if (hasGetCapturePremission) {
-      log("当前有截图权限")
-      return
+      log("当前有截图权限");
+      return;
     }
     console.log("自动申请截图权限");
     let Thread = threads.start(function () {
@@ -765,7 +792,7 @@ const AutojsUtil = {
         //由于系统间同意授权的文本不同，采用正则表达式
         let Allow = textMatches(/(允许|立即开始|统一)/).findOne(10 * 1000);
         if (Allow) {
-          AutojsUtil.clickEle(Allow)
+          AutojsUtil.clickEle(Allow);
         }
       } else {
         log("未发现权限服务调用");
@@ -780,7 +807,7 @@ const AutojsUtil = {
     } else {
       Thread.interrupt();
       log("已获得截图权限");
-      hasGetCapturePremission = true
+      hasGetCapturePremission = true;
       return true;
     }
   }),
@@ -807,7 +834,7 @@ const AutojsUtil = {
     return path;
   },
   clickTextByOCR: function (text, x, y, a, b) {
-    AutojsUtil.autoPermisionScreenCapture()
+    AutojsUtil.autoPermisionScreenCapture();
     var img = captureScreen(); // 截取当前屏幕图像
     // var clip = images.clip(img, 0, 0, device.width, device.height / 3); // 裁剪图像，只保留上半部分
     var clip = images.clip(img, x, y, a, b); // 裁剪图像，只保留上半部分
@@ -816,23 +843,23 @@ const AutojsUtil = {
     for (let t of res) {
       if (t.text == text) {
         // log("找到 %s %j", text, t)
-        log("OCR 点击 %s", text)
-        return AutojsUtil.pressBounds(t.bounds)
+        log("OCR 点击 %s", text);
+        AutojsUtil.pressBounds(t.bounds);
+        return t;
       }
     }
 
-    console.error("ocr 点击失败 %s", text)
-    return false
+    console.error("ocr 点击失败 %s", text);
+    return false;
   },
   s13: function () {
-    this.s(1, 3)
+    this.s(1, 3);
   },
   s: function (min, max) {
-    let secends = random(min, max)
-    log("等待 %s s", secends)
-    sleep(secends * 1000)
-  }
-
+    let secends = random(min, max);
+    log("等待 %s s", secends);
+    sleep(secends * 1000);
+  },
 };
 
 function once(fn, context) {
@@ -850,7 +877,7 @@ function once(fn, context) {
   });
 }
 
-let hasGetCapturePremission = false
+let hasGetCapturePremission = false;
 module.exports = {
   AutojsUtil,
 };

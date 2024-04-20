@@ -332,6 +332,12 @@ function share(apkName) {
   WeiXin.sendTo("文件传输助手", downloadUrl);
 }
 
-let apkName = build("热评助手");
+let projectJsonPath = "./project.json";
+let projectJsonStr = files.read(projectJsonPath).toString();
+let projectData = JSON.parse(projectJsonStr);
+
+// log(projectData);
+
+let apkName = build(projectData.name);
 log(apkName);
 // share(apkName);
