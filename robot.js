@@ -36,13 +36,33 @@ const Robot = {
   },
   start: function () {
     log("机器人启动")
-    AutojsUtil.reloadApp(Douyin.name)
 
-    this.intoLocation()
-    let keyword = "喜羊羊与灰太狼"
+    let keywordsArr
+    if (Config.keywords) {
+      let regex = /，/ig
+      keywordsArr = Config.keywords.trim().replace(regex, ",").split(",")
+    }
+
+    if (keywordsArr == null) {
+      log("请配置关键字")
+      return
+    }
+
+    for (let keyword of keywordsArr) {
+      log("开始第一个关键词")
+      log("%s", keyword)
+      AutojsUtil.reloadApp(Douyin.name)
+      this.intoLocation()
+      this.task(keyword, Config.commentCountLimit)
+    }
+  },
+  task: function (keyword, commentCountLimit) {
     this.intoVedioBySearch(keyword)
     AutojsUtil.s(2, 3)
     let hotComment = this.getHotComment()
+
+    let tryCount = 0
+
     while (1) {
       AutojsUtil.s(3, 5)
 
@@ -51,6 +71,13 @@ const Robot = {
       AutojsUtil.s(8, 15)
       let newHotComment = genComment(hotComment)
       this.comment(newHotComment)
+      tryCount++
+      log("已评 %d 次", tryCount)
+      if (tryCount == commentCountLimit) {
+        log("达到评论限制数 %d", commentCountLimit)
+        log("结束本关键词 %s", keyword)
+        break
+      }
     }
   }
 };

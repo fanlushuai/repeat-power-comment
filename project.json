@@ -1,5 +1,5 @@
 {
-  "name": "热评助手",
+  "name": "热评搬运",
   "main": "main.js",
   "ignore": ["build"],
   "icon": "icon.png",

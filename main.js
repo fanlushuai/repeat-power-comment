@@ -16,8 +16,7 @@ function revoverBootButton() {
     // 重置按钮为可用
     log("重置按钮为 启动");
     AutojsUtil.buttonEnable(ui.boot, "启 动");
-  }
-}
+  } }
 
 ui.emitter.on("resume", function () {
   revoverBootButton();

@@ -42,6 +42,7 @@ const Douyin = {
         id("com.ss.android.ugc.aweme:id/lug")
     },
     video: function () {
+        // 多图，和视频，都可以
         AutojsUtil.clickSelectorWithAutoRefresh(id("com.ss.android.ugc.aweme:id/ly1").visibleToUser(true), "视频", 8, this.name)
     },
     commentTab: function () {

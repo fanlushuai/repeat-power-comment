@@ -78,7 +78,7 @@ const AutojsUtil = {
       )
     );
 
-    window.setPosition(0, 100);
+    window.setPosition(0, device.height / 4);
 
     window.exitOnClose(); //注册退出，退出脚本
 
@@ -493,7 +493,11 @@ const AutojsUtil = {
     let ScriptUIStr = ScriptUIAllStr.replace(/项目标题/g, scriptTitle).replace(
       /#4EBFDD/g,
       themeColor
-    );
+    )
+      .replace("{Name1}", scriptName.charAt(0))
+      .replace("{Name2}", scriptName.charAt(1))
+      .replace("{Name3}", scriptName.charAt(2))
+      .replace("{Name4}", scriptName.charAt(3))
 
     configIDArr = ScriptUIStr.match(/ id( )?=( )?["|'].*?["|']/g).map((item) =>
       item.replace(/ id( )?=( )?["|']|"|'/g, "")
@@ -558,7 +562,7 @@ const AutojsUtil = {
     console.setMaxLines(500);
     sleep(100); //等待一会，才能设置尺寸成功
     console.setSize(cw, ch); //需要前面等待一会
-    console.setPosition(dw - cw, 120);
+    console.setPosition(dw - cw, 200);
 
     let now = new Date();
     let logPath = "/storage/emulated/0/autojs/";

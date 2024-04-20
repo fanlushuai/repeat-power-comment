@@ -2,41 +2,64 @@
 	<vertical>
 		<horizontal marginTop="0" bg="#18181C" gravity="center">
 			<text textStyle="bold" textColor="#EA5217" textSize="26sp">
-				热
+				{Name1}
 			</text>
 			<text marginRight="5" textStyle="bold" textColor="#08BFF5" textSize="26sp">
-				评
+				{Name2}
 			</text>
 			<text textStyle="bold" textColor="#FC03FC" textSize="31sp">
-				小
+				{Name3}
 			</text>
 			<text textStyle="italic" textColor="#869093" textSize="26sp">
-				兵
+				{Name4}
 			</text>
 		</horizontal>
 	</vertical>
-	<vertical marginLeft="30" marginRight="30" marginTop="50">
-		<Switch id="autoService" marginTop="50" text="无障碍服务" textStyle="bold" textColor="#000000" textSize="16sp" checked="{{auto.service!=null}}" />
-		<Switch id="consoleShow" marginTop="20" text="控制台悬浮窗" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
-		<text text="关键字" marginTop="10" textStyle="bold" textColor="#000000" textSize="16sp" />
-		<horizontal marginTop="1" gravity="center">
-			<text text="[" />
-			<input text="" lines="1" maxLength="11" id="withdrawUserId" w="150" gravitry="center" />
-			<text text="]" />
-		</horizontal>
-
-		<text text="次数" marginTop="10" textStyle="bold" textColor="#000000" textSize="16sp" />
-		<horizontal marginTop="1" gravity="center">
-			<text text="[" />
-			<input text="" lines="1" maxLength="11" id="withdrawUserId" w="150" gravitry="center" />
-			<text text="]" />
-		</horizontal>
-
-		<vertical>
-			<horizontal marginTop="1" gravity="center">
-				<button id="save" marginLeft="20" marginRight="20" marginTop="10" bg="#23A9F2" text="保 存" />
-				<button id="boot" marginLeft="20" marginRight="20" marginTop="10" bg="#23A9F2" text="启 动" />
-			</horizontal>
+	<ScrollView>
+		<vertical marginTop="30">
+			<vertical marginLeft="30" marginRight="30" marginTop="40">
+				<horizontal gravity="center">
+					<vertical marginRight="30">
+						<Switch id="autoService" text="无障碍服务" textStyle="bold" textColor="#000000" textSize="16sp" checked="{{auto.service!=null}}" />
+					</vertical>
+					<vertical>
+						<Switch id="consoleShow" text="控制台悬浮窗" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
+					</vertical>
+				</horizontal>
+				<vertical marginTop="140">
+					<text text="关键词" textStyle="bold" textColor="#000000" textSize="16sp" />
+					<horizontal marginTop="14" gravity="left">
+						<input text="" gravity="left" inputType="textImeMultiLine" id="keywords" w="*" />
+					</horizontal>
+					<text text="每词评论次数" textStyle="bold" textColor="#000000" textSize="16sp" />
+					<horizontal marginTop="0" gravity="left">
+						<input lines="1" maxLength="6" inputType="number" id="commentCountLimit" w="60" gravity="left" />
+					</horizontal>
+					<horizontal marginTop="14" gravity="center" w="*" h="*">
+						<button id="save" marginLeft="10" marginRight="20" bg="#23A9F2" text="保存" />
+						<button id="boot" marginLeft="20" marginRight="10" bg="#23A9F2" text="启动" />
+					</horizontal>
+					<vertical marginTop="130" marginLeft="20">
+						<text>
+						</text>
+						<text>
+							1. 开启无障碍
+						</text>
+						<text>
+							2. 填入金额范围。
+						</text>
+						<text>
+							3. 点击启动。
+						</text>
+						<text>
+							4. 手动切换到目标app对应界面。等待自动抢单。
+						</text>
+						<text>
+							注意：开启悬浮窗，可以避免被系统杀掉。
+						</text>
+					</vertical>
+				</vertical>
+			</vertical>
 		</vertical>
-	</vertical>
+	</ScrollView>
 </frame>
