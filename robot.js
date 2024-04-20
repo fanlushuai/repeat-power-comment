@@ -2,6 +2,7 @@ const { AutojsUtil } = require("./autojsUtil.js");
 const { genComment } = require("./commentGen.js");
 const { Config } = require("./config.js");
 const { Douyin } = require("./douyin.js");
+const { LocalStorage } = require("./localStorage.js");
 
 const Robot = {
   reinit: function () {
@@ -63,16 +64,42 @@ const Robot = {
     keywordsArr = unique(keywordsArr);
 
     log("关键词列表 %j", keywordsArr);
+    let lastTimeKeyword = LocalStorage.getLastTimeKeyword(
+      Config.commentCountLimit
+    );
+    if (keywordsArr.indexOf(lastTimeKeyword) > -1) {
+      log("断点续搞");
+      let arriveLastKeyword = false;
+      for (let keyword of keywordsArr) {
+        if (arriveLastKeyword) {
+          log("开始关键词");
 
-    for (let keyword of keywordsArr) {
-      log("开始关键词");
-      log("%s", keyword);
-      AutojsUtil.reloadApp(Douyin.name);
-      this.intoLocation();
-      this.task(keyword, Config.commentCountLimit);
+          log("%s", keyword);
+          AutojsUtil.reloadApp(Douyin.name);
+          this.intoLocation();
+          this.task(keyword, Config.commentCountLimit);
+        } else {
+          if (lastTimeKeyword == keyword) {
+            arriveLastKeyword = true;
+          } else {
+            log("跳过关键字 %s", keyword);
+            continue;
+          }
+        }
+      }
+    } else {
+      for (let keyword of keywordsArr) {
+        log("开始关键词");
+        log("%s", keyword);
+        AutojsUtil.reloadApp(Douyin.name);
+        this.intoLocation();
+        this.task(keyword, Config.commentCountLimit);
+      }
     }
   },
   task: function (keyword, commentCountLimit) {
+    LocalStorage.setThisTimeKeyword(keyword, commentCountLimit);
+
     this.intoVedioBySearch(keyword);
     AutojsUtil.s(2, 3);
     let hotComment = this.getHotComment();

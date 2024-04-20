@@ -6,6 +6,18 @@ const LocalStorage = {
   localStorage: function () {
     return storages.create("xxxxjk23232");
   },
+  getLastTimeKeyword: function (timeLimit) {
+    let uniqueId = timeLimit; //简单的让次数作为唯一次数
+    let localStorage = this.localStorage();
+    if (uniqueId == localStorage.get("lastTimeKeyword_timelimit", -1)) {
+      return localStorage.get("lastTimeKeyword");
+    }
+  },
+  setThisTimeKeyword: function (keyword, timeLimit) {
+    let localStorage = this.localStorage();
+    localStorage.put("lastTimeKeyword", keyword);
+    localStorage.put("lastTimeKeyword_timelimit", timeLimit);
+  },
   setConsoleMinY: function (y) {
     if (consoleMinY == 0) {
       if (y) {
