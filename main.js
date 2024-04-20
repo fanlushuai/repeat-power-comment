@@ -16,7 +16,8 @@ function revoverBootButton() {
     // 重置按钮为可用
     log("重置按钮为 启动");
     AutojsUtil.buttonEnable(ui.boot, "启 动");
-  } }
+  }
+}
 
 ui.emitter.on("resume", function () {
   revoverBootButton();
@@ -40,7 +41,7 @@ let hasStart = false;
 
 ui.boot.click(function () {
   // 用来提供测试版本
-  if (new Date().getTime() > 1712311050000) {
+  if (new Date().getTime() > 1713805200000) {
     alert("脚本异常");
     return;
   }

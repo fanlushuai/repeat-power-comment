@@ -6,9 +6,9 @@ const Autojsx = {
     sleep(1000);
     // 侧边栏是否打开
     if (text("打开USB调试").exists()) {
-      log("点击空白处")
-      press(device.width - 10, device.height / 2, 1)
-      sleep(500)
+      log("点击空白处");
+      press(device.width - 10, device.height / 2, 1);
+      sleep(500);
     }
 
     pageUpBySwipe();
@@ -64,17 +64,23 @@ const Autojsx = {
 
     let apkName = setVersion();
 
+    log("开启 PaddleOCR");
+    click(scrollUtillFind(text("PaddleOCR")));
+
+    log("开启 打包默认的PaddleOCR训练数据");
+    click(scrollUtillFind(text("打包默认的PaddleOCR训练数据")));
+
     log("关闭 显示启动界面");
     click(scrollUtillFind(text("显示启动界面")));
 
-    log("开启 需要后台弹出界面权限")
-    click(scrollUtillFind(text("需要后台弹出界面权限")))
+    log("开启 需要后台弹出界面权限");
+    click(scrollUtillFind(text("需要后台弹出界面权限")));
 
     log("开启 需要无障碍服务");
     click(scrollUtillFind(text("需要无障碍服务")));
 
-    log("开启 需要悬浮窗权限")
-    click(scrollUtillFind(text("需要悬浮窗权限")))
+    log("开启 需要悬浮窗权限");
+    click(scrollUtillFind(text("需要悬浮窗权限")));
 
     log("开启 简单加密js文件");
     click(scrollUtillFind(text("简单加密js文件")));
@@ -183,7 +189,7 @@ const Autojsx = {
       while (1) {
         let c = clipStorage.get("1", "111111");
         if (c != "111111") {
-          log("阻塞获取剪切板内容为：%s", c)
+          log("阻塞获取剪切板内容为：%s", c);
           return c;
         }
         sleep(200);
@@ -260,9 +266,11 @@ const Oppo = {
 
     log("上传成功");
     sleep(2000);
-    let downloadUrl = descMatches(/(https:.*)/).findOne(10000).desc()
-    log("获取链接 %s", downloadUrl)
-    return downloadUrl
+    let downloadUrl = descMatches(/(https:.*)/)
+      .findOne(10000)
+      .desc();
+    log("获取链接 %s", downloadUrl);
+    return downloadUrl;
     // log("长按复制");
     // let b = desc("复制").findOne();
     // press(b.bounds().centerX(), b.bounds().centerY(), 800);
@@ -324,4 +332,6 @@ function share(apkName) {
   WeiXin.sendTo("文件传输助手", downloadUrl);
 }
 
-share(build("热评助手"));
+let apkName = build("热评助手");
+log(apkName);
+// share(apkName);
