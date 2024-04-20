@@ -49,7 +49,7 @@ const Robot = {
     }
 
     for (let keyword of keywordsArr) {
-      log("开始第一个关键词")
+      log("开始关键词")
       log("%s", keyword)
       AutojsUtil.reloadApp(Douyin.name)
       this.intoLocation()
