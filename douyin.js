@@ -102,7 +102,7 @@ const Douyin = {
 
     LocalStorage.setConsoleMaxY(consoleMaxY);
 
-    log("点 %s", targetName);
+    log("点 %s", "评论tab");
     sleep(400);
     AutojsUtil.clickEle(ele);
 
