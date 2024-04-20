@@ -67,14 +67,14 @@ const Autojsx = {
     log("关闭 显示启动界面");
     click(scrollUtillFind(text("显示启动界面")));
 
-    // log("开启 需要后台弹出界面权限")
-    // click(scrollUtillFind(text("需要后台弹出界面权限")))
+    log("开启 需要后台弹出界面权限")
+    click(scrollUtillFind(text("需要后台弹出界面权限")))
 
     log("开启 需要无障碍服务");
     click(scrollUtillFind(text("需要无障碍服务")));
 
-    // log("开启 需要悬浮窗权限")
-    // click(scrollUtillFind(text("需要悬浮窗权限")))
+    log("开启 需要悬浮窗权限")
+    click(scrollUtillFind(text("需要悬浮窗权限")))
 
     log("开启 简单加密js文件");
     click(scrollUtillFind(text("简单加密js文件")));
