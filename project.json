@@ -1,0 +1,23 @@
+{
+  "name": "热评助手",
+  "main": "main.js",
+  "ignore": ["build"],
+  "icon": "icon.png",
+  "packageName": "com.hotcomment",
+  "versionName": "1.0.0",
+  "versionCode": 1,
+  "launchConfig": {
+    "hideLogs": true
+  },
+  "permissionConfig": {
+    "manifestPermissions": [
+      "android.permission.WRITE_SETTINGS",
+      "android.permission.MANAGE_OVERLAY_PERMISSION"
+    ],
+    "requestListOnStartup": [
+      "android.permission.WRITE_SETTINGS",
+      "android.permission.MANAGE_OVERLAY_PERMISSION"
+    ]
+  },
+  "displaySplash": false
+}

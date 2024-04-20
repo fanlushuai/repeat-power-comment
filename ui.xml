@@ -1,0 +1,42 @@
+<frame w="*" h="*" bg="#F6FFE3" gravity="center">
+	<vertical>
+		<horizontal marginTop="0" bg="#18181C" gravity="center">
+			<text textStyle="bold" textColor="#EA5217" textSize="26sp">
+				热
+			</text>
+			<text marginRight="5" textStyle="bold" textColor="#08BFF5" textSize="26sp">
+				评
+			</text>
+			<text textStyle="bold" textColor="#FC03FC" textSize="31sp">
+				小
+			</text>
+			<text textStyle="italic" textColor="#869093" textSize="26sp">
+				兵
+			</text>
+		</horizontal>
+	</vertical>
+	<vertical marginLeft="30" marginRight="30" marginTop="50">
+		<Switch id="autoService" marginTop="50" text="无障碍服务" textStyle="bold" textColor="#000000" textSize="16sp" checked="{{auto.service!=null}}" />
+		<Switch id="consoleShow" marginTop="20" text="控制台悬浮窗" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
+		<text text="关键字" marginTop="10" textStyle="bold" textColor="#000000" textSize="16sp" />
+		<horizontal marginTop="1" gravity="center">
+			<text text="[" />
+			<input text="" lines="1" maxLength="11" id="withdrawUserId" w="150" gravitry="center" />
+			<text text="]" />
+		</horizontal>
+
+		<text text="次数" marginTop="10" textStyle="bold" textColor="#000000" textSize="16sp" />
+		<horizontal marginTop="1" gravity="center">
+			<text text="[" />
+			<input text="" lines="1" maxLength="11" id="withdrawUserId" w="150" gravitry="center" />
+			<text text="]" />
+		</horizontal>
+
+		<vertical>
+			<horizontal marginTop="1" gravity="center">
+				<button id="save" marginLeft="20" marginRight="20" marginTop="10" bg="#23A9F2" text="保 存" />
+				<button id="boot" marginLeft="20" marginRight="20" marginTop="10" bg="#23A9F2" text="启 动" />
+			</horizontal>
+		</vertical>
+	</vertical>
+</frame>
