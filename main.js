@@ -44,6 +44,8 @@ ui.boot.click(function () {
   if (new Date().getTime() > 1713805200000) {
     alert("脚本异常");
     return;
+  } else {
+    toast("当前处于测试版本");
   }
 
   if (auto.service == null) {

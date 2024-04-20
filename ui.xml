@@ -28,6 +28,8 @@
 				</horizontal>
 				<vertical marginTop="140">
 					<text text="关键词" textStyle="bold" textColor="#000000" textSize="16sp" />
+					<text text="关键词之间用逗号分隔" textColor="red" />
+
 					<horizontal marginTop="14" gravity="left">
 						<input text="" gravity="left" inputType="textImeMultiLine" id="keywords" w="*" />
 					</horizontal>
@@ -46,16 +48,16 @@
 							1. 开启无障碍
 						</text>
 						<text>
-							2. 填入金额范围。
+							2. 注意：开启悬浮窗，可以避免被系统杀掉。
 						</text>
 						<text>
-							3. 点击启动。
+							3. 填入关键词，并以逗号分隔，中英文逗号都可以
 						</text>
 						<text>
-							4. 手动切换到目标app对应界面。等待自动抢单。
+							4. 启动
 						</text>
 						<text>
-							注意：开启悬浮窗，可以避免被系统杀掉。
+		注意：在第一次运行不会显示日志控制台。而在之后，才会显示。因为，控制台需要用第一次来确定，日志窗口的位置。智能避开关键元素
 						</text>
 					</vertical>
 				</vertical>
