@@ -12,7 +12,7 @@ if (consoleYRange) {
   let console = AutojsUtil.configBaseConsole("热评搬运");
   let dw = device.width;
   let dh = device.height;
-  let cw = (dw * 4) / 10;
+  let cw = (dw * 3) / 10;
   // let ch = (dh * 2) / 8;
 
   // 冗余60
