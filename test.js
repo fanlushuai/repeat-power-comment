@@ -16,4 +16,5 @@ const { AutojsUtil } = require("./autojsUtil");
 const { Douyin } = require("./douyin");
 
 // AutojsUtil.pageDownBySwipe()
-Douyin.closeCommentTab()
+// Douyin.closeCommentTab()
+storages.create("xxxxjk23232").clear();

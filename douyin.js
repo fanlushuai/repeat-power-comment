@@ -169,12 +169,19 @@ const Douyin = {
 
     sleep(random(1, 4) * 1000);
 
-    AutojsUtil.clickSelectorWithAutoRefresh(
+    ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
       text("发送").visibleToUser(true),
       "发送",
       8,
       this.name
     );
+
+    let consoleMaxY = ele.bounds().top - 60;
+    LocalStorage.setConsoleMaxY(consoleMaxY);
+
+    log("点 %s", "发送");
+    sleep(400);
+    AutojsUtil.clickEle(ele);
     // text('发送')
     // text('善语结善缘，恶言伤人心')
   },

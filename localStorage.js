@@ -1,5 +1,5 @@
-let hasSetConsoleMinY = false;
-let hasSetConsoleMaxY = false;
+let consoleMinY = 0;
+let consoleMaxY = 0;
 let consoleYRange = null;
 
 const LocalStorage = {
@@ -7,7 +7,7 @@ const LocalStorage = {
     return storages.create("xxxxjk23232");
   },
   setConsoleMinY: function (y) {
-    if (!hasSetConsoleMinY) {
+    if (consoleMinY == 0) {
       if (y) {
         log("设置控制台最小高度 %s", y);
         let localStorage = this.localStorage();
@@ -16,13 +16,19 @@ const LocalStorage = {
       }
     }
   },
+  //会设置最小的那个
   setConsoleMaxY: function (y) {
-    if (!hasSetConsoleMaxY) {
+    if (consoleMaxY == 0) {
       if (y) {
         log("设置控制台最大高度 %s", y);
         let localStorage = this.localStorage();
         localStorage.put("consoleMaxY", y);
         hasSetConsoleMaxY = true;
+      }
+    } else {
+      if (y < consoleMaxY) {
+        consoleMaxY = 0;
+        this.setConsoleMaxY(y);
       }
     }
   },
