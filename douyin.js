@@ -204,7 +204,7 @@ const Douyin = {
       .visibleToUser(true)
       .findOnce();
 
-    if (ele) {
+    if (ele == null) {
       // 点击两次，防止失败
       AutojsUtil.pressBounds(b);
     }
