@@ -198,8 +198,16 @@ const Douyin = {
     };
     AutojsUtil.pressBounds(b);
     AutojsUtil.s13();
-    // 点击两次，防止失败
-    AutojsUtil.pressBounds(b);
+
+    // 查看评论右侧图标
+    let ele = id("com.ss.android.ugc.aweme:id/dc4")
+      .visibleToUser(true)
+      .findOnce();
+
+    if (ele) {
+      // 点击两次，防止失败
+      AutojsUtil.pressBounds(b);
+    }
   },
 };
 

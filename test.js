@@ -18,9 +18,13 @@ const { Douyin } = require("./douyin");
 // AutojsUtil.pageDownBySwipe()
 // Douyin.closeCommentTab()
 // storages.create("xxxxjk23232").clear();
-let name = "抖音";
-let packageName = getPackageName(name) || getAppName(name);
-if (!packageName) {
-  log("找不到packageName" + packageName);
-  return;
-}
+// let name = "抖音";
+// let packageName = getPackageName(name) || getAppName(name);
+// if (!packageName) {
+//   log("找不到packageName" + packageName);
+//   return;
+// }
+
+let ele = id("com.ss.android.ugc.aweme:id/dc4").visibleToUser(true).findOnce();
+
+log(ele);
