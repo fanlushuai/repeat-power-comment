@@ -2,6 +2,9 @@
 
 const { AutojsUtil } = require("./autojsUtil");
 const { Config } = require("./config");
+const { LocalStorage } = require("./localStorage");
+
+auto.waitFor();
 
 AutojsUtil.loadUI("./project.json", "./ui.xml");
 // 初始化界面数据
@@ -35,6 +38,12 @@ ui.save.click(function () {
   ui.run(function () {
     AutojsUtil.buttonFlashing(ui.save, "已 保 存");
   });
+});
+
+ui.clearCache.click(function () {
+  log("清除缓存");
+  LocalStorage.localStorage().clear();
+  toast("缓存已经清除");
 });
 
 let hasStart = false;

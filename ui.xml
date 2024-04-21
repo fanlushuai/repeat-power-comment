@@ -17,7 +17,7 @@
 	</vertical>
 	<ScrollView>
 		<vertical marginTop="30">
-			<vertical marginLeft="30" marginRight="30" marginTop="40">
+			<vertical marginLeft="30" marginRight="30" marginTop="180">
 				<horizontal gravity="center">
 					<vertical marginRight="30">
 						<Switch id="autoService" text="无障碍服务" textStyle="bold" textColor="#000000" textSize="16sp" checked="{{auto.service!=null}}" />
@@ -26,29 +26,45 @@
 						<Switch id="consoleShow" text="控制台悬浮窗" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
 					</vertical>
 				</horizontal>
-				<vertical marginTop="140">
-					<text text="关键词" textStyle="bold" textColor="#000000" textSize="16sp" />
+				<vertical>
+					<horizontal marginTop="14">
+
+						<text text="关键词" textStyle="bold" textColor="#000000" textSize="16sp" />
+						<text text=" *" textStyle="bold" textColor="red" textSize="16sp" />
+
+					</horizontal>
+
+
 					<text text="关键词之间用逗号分隔" textColor="red" />
+					<horizontal marginTop="14" gravity="left">
+						<input hint='例如：哈雷的移动城堡，千与千寻' text="" lines='4' gravity="center" inputType="textImeMultiLine" id="keywords" w="*" />
+					</horizontal>
+
 
 					<horizontal marginTop="14" gravity="left">
-						<input text="" gravity="left" inputType="textImeMultiLine" id="keywords" w="*" />
+
+						<text text="自动评论" textStyle="bold" textColor="#000000" textSize="16sp" />
+						<input lines="1" maxLength="6" inputType="number" id="commentCountLimit" w="60" gravity="center" />
+						<text text="条相关视频" textStyle="bold" textColor="#000000" textSize="16sp" />
+						<text text=" *" textStyle="bold" textColor="red" textSize="16sp" />
+
 					</horizontal>
 
-					<text text="指定评论内容" textStyle="bold" textColor="#000000" textSize="16sp" />
+					<text text="评论内容" marginTop="14" textStyle="bold" textColor="#000000" textSize="16sp" />
 					<horizontal marginTop="14" gravity="left">
-						<input text="" gravity="left" inputType="useComment" id="keywords" w="*" />
+						<input text="" hint="不填写，将使用自动抓取的热评" lines='4' gravity="center" inputType="textImeMultiLine" id="useComment" w="*" />
 					</horizontal>
 
-					<text text="每词评论次数" textStyle="bold" textColor="#000000" textSize="16sp" />
-					<horizontal marginTop="0" gravity="left">
-						<input lines="1" maxLength="6" inputType="number" id="commentCountLimit" w="60" gravity="left" />
-					</horizontal>
-					<horizontal marginTop="14" gravity="center" w="*" h="*">
+
+
+
+					<horizontal marginTop="20" gravity="center" w="*" h="*">
 						<button id="save" marginLeft="10" marginRight="20" bg="#23A9F2" text="保存" />
 						<button id="boot" marginLeft="20" marginRight="10" bg="#23A9F2" text="启动" />
 					</horizontal>
 					<vertical marginTop="130" marginLeft="20">
 						<text>
+						使用说明：
 						</text>
 						<text>
 							1. 开启无障碍
@@ -57,15 +73,17 @@
 							2. 注意：开启悬浮窗，可以避免被系统杀掉。
 						</text>
 						<text>
-							3. 填入关键词，并以逗号分隔，中英文逗号都可以
+							3. 填入一个或多个关键词，并以逗号分隔，中英文逗号都可以
 						</text>
 						<text>
 							4. 启动
 						</text>
 						<text>
-		注意：在第一次运行不会显示日志控制台。而在之后，才会显示。因为，控制台需要用第一次来确定，日志窗口的位置。智能避开关键元素
+		注意：日志控制台设计。在第一次运行不会显示日志控制台。而在之后，才会显示。因为，控制台需要用第一次来确定，日志窗口的位置。智能避开关键元素
 						</text>
 					</vertical>
+					<button id="clearCache" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="清理缓存" />
+
 				</vertical>
 			</vertical>
 		</vertical>

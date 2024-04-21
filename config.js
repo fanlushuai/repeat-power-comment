@@ -1,3 +1,5 @@
+const { LocalStorage } = require("./localStorage");
+
 const Config = {
   keywords: "",
   commentCountLimit: 20,
@@ -5,7 +7,7 @@ const Config = {
   // 一段时间的评论是否相同。穿插其他评论。
 
   getStorage: function () {
-    return storages.create("5211314");
+    return LocalStorage.localStorage();
   },
   setLSConfig2UI: function () {
     log("LS->UI");
