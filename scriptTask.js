@@ -3,7 +3,8 @@ const { AutojsUtil } = require("./autojsUtil");
 const { Config } = require("./config");
 const { LocalStorage } = require("./localStorage");
 
-AutojsUtil.keepScreen();
+// AutojsUtil.keepScreen();
+device.keepScreenOn(3600 * 1000);
 
 // 在程序第二次运行的时候，就会开启控制台
 // 动态确定控制台的位置
