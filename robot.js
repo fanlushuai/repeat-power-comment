@@ -106,6 +106,11 @@ const Robot = {
 
     let tryCount = 0;
 
+    if (useComment != null && useComment != "") {
+      log("使用指定评论 %s", useComment);
+      hotComment = useComment;
+    }
+
     while (1) {
       AutojsUtil.s(3, 5);
 

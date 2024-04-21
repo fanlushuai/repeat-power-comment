@@ -17,4 +17,10 @@ const { Douyin } = require("./douyin");
 
 // AutojsUtil.pageDownBySwipe()
 // Douyin.closeCommentTab()
-storages.create("xxxxjk23232").clear();
+// storages.create("xxxxjk23232").clear();
+let name = "抖音";
+let packageName = getPackageName(name) || getAppName(name);
+if (!packageName) {
+  log("找不到packageName" + packageName);
+  return;
+}
