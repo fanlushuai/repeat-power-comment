@@ -106,6 +106,7 @@ const Robot = {
 
     let tryCount = 0;
 
+    let useComment = Config.useComment;
     if (useComment != null && useComment != "") {
       log("使用指定评论 %s", useComment);
       hotComment = useComment;
