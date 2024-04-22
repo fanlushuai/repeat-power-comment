@@ -25,6 +25,13 @@ const { Douyin } = require("./douyin");
 //   return;
 // }
 
-let ele = id("com.ss.android.ugc.aweme:id/dc4").visibleToUser(true).findOnce();
+// let ele = id("com.ss.android.ugc.aweme:id/dc4").visibleToUser(true).findOnce();
 
-log(ele);
+// log(ele);
+
+AutojsUtil.getEleBySelectorWithAutoRefresh(
+    id("com.ss.android.ugc.aweme:id/kb7").visibleToUser(true),
+    "搜索tab",
+    8,
+    this.name
+  );

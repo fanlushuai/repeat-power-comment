@@ -228,6 +228,14 @@ const AutojsUtil = {
     refreshMethod
   ) {
     let ele = this.retryGet(function () {
+
+
+      if (LocalStorage.localStorage().get("stopChild") == true) {
+        log("内存通知，停止咯")
+        exit()
+      }
+
+
       log("查 %s", targetName);
       let e = selector.findOne(findTimeLimitSec * 1000);
       if (e) {
@@ -640,7 +648,7 @@ const AutojsUtil = {
     );
     w.setTouchable(false);
     w.setSize(-1, -1);
-    setInterval(() => {}, 1000);
+    setInterval(() => { }, 1000);
 
     let paint = new Paint();
     //设置画笔为填充，则绘制出来的图形都是实心的

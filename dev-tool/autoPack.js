@@ -280,7 +280,7 @@ const Oppo = {
 function click(b) {
   sleep(1 * 1000);
   // AutojsUtil.showPoint(b.bounds().centerX(), b.bounds().centerY());
-  log("点击 %s %s", b.bounds().centerX(), b.bounds().centerY());
+  // log("点击 %s %s", b.bounds().centerX(), b.bounds().centerY());
   press(b.bounds().centerX(), b.bounds().centerY(), 1);
   sleep(1 * 1000);
 }

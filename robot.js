@@ -71,6 +71,12 @@ const Robot = {
       log("断点续搞");
       let arriveLastKeyword = false;
       for (let keyword of keywordsArr) {
+
+        if (LocalStorage.localStorage().get("stopChild") == true) {
+          log("内存通知，停止咯")
+          exit()
+        }
+
         if (arriveLastKeyword) {
           log("开始关键词");
 
@@ -89,6 +95,13 @@ const Robot = {
       }
     } else {
       for (let keyword of keywordsArr) {
+
+        if (LocalStorage.localStorage().get("stopChild") == true) {
+          log("内存通知，停止咯")
+          exit()
+        }
+
+
         log("开始关键词");
         log("%s", keyword);
         AutojsUtil.reloadApp(Douyin.name);
@@ -96,6 +109,8 @@ const Robot = {
         this.task(keyword, Config.commentCountLimit);
       }
     }
+
+    toastLog("机器人任务完成")
   },
   task: function (keyword, commentCountLimit) {
     LocalStorage.setThisTimeKeyword(keyword, commentCountLimit);
@@ -113,6 +128,12 @@ const Robot = {
     }
 
     while (1) {
+      if (LocalStorage.localStorage().get("stopChild") == true) {
+        log("内存通知，停止咯")
+        exit()
+      }
+
+
       AutojsUtil.s(3, 5);
 
       AutojsUtil.pageDownBySwipe();

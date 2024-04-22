@@ -29,6 +29,7 @@ ui.emitter.on("resume", function () {
 
 events.on("exit", function () {
   log("强行停止，子脚本");
+  LocalStorage.localStorage().put("stopChild", true)
   exectuion.forceStop();
 });
 
@@ -70,6 +71,9 @@ ui.boot.click(function () {
     hasStart = true;
     threads.start(function () {
       log("启动脚本引擎");
+      
+      LocalStorage.localStorage().put("stopChild", false)
+
       exectuion = engines.execScriptFile("./scriptTask.js"); //简单的例子
     });
   }
