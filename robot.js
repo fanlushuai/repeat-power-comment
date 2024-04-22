@@ -72,6 +72,19 @@ const Robot = {
     let lastTimeKeyword = LocalStorage.getLastTimeKeyword(
       Config.commentCountLimit
     );
+
+    if (keywordsArr.length <= 1) {
+      toast("请输入关键字")
+      return
+    }
+
+    log("第一次，重启抖音")
+    AutojsUtil.reloadApp(Douyin.name);
+    this.intoLocation();
+
+    // 第一次重启，后面，都从界面内切换
+    let hasPassFirst = false
+
     if (keywordsArr.indexOf(lastTimeKeyword) > -1) {
       log("断点续搞");
       let arriveLastKeyword = false;
@@ -86,9 +99,15 @@ const Robot = {
           log("开始关键词");
 
           log("%s", keyword);
-          AutojsUtil.reloadApp(Douyin.name);
-          this.intoLocation();
+
+          if (hasPassFirst) {
+            log("从视频入口搜索")
+            Douyin.clickSearchInVedio()
+          }
+
           this.task(keyword, Config.commentCountLimit);
+          hasPassFirst = true
+
         } else {
           if (lastTimeKeyword == keyword) {
             arriveLastKeyword = true;
@@ -109,9 +128,14 @@ const Robot = {
 
         log("开始关键词");
         log("%s", keyword);
-        AutojsUtil.reloadApp(Douyin.name);
-        this.intoLocation();
+        if (hasPassFirst) {
+          log("从视频入口搜索")
+          Douyin.clickSearchInVedio()
+        }
+
         this.task(keyword, Config.commentCountLimit);
+        hasPassFirst = true
+
       }
     }
 

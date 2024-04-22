@@ -201,6 +201,16 @@ const Douyin = {
     // text('发送')
     // text('善语结善缘，恶言伤人心')
   },
+  clickSearchInVedio: function () {
+
+    ele = AutojsUtil.clickSelectorWithAutoRefresh(
+      text('搜索').visibleToUser(true),
+      "搜索",
+      8,
+      this.name
+    );
+
+  },
   getBlankClickXY: function () {
     if (blankClickXY != null) {
       return blankClickXY
