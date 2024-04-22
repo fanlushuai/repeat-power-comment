@@ -1,181 +1,90 @@
-// id('g6t').findOne().click()
-// id('tkv').findOne().click()
-// id('tku').findOne().click()
-// id('tj4').findOne().click()
-// id('d7h').findOne().click()
-// id('lwb').findOne().click()
-// id('s=q').findOne().click()
-// id('tbv').findOne().click()
-// id('s+o').findOne().click()
-// id('c=c').findOne().click()
-// id('d=w').findOne().click()
-// id('g=_').findOne().click()
-// id('iia').findOne().click()
+let hasGetCapturePremission = false
 
-const { AutojsUtil } = require("./autojsUtil");
-const { Douyin } = require("./douyin");
-const { LocalStorage } = require("./localStorage");
+function autoPermisionScreenCapture() {
+    if (hasGetCapturePremission) {
+        log("当前有截图权限");
+        return;
+    }
 
-// AutojsUtil.pageDownBySwipe()
-// Douyin.closeCommentTab()
-// storages.create("xxxxjk23232").clear();
-// let name = "抖音";
-// let packageName = getPackageName(name) || getAppName(name);
-// if (!packageName) {
-//   log("找不到packageName" + packageName);
-//   return;
-// }
+    console.log("自动申请截图权限");
+    let Thread = threads.start(function () {
+        if (auto.service == null) {
+            toast("无障碍未开启")
+            return
+        }
 
-// let ele = id("com.ss.android.ugc.aweme:id/dc4").visibleToUser(true).findOnce();
+        let ele = textMatches(/(.*录屏或投屏.*|.*录制或投射.*|允许|立即开始|统一)/).findOne(10 * 1000)
 
-// log(ele);
+        if (ele == null) {
+            toast("未能发现截图权限弹窗")
+            return
+        }
+        log("已经弹出权限确认界面")
 
-// AutojsUtil.getEleBySelectorWithAutoRefresh(
-//     id("com.ss.android.ugc.aweme:id/kb7").visibleToUser(true),
-//     "搜索tab",
-//     8,
-//     this.name
-//   );
+        let eles = textMatches(/(.*录屏或投屏.*|.*录制或投射.*|允许|立即开始|统一)/).find()
 
+        if (eles.empty()) {
+            toast("未能发现截图权限弹窗")
+            return
+        }
 
-// app.startActivity({
-//     data: "snssdk1180://search/trending",
-// });
+        let notMiui14Style = false
+        for (let e of eles) {
+            let text = e.text()
+            if (text.indexOf('立即开始') > 0 || text.indexOf('允许') > 0 || text.indexOf('统一')) {
+                notMiui14Style = true
+                break
+            }
+        }
 
-// let appName = '抖音'
-// // log(app.launchApp(appName))
+        if (notMiui14Style) {
+            log("可以找到立即开始")
+            let allowEle = textMatches(/(允许|立即开始|统一)/).findOne(10 * 1000);
+            if (allowEle) {
+                sleep(1500)
+                if (allowEle.clickable()) {
+                    log("点击 元素")
+                    let ok = allowEle.click();
+                    return ok;
+                } else {
+                    let b = allowEle.bounds()
+                    log("按压 坐标")
+                    return press(b.centerX(), b.centerY(), 1)
+                }
+            }
+        } else {
+            //  在miui 14中，立即开始，不可找到。使用推测的方式来处理
+            log("推测 立即开始 坐标")
 
-// log(app.getPackageName(appName))
-// // com.ss.android.ugc.aweme
-// app.launchPackage("com.ss.android.ugc.aweme")
+            let cancel = text("取消").findOne(10 * 10000)
+            if (cancel) {
+                log("取消 按钮 存在")
+                let x = device.width - cancel.bounds().centerX()
+                let y = cancel.bounds().centerY()
 
+                log("点击 推测坐标 %s %s", x, y)
+                sleep(1500)
+                press(x, y, 1)
+            } else {
+                log("取消按钮不存在，推测失败")
+            }
+        }
 
+    });
 
-// desc('抖音').findOne().click()
+    log("申请权限");
 
-// Douyin.intoSearch()
+    //在一个会话中，调用两次申请截图权限。就会卡死。
+    if (!requestScreenCapture(false)) {
+        toast("请求截图权限失败");
+        return false;
+    } else {
 
-
-
-// Douyin.boot()
-// Douyin.intoSearch()
-// Douyin.inputKeyWord("xxxx")
-// Douyin.search()
-
-// Douyin.filterTab()
-
-
-// function clickTextByOCR(text, x, y, a, b) {
-//     // AutojsUtil.autoPermisionScreenCapture();
-//     var img = captureScreen(); // 截取当前屏幕图像
-//     // var clip = images.clip(img, 0, 0, device.width, device.height / 3); // 裁剪图像，只保留上半部分
-//     var clip = images.clip(img, x, y, a, b); // 裁剪图像，只保留上半部分
-//     let res = paddle.ocr(clip);
-//     // toastLog(JSON.stringify(res))
-//     for (let t of res) {
-//         if (t.text == text) {
-//             // log("找到 %s %j", text, t)
-//             log("OCR 点击 %s", text);
-//             AutojsUtil.pressBounds(t.bounds);
-//             return t;
-//         }
-//     }
-
-//     console.error("ocr 点击失败 %s", text);
-//     return false;
-// }
-
-
-// // requestScreenCapture(false)
-
-
-// clickTextByOCR("最多点赞",
-//     0,
-//     0,
-//     device.width,
-//     device.height / 2)
-
-
-// Douyin.filterMostStar()
-
-// AutojsUtil.autoPermisionScreenCapture();
-
-
-LocalStorage.localStorage().put("stopChild", false)
-
-// Douyin.zongheTab()
-
-
-// threads.start(function () {
-//     const SC = text('立即开始').findOne(10000);
-//     if (SC) {
-//         const kj = SC.parent().children()
-//         kj.forEach(e => {
-//             if (e.className() == 'android.widget.CheckBox') e.click();
-//             if (e.className() == "android.widget.Button" && e.text() == '立即开始') e.click();
-//         });
-//     } else toastLog("无法自动获得授权，请手动协助授权");
-// })
-
-//请求截图
-//每次使用该函数都会弹出截图权限请求，建议选择“总是允许”。
-// if (!requestScreenCapture()) {
-//     toast("请求截图失败");
-//     exit();
-// }
-
-
-
-// Douyin.waitResult()
-
-// Douyin.video()
-// Douyin.commentTab()
-
-// Douyin.getHotComment()
-
-// Douyin.commentIt("haha")
-// Douyin.commentIt("haha")
-Douyin.closeCommentTab()
-
-
-
-AutojsUtil.pressXY(device.width / 2, b.bottom + 100)
-
-
-function getBlankClickXY() {
-    let ele = text('搜索').findOne()
-    let b = ele.bounds()
-    return { x: device.width / 2, y: b.bottom + 100 }
-}
-
-function xx() {
-    // let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(desc("关闭"), "关闭", 8, this.name)
-    // AutojsUtil.press(ele)
-
-    log("关闭评论Tab");
-
-
-
-    let b = {
-        left: 200,
-        right: device.width - 200,
-        top: device.height / 6,
-        bottom: device.height / 5,
-    };
-    AutojsUtil.pressBounds(b);
-    AutojsUtil.s13();
-
-    // 查看评论右侧图标
-
-
-
-    // let ele = id("com.ss.android.ugc.aweme:id/dc4")
-    let ele = text('大家都在搜：')
-        .visibleToUser(true)
-        .findOnce();
-
-    if (ele == null) {
-        // 点击两次，防止失败
-        AutojsUtil.pressBounds(b);
+        Thread.interrupt();
+        log("已获得截图权限");
+        hasGetCapturePremission = true;
+        return true;
     }
 }
+
+autoPermisionScreenCapture()

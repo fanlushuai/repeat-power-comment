@@ -818,14 +818,18 @@ const AutojsUtil = {
 
       let ele = textMatches(/(.*录屏或投屏.*|.*录制或投射.*|允许|立即开始|统一)/).findOne(10 * 1000)
 
-      if (ele.empty()) {
+      if (ele == null) {
         toast("未能发现截图权限弹窗")
         return
       }
       log("已经弹出权限确认界面")
 
-
       let eles = textMatches(/(.*录屏或投屏.*|.*录制或投射.*|允许|立即开始|统一)/).find()
+
+      if (eles.empty()) {
+        toast("未能发现截图权限弹窗")
+        return
+      }
 
       let notMiui14Style = false
       for (let e of eles) {
@@ -878,6 +882,7 @@ const AutojsUtil = {
       toast("请求截图权限失败");
       return false;
     } else {
+
       Thread.interrupt();
       log("已获得截图权限");
       hasGetCapturePremission = true;
