@@ -80,7 +80,7 @@ const AutojsUtil = {
       )
     );
 
-    window.setPosition(0, device.height / 4);
+    window.setPosition(0, device.height / 5);
 
     window.exitOnClose(); //注册退出，退出脚本
 

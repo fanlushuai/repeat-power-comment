@@ -28,43 +28,31 @@
 				</horizontal>
 				<vertical>
 					<horizontal marginTop="14">
-
 						<text text="关键词" textStyle="bold" textColor="#000000" textSize="16sp" />
 						<text text=" *" textStyle="bold" textColor="red" textSize="16sp" />
-
 					</horizontal>
-
-
 					<text text="关键词之间用逗号分隔" textColor="red" />
 					<horizontal marginTop="14" gravity="left">
-						<input hint='例如：哈雷的移动城堡，千与千寻' text="" lines='4' gravity="center" inputType="textImeMultiLine" id="keywords" w="*" />
+						<input hint="例如：哈雷的移动城堡，千与千寻" text="" lines="4" gravity="center" inputType="textImeMultiLine" id="keywords" w="*" />
 					</horizontal>
-
-
 					<horizontal marginTop="14" gravity="left">
-
 						<text text="自动评论" textStyle="bold" textColor="#000000" textSize="16sp" />
 						<input lines="1" maxLength="6" inputType="number" id="commentCountLimit" w="60" gravity="center" />
 						<text text="条相关视频" textStyle="bold" textColor="#000000" textSize="16sp" />
 						<text text=" *" textStyle="bold" textColor="red" textSize="16sp" />
-
 					</horizontal>
-
 					<text text="评论内容" marginTop="14" textStyle="bold" textColor="#000000" textSize="16sp" />
 					<horizontal marginTop="14" gravity="left">
-						<input text="" hint="不填写，将使用自动抓取的热评" lines='4' gravity="center" inputType="textImeMultiLine" id="useComment" w="*" />
+						<input text="" hint="不填写，将使用自动抓取的热评" lines="4" gravity="center" inputType="textImeMultiLine" id="useComment" w="*" />
 					</horizontal>
-
-
-
-
 					<horizontal marginTop="20" gravity="center" w="*" h="*">
 						<button id="save" marginLeft="10" marginRight="20" bg="#23A9F2" text="保存" />
 						<button id="boot" marginLeft="20" marginRight="10" bg="#23A9F2" text="启动" />
 					</horizontal>
+					<button id="clearCache" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="从头开始" />
 					<vertical marginTop="130" marginLeft="20">
 						<text>
-						使用说明：
+							使用说明：
 						</text>
 						<text>
 							1. 开启无障碍
@@ -79,11 +67,12 @@
 							4. 启动
 						</text>
 						<text>
-		注意：日志控制台设计。在第一次运行不会显示日志控制台。而在之后，才会显示。因为，控制台需要用第一次来确定，日志窗口的位置。智能避开关键元素
+							注意：日志控制台设计。在第一次运行不会显示日志控制台。而在之后，才会显示。因为，控制台需要用第一次来确定，日志窗口的位置。智能避开关键元素
+						</text>
+						<text>
+							如果关键词较多，在一次运行中没有运行完，出现中断。如果下次再次启动，会直接接着上次的中断位置。如果要从头开始，就点击从头开始
 						</text>
 					</vertical>
-					<button id="clearCache" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="清理缓存" />
-
 				</vertical>
 			</vertical>
 		</vertical>

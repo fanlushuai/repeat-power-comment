@@ -94,7 +94,7 @@ const Douyin = {
   video: function () {
     // 多图，和视频，都可以
     AutojsUtil.clickSelectorWithAutoRefresh(
-      text('点赞较多').visibleToUser(true),
+      textMatches(/(点赞较多|点赞飙升)/).visibleToUser(true),
       // id("com.ss.android.ugc.aweme:id/ly1").visibleToUser(true),
       "视频",
       8,

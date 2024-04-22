@@ -20,10 +20,10 @@ const Robot = {
     Douyin.search();
     Douyin.zongheTab();
     Douyin.filterTab();
-    // Douyin.filterMostStar();
+    Douyin.filterMostStar();
 
-    toast("手动点击")
-    AutojsUtil.s(10, 10)
+    // toast("手动点击")
+    // AutojsUtil.s(10, 10)
 
     Douyin.closeFitlerTab();
     Douyin.video();
@@ -73,7 +73,7 @@ const Robot = {
       Config.commentCountLimit
     );
 
-    if (keywordsArr.length <= 1) {
+    if (keywordsArr.length < 1) {
       toast("请输入关键字")
       return
     }
