@@ -122,14 +122,20 @@ const Robot = {
 
     this.intoVedioBySearch(keyword);
     AutojsUtil.s(2, 3);
-    let hotComment = this.getHotComment();
 
     let tryCount = 0;
-
+    let hotComment
     let useComment = Config.useComment;
     if (useComment != null && useComment != "") {
       log("使用指定评论 %s", useComment);
       hotComment = useComment;
+    } else {
+      log("抓取第一条视频热评")
+      hotComment = this.getHotComment();
+      AutojsUtil.s(3, 5);
+
+      log("下一条")
+      AutojsUtil.pageDownBySwipe();
     }
 
     while (1) {
@@ -138,11 +144,6 @@ const Robot = {
         exit()
       }
 
-
-      AutojsUtil.s(3, 5);
-
-      AutojsUtil.pageDownBySwipe();
-      log("---> 下一个");
       AutojsUtil.s(8, 15);
       let newHotComment = genComment(hotComment);
       this.comment(newHotComment);
@@ -153,6 +154,10 @@ const Robot = {
         log("结束本关键词 %s", keyword);
         break;
       }
+
+      AutojsUtil.s(3, 5);
+      log("---> 下一个");
+      AutojsUtil.pageDownBySwipe();
     }
   },
 };
