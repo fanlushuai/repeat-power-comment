@@ -76,7 +76,7 @@ const AutojsUtil = {
     // 悬浮窗文档 https://cloud.tencent.com/developer/article/2078104
     window = floaty.window(
       new XML(
-        '<frame><button id="action" text="停" w="*" h="*" bg="#FF00FF" /></frame>'
+        '<frame w="auto" h="auto"><button id="action" text="停" w="auto" h="auto" bg="#FF00FF" /></frame>'
       )
     );
 

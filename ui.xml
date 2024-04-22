@@ -15,8 +15,8 @@
 			</text>
 		</horizontal>
 	</vertical>
-	<ScrollView>
-		<vertical marginTop="30">
+	<ScrollView marginTop="30">
+		<vertical marginTop="130">
 			<vertical marginLeft="30" marginRight="30" marginTop="180">
 				<horizontal gravity="center">
 					<vertical marginRight="30">
