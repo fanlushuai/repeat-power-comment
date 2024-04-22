@@ -938,6 +938,30 @@ const AutojsUtil = {
     log("等待 %s s", secends);
     sleep(secends * 1000);
   },
+  filterEles: function (eles, x, y, a, b) {
+    if (eles.empty()) {
+      return
+    }
+
+    let okEles = []
+    for (let e of eles) {
+      let bounds = e.bounds()
+
+      // 横坐标两个都在范围内
+      // 纵坐标两个都在范围内
+      if (
+        (x <= bounds.left && a >= bounds.left && x <= bounds.right && a >= bounds.right)
+        &&
+        (y <= bounds.top && b >= bounds.top && y <= bounds.bottom && b >= bounds.bottom)
+
+      ) {
+        okEles.push(e)
+      }
+    }
+
+    return okEles
+  }
+
 };
 
 function once(fn, context) {

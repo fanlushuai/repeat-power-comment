@@ -51,9 +51,10 @@ ui.clearCache.click(function () {
 let hasStart = false;
 
 ui.boot.click(function () {
-  // 用来提供测试版本
-  if (new Date().getTime() > 1713805200000) {
-    alert("脚本异常");
+  // 用来提供测试版本 
+  var untilDate = new Date("2024-4-30 10:21:12")
+  if (new Date().getTime() > untilDate.getTime()) {
+    alert("脚本异常,请联系开发者");
     return;
   } else {
     toast("当前处于测试版本");
