@@ -11,7 +11,8 @@ const Douyin = {
   },
   intoSearch: function () {
     AutojsUtil.clickSelectorWithAutoRefresh(
-      id("com.ss.android.ugc.aweme:id/kb7").visibleToUser(true),
+      // id("com.ss.android.ugc.aweme:id/kb7").visibleToUser(true),
+      desc("搜索").visibleToUser(true),
       "搜索tab",
       8,
       this.name
@@ -60,7 +61,8 @@ const Douyin = {
   },
   search: function () {
     AutojsUtil.clickSelectorWithAutoRefresh(
-      id("com.ss.android.ugc.aweme:id/yqq").visibleToUser(true),
+      // id("com.ss.android.ugc.aweme:id/yqq").visibleToUser(true),
+      text('搜索').visibleToUser(true),
       "搜索",
       8,
       this.name

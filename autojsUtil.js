@@ -123,16 +123,17 @@ const AutojsUtil = {
 
     function start() {
       threads.start(function () {
-        while (true) {
-          try {
+        // while (true) {
+          // 不能try，不然无法停止
+          // try {
             taskFunc();
             sleep(1);
             log("任务结束");
-            break;
-          } catch (error) {
-            log(error);
-          }
-        }
+            // break;
+          // } catch (error) {
+          //   log(error);
+          // }
+        // }
       });
 
       // new java.lang.Thread(function () {
@@ -157,6 +158,8 @@ const AutojsUtil = {
 
         // 停止自己
         engines.myEngine().forceStop();
+
+        LocalStorage.localStorage().put("stopChild", true)
 
         // exit();
         // window.action.setText("开始");

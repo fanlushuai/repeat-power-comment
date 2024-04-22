@@ -5,6 +5,7 @@ const { Config } = require("./config");
 const { LocalStorage } = require("./localStorage");
 
 auto.waitFor();
+LocalStorage.localStorage().put("stopChild", false)
 
 AutojsUtil.loadUI("./project.json", "./ui.xml");
 // 初始化界面数据
@@ -71,7 +72,7 @@ ui.boot.click(function () {
     hasStart = true;
     threads.start(function () {
       log("启动脚本引擎");
-      
+
       LocalStorage.localStorage().put("stopChild", false)
 
       exectuion = engines.execScriptFile("./scriptTask.js"); //简单的例子

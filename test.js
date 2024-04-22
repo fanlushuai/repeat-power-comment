@@ -37,6 +37,19 @@ const { Douyin } = require("./douyin");
 //   );
 
 
-app.startActivity({
-    data: "snssdk1180://search/trending",
-});
+// app.startActivity({
+//     data: "snssdk1180://search/trending",
+// });
+
+// let appName = '抖音'
+// // log(app.launchApp(appName))
+
+// log(app.getPackageName(appName))
+// // com.ss.android.ugc.aweme
+// app.launchPackage("com.ss.android.ugc.aweme")
+
+
+
+// desc('抖音').findOne().click()
+
+Douyin.intoSearch()
