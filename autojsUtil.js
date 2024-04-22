@@ -815,6 +815,7 @@ const AutojsUtil = {
         //由于系统间同意授权的文本不同，采用正则表达式
         let Allow = textMatches(/(允许|立即开始|统一)/).findOne(10 * 1000);
         if (Allow) {
+          AutojsUtil.s(2, 2)
           AutojsUtil.clickEle(Allow);
         }
       } else {
