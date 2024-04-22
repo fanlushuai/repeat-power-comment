@@ -162,6 +162,7 @@ const Robot = {
       AutojsUtil.pageDownBySwipe();
     }
 
+    let commentWithoutEmoCount = 0
     while (1) {
       if (LocalStorage.localStorage().get("stopChild") == true) {
         log("内存通知，停止咯")
@@ -169,8 +170,15 @@ const Robot = {
       }
 
       AutojsUtil.s(8, 15);
-      let newHotComment = genComment(hotComment);
-      this.comment(newHotComment);
+
+      commentWithoutEmoCount++
+      if (commentWithoutEmoCount > Config.commentWithoutEmoCountLimit) {
+        let newHotComment = genComment(hotComment);
+        this.comment(newHotComment);
+      } else {
+        this.comment(hotComment);
+      }
+
       tryCount++;
       log("已评 %d 次", tryCount);
       if (tryCount == commentCountLimit) {

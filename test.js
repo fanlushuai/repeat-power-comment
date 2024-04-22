@@ -11,4 +11,7 @@
 
 
 
-id("com.ss.android.ugc.aweme:id/tv_desc").findOne().click()
+// id("com.ss.android.ugc.aweme:id/tv_desc").findOne().click()
+
+let eles=className("ImageView").visibleToUser(true).find()
+log(eles.size())

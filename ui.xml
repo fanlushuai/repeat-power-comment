@@ -41,6 +41,12 @@
 						<text text="条相关视频" textStyle="bold" textColor="#000000" textSize="16sp" />
 						<text text=" *" textStyle="bold" textColor="red" textSize="16sp" />
 					</horizontal>
+					<horizontal marginTop="14" gravity="left">
+						<text text="每个关键词，前" textStyle="bold" textColor="#000000" textSize="16sp" />
+						<input text="0" lines="1" maxLength="6" inputType="number" id="commentWithoutEmoCountLimit" w="60" gravity="center" />
+						<text text="条评论，不带随机表情" textStyle="bold" textColor="#000000" textSize="16sp" />
+						<text text=" *" textStyle="bold" textColor="red" textSize="16sp" />
+					</horizontal>
 					<text text="评论内容" marginTop="14" textStyle="bold" textColor="#000000" textSize="16sp" />
 					<horizontal marginTop="14" gravity="left">
 						<input text="" hint="不填写，将使用自动抓取的热评" lines="4" gravity="center" inputType="textImeMultiLine" id="useComment" w="*" />

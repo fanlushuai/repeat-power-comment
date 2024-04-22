@@ -16,7 +16,7 @@ const Config = {
 
     // todo 获取页面内的所有id,input text, input number,checkedbox,switch,。动态的，从页面里面，生成。参数的加载，和保存。
 
-    let textIds = ["keywords", "commentCountLimit", "useComment"];
+    let textIds = ["keywords", "commentCountLimit", "useComment", 'commentWithoutEmoCountLimit'];
     let checkIds = [];
 
     const regex = /id/gi;
@@ -42,7 +42,7 @@ const Config = {
 
     // 文本内容设置
 
-    let numberIds = ["commentCountLimit"];
+    let numberIds = ["commentCountLimit", 'commentWithoutEmoCountLimit'];
     let textIds = ["keywords", "useComment"];
     const regex = /id/gi;
 
@@ -67,7 +67,7 @@ const Config = {
 
     let configStorage = this.getStorage();
 
-    let ids = ["commentCountLimit", "keywords", "useComment"];
+    let ids = ["commentCountLimit", "keywords", "useComment", 'commentWithoutEmoCountLimit'];
 
     const regex = /id/gi;
 
