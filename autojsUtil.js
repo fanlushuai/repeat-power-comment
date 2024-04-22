@@ -124,17 +124,18 @@ const AutojsUtil = {
     function start() {
       threads.start(function () {
         // while (true) {
-          // 不能try，不然无法停止
-          // try {
-            taskFunc();
-            sleep(1);
-            log("任务结束");
-            // break;
-          // } catch (error) {
-          //   log(error);
-          // }
+        // 不能try，不然无法停止
+        // try {
+        taskFunc();
+        sleep(1);
+        log("任务结束");
+        // break;
+        // } catch (error) {
+        //   log(error);
+        // }
         // }
       });
+
 
       // new java.lang.Thread(function () {
       //   //耗时间的代码放这里
@@ -157,9 +158,12 @@ const AutojsUtil = {
         // window.close();
 
         // 停止自己
+
+        log("内存广播，停止")
+        LocalStorage.localStorage().put("stopChild", true)
+
         engines.myEngine().forceStop();
 
-        LocalStorage.localStorage().put("stopChild", true)
 
         // exit();
         // window.action.setText("开始");
@@ -431,6 +435,10 @@ const AutojsUtil = {
     let y = b.top + halfH;
     // log("居中 点击 (%d,%d)", x, y);
     return press(x, y, 1);
+  },
+  pressXY: function (x, y) {
+    log("点击 %s %s", x, y)
+    press(x, y, 1)
   },
   press: function (ele) {
     let b = ele.bounds();

@@ -1,6 +1,8 @@
 const { AutojsUtil } = require("./autojsUtil");
 const { LocalStorage } = require("./localStorage");
 
+let blankClickXY = null
+
 const Douyin = {
   name: "抖音",
   boot: function () {
@@ -31,17 +33,28 @@ const Douyin = {
     }
   },
   filterTab: function () {
-    AutojsUtil.clickSelectorWithAutoRefresh(
-      id("com.ss.android.ugc.aweme:id/g6t").visibleToUser(true),
-      "筛选",
-      8,
-      this.name
-    );
+    // AutojsUtil.clickSelectorWithAutoRefresh(
+    //   id("com.ss.android.ugc.aweme:id/g6t").visibleToUser(true),
+    //   "筛选",
+    //   8,
+    //   this.name
+    // );
+
+
+    // 使用特殊算法，来兼容过滤的图标问题。直接使用id，有内存问题。
+    let b = text("综合").visibleToUser(true).findOne().parent().bounds()
+
+    let x = device.width - b.left - 2
+    let y = b.top + parseInt((b.bottom - b.top) / 2)
+
+    AutojsUtil.pressXY(x, y)
+
     sleep(1000);
   },
   zongheTab: function () {
     AutojsUtil.clickSelectorWithAutoRefresh(
-      id("com.ss.android.ugc.aweme:id/tg8").visibleToUser(true),
+      text("综合").visibleToUser(true),
+      // id("com.ss.android.ugc.aweme:id/tg8").visibleToUser(true),
       "综合",
       8,
       this.name
@@ -72,13 +85,8 @@ const Douyin = {
     id("com.ss.android.ugc.aweme:id/y6g").waitFor();
   },
   closeFitlerTab: function () {
-    log("关闭过滤");
-    AutojsUtil.clickSelectorWithAutoRefresh(
-      id("com.ss.android.ugc.aweme:id/tg8").visibleToUser(true),
-      "综合",
-      8,
-      this.name
-    );
+    log("关闭过滤")
+    this.zongheTab()
   },
   play: function () {
     id("com.ss.android.ugc.aweme:id/lug");
@@ -86,7 +94,8 @@ const Douyin = {
   video: function () {
     // 多图，和视频，都可以
     AutojsUtil.clickSelectorWithAutoRefresh(
-      id("com.ss.android.ugc.aweme:id/ly1").visibleToUser(true),
+      text('点赞较多').visibleToUser(true),
+      // id("com.ss.android.ugc.aweme:id/ly1").visibleToUser(true),
       "视频",
       8,
       this.name
@@ -94,7 +103,7 @@ const Douyin = {
   },
   commentTab: function () {
     let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
-      id("com.ss.android.ugc.aweme:id/dc4").visibleToUser(true),
+      descMatches(/评论.*按钮/).visibleToUser(true),
       "评论tab",
       8,
       this.name
@@ -152,15 +161,20 @@ const Douyin = {
   comment: function (comment) {
     // EditText
     AutojsUtil.clickSelectorWithAutoRefresh(
-      id("com.ss.android.ugc.aweme:id/dbx"),
+      // id("com.ss.android.ugc.aweme:id/dbx")
+      text('善语结善缘，恶言伤人心').className('EditText').visibleToUser(true)
+      ,
       "评论框",
       8,
       this.name
     );
     sleep(800);
     let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
-      id("com.ss.android.ugc.aweme:id/dbx").visibleToUser(true),
+      // id("com.ss.android.ugc.aweme:id/dbx").visibleToUser(true),
+      text('善语结善缘，恶言伤人心').className('EditText').visibleToUser(true)
+      ,
       "评论框",
+
       8,
       this.name
     );
@@ -187,28 +201,35 @@ const Douyin = {
     // text('发送')
     // text('善语结善缘，恶言伤人心')
   },
+  getBlankClickXY: function () {
+    if (blankClickXY != null) {
+      return blankClickXY
+    }
+
+    let ele = text('搜索').findOne()
+    let b = ele.bounds()
+    blankClickXY = { x: device.width / 2, y: b.bottom + 100 }
+    log("找到关闭坐标 %j", blankClickXY)
+
+    return blankClickXY
+  },
   closeCommentTab: function () {
     // let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(desc("关闭"), "关闭", 8, this.name)
     // AutojsUtil.press(ele)
 
     log("关闭评论Tab");
-    let b = {
-      left: 100,
-      right: device.width - 100,
-      top: device.height / 6,
-      bottom: device.height / 5,
-    };
-    AutojsUtil.pressBounds(b);
+    let xy = this.getBlankClickXY()
+    AutojsUtil.pressXY(xy.x, xy.y)
     AutojsUtil.s13();
 
     // 查看评论右侧图标
-    let ele = id("com.ss.android.ugc.aweme:id/dc4")
-      .visibleToUser(true)
+
+    let ele = text('搜索').visibleToUser(true)
       .findOnce();
 
     if (ele == null) {
       // 点击两次，防止失败
-      AutojsUtil.pressBounds(b);
+      AutojsUtil.pressXY(xy.x, xy.y)
     }
   },
 };

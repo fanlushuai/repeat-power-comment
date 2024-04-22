@@ -20,9 +20,14 @@ const Robot = {
     Douyin.search();
     Douyin.zongheTab();
     Douyin.filterTab();
-    Douyin.filterMostStar();
+    // Douyin.filterMostStar();
+
+    toast("手动点击")
+    AutojsUtil.s(10, 10)
+
     Douyin.closeFitlerTab();
     Douyin.video();
+    Douyin.getBlankClickXY()
   },
   getHotComment: function () {
     Douyin.commentTab();
