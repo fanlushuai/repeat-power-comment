@@ -29,9 +29,14 @@ const { Douyin } = require("./douyin");
 
 // log(ele);
 
-AutojsUtil.getEleBySelectorWithAutoRefresh(
-    id("com.ss.android.ugc.aweme:id/kb7").visibleToUser(true),
-    "搜索tab",
-    8,
-    this.name
-  );
+// AutojsUtil.getEleBySelectorWithAutoRefresh(
+//     id("com.ss.android.ugc.aweme:id/kb7").visibleToUser(true),
+//     "搜索tab",
+//     8,
+//     this.name
+//   );
+
+
+app.startActivity({
+    data: "snssdk1180://search/trending",
+});

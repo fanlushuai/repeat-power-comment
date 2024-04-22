@@ -2,6 +2,8 @@
 // const { pushplus } = require("./msgPush");
 // const { Smms } = require("./smms");
 
+const { LocalStorage } = require("./localStorage");
+
 const AutojsUtil = {
   randomSleep: function (maxSecend, minSecend) {
     // return;
