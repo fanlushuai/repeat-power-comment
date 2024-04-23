@@ -78,8 +78,14 @@ const Robot = {
       return
     }
 
-    log("第一次，重启抖音")
-    AutojsUtil.reloadApp(Douyin.name);
+    if (Config.autoInDouyin) {
+      log("第一次，重启抖音")
+      AutojsUtil.reloadApp(Douyin.name);
+    } else {
+      toast("请手动切换到抖音，主页面")
+      AutojsUtil.s(4, 4)
+    }
+
     this.intoLocation();
 
     // 第一次重启，后面，都从界面内切换
