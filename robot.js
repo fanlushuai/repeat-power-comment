@@ -87,6 +87,8 @@ const Robot = {
       desc("搜索").visibleToUser(true).waitFor()
       text("关注").visibleToUser(true).waitFor()
       log("已进入抖音")
+      toast("已进入抖音")
+      AutojsUtil.s(1.5, 1.5)
     }
 
     this.intoLocation();
