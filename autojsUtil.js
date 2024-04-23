@@ -161,6 +161,7 @@ const AutojsUtil = {
 
         log("内存广播，停止")
         LocalStorage.localStorage().put("stopChild", true)
+        AutojsUtil.childStop()
 
         engines.myEngine().forceStop();
 
@@ -241,6 +242,7 @@ const AutojsUtil = {
 
       if (LocalStorage.localStorage().get("stopChild") == true) {
         log("内存通知，停止咯")
+        AutojsUtil.childStop()
         exit()
       }
 
@@ -960,8 +962,13 @@ const AutojsUtil = {
     }
 
     return okEles
+  },
+  onChildStop: function (func) {
+    events.broadcast.on("childStop", func);
+  },
+  childStop: function () {
+    events.broadcast.emit("childStop", "我要停了");
   }
-
 };
 
 function once(fn, context) {

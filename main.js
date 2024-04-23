@@ -23,6 +23,12 @@ function revoverBootButton() {
   }
 }
 
+AutojsUtil.onChildStop(function (msg) {
+  log("接收到广播 %s", msg)
+  revoverBootButton();
+  hasStart = false;
+})
+
 ui.emitter.on("resume", function () {
   revoverBootButton();
   hasStart = false;

@@ -98,6 +98,7 @@ const Robot = {
 
         if (LocalStorage.localStorage().get("stopChild") == true) {
           log("内存通知，停止咯")
+          AutojsUtil.childStop()
           exit()
         }
 
@@ -128,6 +129,7 @@ const Robot = {
 
         if (LocalStorage.localStorage().get("stopChild") == true) {
           log("内存通知，停止咯")
+          AutojsUtil.childStop()
           exit()
         }
 
@@ -172,6 +174,7 @@ const Robot = {
     while (1) {
       if (LocalStorage.localStorage().get("stopChild") == true) {
         log("内存通知，停止咯")
+        AutojsUtil.childStop()
         exit()
       }
 
