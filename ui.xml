@@ -51,6 +51,7 @@
 					<horizontal marginTop="14" gravity="left">
 						<input text="" hint="不填写，将使用自动抓取的热评" lines="4" gravity="center" inputType="textImeMultiLine" id="useComment" w="*" />
 					</horizontal>
+					<Switch id="autoInDouyin" text="自动进入抖音" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
 					<horizontal marginTop="20" gravity="center" w="*" h="*">
 						<button id="save" marginLeft="10" marginRight="20" bg="#23A9F2" text="保存" />
 						<button id="boot" marginLeft="20" marginRight="10" bg="#23A9F2" text="启动" />

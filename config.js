@@ -17,7 +17,7 @@ const Config = {
     // todo 获取页面内的所有id,input text, input number,checkedbox,switch,。动态的，从页面里面，生成。参数的加载，和保存。
 
     let textIds = ["keywords", "commentCountLimit", "useComment", 'commentWithoutEmoCountLimit'];
-    let checkIds = [];
+    let checkIds = ['autoInDouyin'];
 
     const regex = /id/gi;
     for (let id of textIds) {
@@ -29,7 +29,7 @@ const Config = {
     }
     for (let id of checkIds) {
       let codeTemplate =
-        'let cf = configStorage.get("id") if (cf) { ui.id.setChecked(cf) }';
+        'let cf = configStorage.get("id") ;if(cf!=null){ui.id.setChecked(cf)} ';
       let oneParm = codeTemplate.replace(regex, id);
       // log(oneParm)
       eval(oneParm);
@@ -44,6 +44,8 @@ const Config = {
 
     let numberIds = ["commentCountLimit", 'commentWithoutEmoCountLimit'];
     let textIds = ["keywords", "useComment"];
+    let checkIds = ['autoInDouyin']
+
     const regex = /id/gi;
 
     for (let id of numberIds) {
@@ -57,6 +59,14 @@ const Config = {
     for (let id of textIds) {
       let codeTemplate =
         'let id = ui.id.getText() if (id) { configStorage.put("id", id+"") ;Config.id = id+"" }';
+      let oneParm = codeTemplate.replace(regex, id);
+      // log(oneParm)
+      eval(oneParm);
+    }
+
+    for (let id of checkIds) {
+      let codeTemplate =
+        'let id = ui.id.isChecked(); if(id!=null){configStorage.put("id", id) ;Config.id = id }';
       let oneParm = codeTemplate.replace(regex, id);
       // log(oneParm)
       eval(oneParm);
