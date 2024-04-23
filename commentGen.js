@@ -20,7 +20,7 @@ var uniGenWord = new UniGen();
 const genComment = function (base) {
   var comment = "";
   comment += base;
-  comment += gen语气词();
+  // comment += gen语气词();
   let times = random(1, 3)
   while (times > 0) {
     times--
