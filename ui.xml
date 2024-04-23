@@ -56,7 +56,7 @@
 						<button id="save" marginLeft="10" marginRight="20" bg="#23A9F2" text="保存" />
 						<button id="boot" marginLeft="20" marginRight="10" bg="#23A9F2" text="启动" />
 					</horizontal>
-					<button id="clearCache" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="清除记忆" />
+					<button id="clearCache" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="清除断点续评" />
 					<vertical marginTop="130" marginLeft="20">
 						<text>
 							使用说明：
@@ -77,7 +77,10 @@
 							注意：日志控制台设计。在第一次运行不会显示日志控制台。而在之后，才会显示。因为，控制台需要用第一次来确定，日志窗口的位置。智能避开关键元素
 						</text>
 						<text>
-							如果关键词较多，在一次运行中没有运行完，出现中断。如果下次再次启动，会直接接着上次的中断位置。如果要从头开始，就点击清除记忆
+							如果关键词较多，在一次运行中没有运行完，出现中断。如果下次再次启动，会直接接着上次的中断位置。如果要从头开始，就点击 清除断点续评
+						</text>
+						<text>
+							如果相同的关键词，想要手动启动分身，重复使用。也需要 清除断点续评
 						</text>
 					</vertical>
 				</vertical>
