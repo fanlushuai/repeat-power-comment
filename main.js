@@ -25,7 +25,7 @@ function revoverBootButton() {
 
 AutojsUtil.onChildStop(function (msg) {
   log("接收到广播 %s", msg)
-  revoverBootButton();
+  AutojsUtil.buttonEnable(ui.boot, "启 动");
   hasStart = false;
 })
 

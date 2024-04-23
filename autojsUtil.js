@@ -128,7 +128,8 @@ const AutojsUtil = {
         // try {
         taskFunc();
         sleep(1);
-        log("任务结束");
+        toast("任务结束");
+        AutojsUtil.childStop()
         // break;
         // } catch (error) {
         //   log(error);

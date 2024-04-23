@@ -77,7 +77,7 @@ const Config = {
 
     let configStorage = this.getStorage();
 
-    let ids = ["commentCountLimit", "keywords", "useComment", 'commentWithoutEmoCountLimit'];
+    let ids = ["commentCountLimit", "keywords", "useComment", 'commentWithoutEmoCountLimit', 'autoInDouyin'];
 
     const regex = /id/gi;
 

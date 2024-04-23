@@ -82,8 +82,11 @@ const Robot = {
       log("第一次，重启抖音")
       AutojsUtil.reloadApp(Douyin.name);
     } else {
+      log("请手动切换到抖音，主页面")
       toast("请手动切换到抖音，主页面")
-      AutojsUtil.s(4, 4)
+      desc("搜索").visibleToUser(true).waitFor()
+      text("关注").visibleToUser(true).waitFor()
+      log("已进入抖音")
     }
 
     this.intoLocation();
