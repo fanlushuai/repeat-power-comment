@@ -2,7 +2,8 @@ const { Robot } = require("./robot");
 const { AutojsUtil } = require("./autojsUtil");
 const { Config } = require("./config");
 const { LocalStorage } = require("./localStorage");
-
+const { Douyin } = require("./douyin.js");
+const { KS } = require("./ks.js");
 // AutojsUtil.keepScreen();
 device.keepScreenOn(3600 * 1000);
 
@@ -26,5 +27,18 @@ if (consoleYRange) {
 Config.loadConfig();
 
 AutojsUtil.AddFloatContrlButton(function () {
-  Robot.start();
+
+  if (Config.openDY) {
+    log('抖音机器人启动')
+    Robot.targetApp = Douyin
+    Robot.start();
+  }
+
+  if (Config.openKS) {
+    log("快手机器人启动")
+    Robot.targetApp = KS
+    Robot.start();
+  }
+
+
 });

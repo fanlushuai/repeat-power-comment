@@ -2,45 +2,47 @@ const { AutojsUtil } = require("./autojsUtil.js");
 const { genComment } = require("./commentGen.js");
 const { Config } = require("./config.js");
 const { Douyin } = require("./douyin.js");
+const { KS } = require("./ks.js");
 const { LocalStorage } = require("./localStorage.js");
 
 const Robot = {
   // reinit: function () {
-  //   AutojsUtil.reloadApp(Douyin.name);
+  //   AutojsUtil.reloadApp(this.targetApp.name);
   //   AutojsUtil.execScriptFile("./scriptTask.js", { delay: 5000 });
   //   AutojsUtil.stopCurrentScriptEngine();
   // },
+  targetApp: null,
   intoLocation: function () {
-    Douyin.intoSearch();
+    this.targetApp.intoSearch();
   },
   intoVedioBySearch: function (keyWord) {
     // keyWord = "哈雷的移动城堡"
-    Douyin.inputKeyWord(keyWord);
+    this.targetApp.inputKeyWord(keyWord);
 
-    Douyin.search();
-    // Douyin.zongheTab();
-    Douyin.filterTab();
-    Douyin.filterMostStar();
+    this.targetApp.search();
+    // this.targetApp.zongheTab();
+    this.targetApp.filterTab();
+    this.targetApp.filterMostStar();
 
     // toast("手动点击")
     // AutojsUtil.s(10, 10)
 
-    Douyin.closeFitlerTab();
-    Douyin.video();
+    this.targetApp.closeFitlerTab();
+    this.targetApp.video();
 
     // 提前获取，空白坐标。
-    Douyin.getBlankCloseXY()
+    this.targetApp.getBlankCloseXY()
   },
   getHotComment: function () {
-    Douyin.commentTab();
-    let hotComment = Douyin.getHotComment();
-    Douyin.closeCommentTab();
+    this.targetApp.commentTab();
+    let hotComment = this.targetApp.getHotComment();
+    this.targetApp.closeCommentTab();
     return hotComment;
   },
   comment: function (comment) {
-    Douyin.commentTab();
-    Douyin.comment(comment);
-    Douyin.closeCommentTab();
+    this.targetApp.commentTab();
+    this.targetApp.comment(comment);
+    this.targetApp.closeCommentTab();
   },
   start: function () {
     log("机器人启动");
@@ -53,6 +55,7 @@ const Robot = {
 
     if (keywordsArr == null) {
       log("请配置关键字");
+      AutojsUtil.childStop()
       return;
     }
 
@@ -79,17 +82,18 @@ const Robot = {
       toast("请输入关键字")
       return
     }
+    log("第一xx次，重启%s ", this.targetApp.name)
 
-    if (Config.autoInDouyin) {
-      log("第一次，重启抖音")
-      AutojsUtil.reloadApp(Douyin.name);
+    if (Config.autoInTargetApp) {
+      log("第一次，重启%s ", this.targetApp.name)
+      AutojsUtil.reloadApp(this.targetApp.name);
     } else {
-      log("请手动切换到抖音，主页面")
-      toast("请手动切换到抖音，主页面")
+      log("请手动切换到%s，主页面", this.targetApp.name)
+      toast("请手动切换到%s，主页面", this.targetApp.name)
       desc("搜索").visibleToUser(true).waitFor()
       text("关注").visibleToUser(true).waitFor()
-      log("已进入抖音")
-      toast("已进入抖音")
+      log("已进入%s", this.targetApp.name)
+      toast("已进入%s", this.targetApp.name)
       AutojsUtil.s(1.5, 1.5)
     }
 
@@ -110,7 +114,7 @@ const Robot = {
 
           if (hasPassFirst) {
             log("从视频入口搜索")
-            Douyin.clickSearchInVedio()
+            this.targetApp.clickSearchInVedio()
           }
 
           this.task(keyword, Config.commentCountLimit);
@@ -131,7 +135,7 @@ const Robot = {
         log("%s", keyword);
         if (hasPassFirst) {
           log("从视频入口搜索")
-          Douyin.clickSearchInVedio()
+          this.targetApp.clickSearchInVedio()
         }
 
         this.task(keyword, Config.commentCountLimit);
@@ -140,7 +144,7 @@ const Robot = {
       }
     }
 
-    toastLog("机器人任务完成")
+    toastLog("机器人 %s 任务完成", this.targetApp.name)
   },
   task: function (keyword, commentCountLimit) {
     LocalStorage.setThisTimeKeyword(keyword, commentCountLimit);

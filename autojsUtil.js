@@ -134,11 +134,11 @@ const AutojsUtil = {
     // 立即启动
     log("开启worker 线程")
 
-    threads.start(()=>{
+    threads.start(() => {
       try {
         taskFunc()
       } catch (error) {
-        log("中断结束")
+        log("结束")
       }
     })
   },
