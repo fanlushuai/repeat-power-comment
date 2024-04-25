@@ -773,7 +773,7 @@ const AutojsUtil = {
       let ele = textMatches(/(.*录屏或投屏.*|.*录制或投射.*|允许|立即开始|统一)/).findOne(10 * 1000)
 
       if (ele == null) {
-        toast("未能发现截图权限弹窗")
+        // toast("未能发现截图权限弹窗")
         return
       }
       log("已经弹出权限确认界面")
@@ -781,7 +781,7 @@ const AutojsUtil = {
       let eles = textMatches(/(.*录屏或投屏.*|.*录制或投射.*|允许|立即开始|统一)/).find()
 
       if (eles.empty()) {
-        toast("未能发现截图权限弹窗")
+        // toast("未能发现截图权限弹窗")
         return
       }
 
@@ -820,7 +820,7 @@ const AutojsUtil = {
           let y = cancel.bounds().centerY()
 
           log("点击 推测坐标 %s %s", x, y)
-          sleep(1500)
+          sleep(500)
           press(x, y, 1)
         } else {
           log("取消按钮不存在，推测失败")

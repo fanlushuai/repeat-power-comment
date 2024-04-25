@@ -5,7 +5,6 @@ const { Config } = require("./config");
 const { LocalStorage } = require("./localStorage");
 
 auto.waitFor();
-LocalStorage.localStorage().put("stopChild", false)
 
 AutojsUtil.loadUI("./project.json", "./ui.xml");
 // 初始化界面数据
@@ -13,14 +12,8 @@ Config.setLSConfig2UI();
 
 AutojsUtil.autoServiceCheck();
 
-let exectuion;
-
 function revoverBootButton() {
-  if (exectuion && exectuion.getEngine().isDestroyed()) {
-    // 重置按钮为可用
-    log("重置按钮为 启动");
-    AutojsUtil.buttonEnable(ui.boot, "启 动");
-  }
+  AutojsUtil.buttonEnable(ui.boot, "启 动");
 }
 
 AutojsUtil.onChildStop(function (msg) {
@@ -34,11 +27,6 @@ ui.emitter.on("resume", function () {
   hasStart = false;
 });
 
-events.on("exit", function () {
-  log("强行停止，子脚本");
-  LocalStorage.localStorage().put("stopChild", true)
-  exectuion.forceStop();
-});
 
 ui.save.click(function () {
   log("保存配置");
@@ -77,7 +65,7 @@ ui.boot.click(function () {
 
   if (!hasStart) {
     hasStart = true;
-    exectuion = engines.execScriptFile("./scriptTask.js"); //简单的例子
+    engines.execScriptFile("./scriptTask.js"); //简单的例子
   }
 });
 
