@@ -117,71 +117,30 @@ const AutojsUtil = {
         return true;
       }
     });
+    function onClick() {
+      let actionText = window.action.text();
+
+      if (actionText === "停") {
+        // 执行停止操作
+        // 停止所有子线程
+        // 通过threads.start()启动的所有线程会在脚本被强制停止时自动停止。
+        threads.shutDownAll()
+        AutojsUtil.childStop()
+        // sleep(2000)
+      }
+
+    }
 
     // 立即启动
-    start();
+    log("开启worker 线程")
 
-    function start() {
-      threads.start(function () {
-        // while (true) {
-        // 不能try，不然无法停止
-        // try {
-        taskFunc();
-        sleep(1);
-        toast("任务结束");
-        AutojsUtil.childStop()
-        // break;
-        // } catch (error) {
-        //   log(error);
-        // }
-        // }
-      });
-
-
-      // new java.lang.Thread(function () {
-      //   //耗时间的代码放这里
-      //   while (true) {
-      //     try {
-      //       taskFunc();
-      //       sleep(1);
-      //     } catch (error) {
-      //       log(error);
-      //     }
-      //   }
-      // }).start();
-    }
-
-    function onClick() {
-      if (window.action.text() != "开始") {
-        //当前 操作是停止
-        // threads.shutDownAll(); //停止
-        // // 直接隐藏按钮。结束了。
-        // window.close();
-
-        // 停止自己
-
-        log("内存广播，停止")
-        LocalStorage.localStorage().put("stopChild", true)
-        AutojsUtil.childStop()
-
-        engines.myEngine().forceStop();
-
-
-        // exit();
-        // window.action.setText("开始");
-        // window.action.setBackgroundColor(
-        //     AutojsUtil.反色(window.action.getBackground().getColor())
-        // );
-      } else {
-        //否则，就是开始。
-        //不让开始了
-        // start();
-        // window.action.setText("停止");
-        // window.action.setBackgroundColor(
-        //     AutojsUtil.反色(window.action.getBackground().getColor())
-        // );
+    threads.start(()=>{
+      try {
+        taskFunc()
+      } catch (error) {
+        log("中断结束")
       }
-    }
+    })
   },
   retryGet: function (func, retryLimit) {
     let tryCount = 0;
@@ -193,7 +152,7 @@ const AutojsUtil = {
       tryCount++;
       log("重试 [%s/%s]", tryCount, retryLimit);
       if (tryCount == retryLimit) {
-        return false;
+        return result;
       }
     }
   },
@@ -223,7 +182,7 @@ const AutojsUtil = {
       }
     }, 8);
 
-    if (ele == null || ele == false) {
+    if (ele == null) {
       log("未找到 %s", targetName);
       return;
     }
@@ -239,14 +198,6 @@ const AutojsUtil = {
     refreshMethod
   ) {
     let ele = this.retryGet(function () {
-
-
-      if (LocalStorage.localStorage().get("stopChild") == true) {
-        log("内存通知，停止咯")
-        AutojsUtil.childStop()
-        exit()
-      }
-
 
       log("查 %s", targetName);
       let e = selector.findOne(findTimeLimitSec * 1000);

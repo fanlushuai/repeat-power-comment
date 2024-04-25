@@ -77,13 +77,7 @@ ui.boot.click(function () {
 
   if (!hasStart) {
     hasStart = true;
-    threads.start(function () {
-      log("启动脚本引擎");
-
-      LocalStorage.localStorage().put("stopChild", false)
-
-      exectuion = engines.execScriptFile("./scriptTask.js"); //简单的例子
-    });
+    exectuion = engines.execScriptFile("./scriptTask.js"); //简单的例子
   }
 });
 

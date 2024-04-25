@@ -101,12 +101,6 @@ const Robot = {
       let arriveLastKeyword = false;
       for (let keyword of keywordsArr) {
 
-        if (LocalStorage.localStorage().get("stopChild") == true) {
-          log("内存通知，停止咯")
-          AutojsUtil.childStop()
-          exit()
-        }
-
         if (arriveLastKeyword) {
           log("开始关键词");
 
@@ -131,14 +125,6 @@ const Robot = {
       }
     } else {
       for (let keyword of keywordsArr) {
-
-        if (LocalStorage.localStorage().get("stopChild") == true) {
-          log("内存通知，停止咯")
-          AutojsUtil.childStop()
-          exit()
-        }
-
-
         log("开始关键词");
         log("%s", keyword);
         if (hasPassFirst) {
@@ -177,11 +163,6 @@ const Robot = {
 
     let commentWithoutEmoCount = 0
     while (1) {
-      if (LocalStorage.localStorage().get("stopChild") == true) {
-        log("内存通知，停止咯")
-        AutojsUtil.childStop()
-        exit()
-      }
 
       AutojsUtil.s(8, 15);
 
