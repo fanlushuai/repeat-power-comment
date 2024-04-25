@@ -6,15 +6,18 @@ const LocalStorage = {
   localStorage: function () {
     return storages.create("xxxxjk23232");
   },
-  getLastTimeKeyword: function (timeLimit) {
+  appStorage: function (apkName) {
+    return storages.create(apkName);
+  },
+  getLastTimeKeyword: function (appName, timeLimit) {
     let uniqueId = timeLimit; //简单的让次数作为唯一次数
-    let localStorage = this.localStorage();
+    let localStorage = this.appStorage(appName);
     if (uniqueId == localStorage.get("lastTimeKeyword_timelimit", -1)) {
       return localStorage.get("lastTimeKeyword");
     }
   },
-  setThisTimeKeyword: function (keyword, timeLimit) {
-    let localStorage = this.localStorage();
+  setThisTimeKeyword: function (appName, keyword, timeLimit) {
+    let localStorage = this.appStorage(appName);
     localStorage.put("lastTimeKeyword", keyword);
     localStorage.put("lastTimeKeyword_timelimit", timeLimit);
   },

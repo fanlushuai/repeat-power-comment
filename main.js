@@ -39,6 +39,8 @@ ui.save.click(function () {
 ui.clearCache.click(function () {
   log("清除缓存");
   LocalStorage.localStorage().clear();
+  LocalStorage.appStorage("快手").clear();
+  LocalStorage.appStorage("抖音").clear();
   toast("缓存已经清除");
 });
 

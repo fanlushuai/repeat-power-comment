@@ -74,7 +74,7 @@ const Robot = {
     keywordsArr = unique(keywordsArr);
 
     log("关键词列表 %j", keywordsArr);
-    let lastTimeKeyword = LocalStorage.getLastTimeKeyword(
+    let lastTimeKeyword = LocalStorage.getLastTimeKeyword(this.targetApp.name,
       Config.commentCountLimit
     );
 
@@ -147,7 +147,7 @@ const Robot = {
     toastLog('机器人 ' + this.targetApp.name + ' 任务完成')
   },
   task: function (keyword, commentCountLimit) {
-    LocalStorage.setThisTimeKeyword(keyword, commentCountLimit);
+    LocalStorage.setThisTimeKeyword(this.targetApp.name, keyword, commentCountLimit);
 
     this.intoVedioBySearch(keyword);
     AutojsUtil.s(2, 3);
