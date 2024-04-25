@@ -47,6 +47,10 @@ const KS = {
             this.name
         );
 
+
+    },
+    closeFitlerTab: function () {
+        log("关闭过滤")
         AutojsUtil.clickSelectorWithAutoRefresh(
             id("confirm_btn").visibleToUser(true),
             "确定",
@@ -54,7 +58,7 @@ const KS = {
             this.name
         );
     },
-    intoVedio: function () {
+    video: function () {
         AutojsUtil.clickSelectorWithAutoRefresh(
             id("subject_op_title_newfeed").visibleToUser(true),
             "进视频",
@@ -124,9 +128,21 @@ const KS = {
             this.name
         );
 
+    },
+    clickSearchInVedio: function () {
+
+        ele = AutojsUtil.clickSelectorWithAutoRefresh(
+            id("search_button").visibleToUser(true),
+            "搜索",
+            8,
+            this.name
+        );
+
+    },
+    getBlankCloseXY: function () {
+        // 什么都不做，补充环境
+        // 抖音的需要，快手的不要
     }
-
-
 }
 
 // KS.comment(KS.getHotComment())
@@ -136,6 +152,7 @@ const KS = {
 // KS.commentTab();
 // KS.getHotComment();
 // KS.closeCommentTab();
+// KS.clickSearchInVedio();
 
 // module.exports = {
 //     KS

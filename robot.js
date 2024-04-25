@@ -5,11 +5,11 @@ const { Douyin } = require("./douyin.js");
 const { LocalStorage } = require("./localStorage.js");
 
 const Robot = {
-  reinit: function () {
-    AutojsUtil.reloadApp(Douyin.name);
-    AutojsUtil.execScriptFile("./scriptTask.js", { delay: 5000 });
-    AutojsUtil.stopCurrentScriptEngine();
-  },
+  // reinit: function () {
+  //   AutojsUtil.reloadApp(Douyin.name);
+  //   AutojsUtil.execScriptFile("./scriptTask.js", { delay: 5000 });
+  //   AutojsUtil.stopCurrentScriptEngine();
+  // },
   intoLocation: function () {
     Douyin.intoSearch();
   },
@@ -18,7 +18,7 @@ const Robot = {
     Douyin.inputKeyWord(keyWord);
 
     Douyin.search();
-    Douyin.zongheTab();
+    // Douyin.zongheTab();
     Douyin.filterTab();
     Douyin.filterMostStar();
 
@@ -27,7 +27,9 @@ const Robot = {
 
     Douyin.closeFitlerTab();
     Douyin.video();
-    Douyin.getBlankClickXY()
+
+    // 提前获取，空白坐标。
+    Douyin.getBlankCloseXY()
   },
   getHotComment: function () {
     Douyin.commentTab();

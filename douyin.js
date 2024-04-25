@@ -64,7 +64,7 @@ const Douyin = {
 
     sleep(1000);
   },
-  zongheTab: function () {
+  _zongheTab: function () {
     AutojsUtil.clickSelectorWithAutoRefresh(
       text("综合").visibleToUser(true),
       // id("com.ss.android.ugc.aweme:id/tg8").visibleToUser(true),
@@ -94,16 +94,16 @@ const Douyin = {
       this.name
     );
   },
-  waitResult: function () {
-    id("com.ss.android.ugc.aweme:id/y6g").waitFor();
-  },
+  // waitResult: function () {
+  //   id("com.ss.android.ugc.aweme:id/y6g").waitFor();
+  // },
   closeFitlerTab: function () {
     log("关闭过滤")
-    this.zongheTab()
+    this._zongheTab()
   },
-  play: function () {
-    id("com.ss.android.ugc.aweme:id/lug");
-  },
+  // play: function () {
+  //   id("com.ss.android.ugc.aweme:id/lug");
+  // },
   video: function () {
     // 多图，和视频，都可以
     AutojsUtil.clickSelectorWithAutoRefresh(
@@ -225,7 +225,10 @@ const Douyin = {
     );
 
   },
-  getBlankClickXY: function () {
+  getBlankCloseXY: function () {
+    _getBlankClickXY()
+  },
+  _getBlankClickXY: function () {
     if (blankClickXY != null) {
       return blankClickXY
     }
@@ -242,7 +245,7 @@ const Douyin = {
     // AutojsUtil.press(ele)
 
     log("关闭评论Tab");
-    let xy = this.getBlankClickXY()
+    let xy = this._getBlankClickXY()
     AutojsUtil.pressXY(xy.x, xy.y)
     AutojsUtil.s13();
 
