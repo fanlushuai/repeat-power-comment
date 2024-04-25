@@ -29,9 +29,13 @@ const KS = {
             8,
             this.name
         );
+
+        // 等待搜索结果
+        text("全部").waitFor()
     },
     filterTab: function () {
         log("筛选tab");
+        sleep(800)
         AutojsUtil.clickSelectorWithAutoRefresh(
             id('tab_filter_image').visibleToUser(true),
             "筛选tab",
@@ -79,6 +83,7 @@ const KS = {
         // 置顶不好处理，
         // 作者也不好排除
         // 那么使用点赞量，来决定，哪个评论更有价值
+        id('tv_like_count').visibleToUser(true).waitFor()
         let likeEls = id("tv_like_count").find()
         let maxCountLikeEle
         let maxCount = 0
@@ -154,6 +159,6 @@ const KS = {
 // KS.closeCommentTab();
 // KS.clickSearchInVedio();
 
-// module.exports = {
-//     KS
-// }
+module.exports = {
+    KS
+}

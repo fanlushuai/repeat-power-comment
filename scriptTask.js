@@ -29,13 +29,11 @@ Config.loadConfig();
 AutojsUtil.AddFloatContrlButton(function () {
 
   if (Config.openDY) {
-    log('抖音机器人启动')
     Robot.targetApp = Douyin
     Robot.start();
   }
 
   if (Config.openKS) {
-    log("快手机器人启动")
     Robot.targetApp = KS
     Robot.start();
   }

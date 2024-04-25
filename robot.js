@@ -45,7 +45,7 @@ const Robot = {
     this.targetApp.closeCommentTab();
   },
   start: function () {
-    log("机器人启动");
+    log("机器人启动 %s", this.targetApp.name);
 
     let keywordsArr;
     if (Config.keywords) {
@@ -144,7 +144,7 @@ const Robot = {
       }
     }
 
-    toastLog("机器人 %s 任务完成", this.targetApp.name)
+    toastLog('机器人 ' + this.targetApp.name + ' 任务完成')
   },
   task: function (keyword, commentCountLimit) {
     LocalStorage.setThisTimeKeyword(keyword, commentCountLimit);

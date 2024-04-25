@@ -135,11 +135,11 @@ const AutojsUtil = {
     log("开启worker 线程")
 
     threads.start(() => {
-      try {
+      // try {
         taskFunc()
-      } catch (error) {
-        log("结束")
-      }
+      // } catch (error) {
+      //   log("结束")
+      // }
     })
   },
   retryGet: function (func, retryLimit) {
