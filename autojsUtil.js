@@ -135,13 +135,13 @@ const AutojsUtil = {
     log("开启worker 线程")
 
     threads.start(() => {
-      // try {
-      taskFunc()
-      // 运行结束，直接停掉当前脚本引擎
-      AutojsUtil.stopCurrentScriptEngine()
-      // } catch (error) {
-      //   log("结束")
-      // }
+      try {
+        taskFunc()
+        // 运行结束，直接停掉当前脚本引擎
+        AutojsUtil.stopCurrentScriptEngine()
+      } catch (error) {
+        log("结束")
+      }
     })
   },
   retryGet: function (func, retryLimit) {
