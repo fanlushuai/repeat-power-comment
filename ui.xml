@@ -1,7 +1,8 @@
 <frame w="*" h="*" bg="#9fa0a4" gravity="center">
+	<text text="" textStyle="bold" textColor="red" textSize="16sp" />
 	<ScrollView>
-		<vertical marginTop="130">
-			<vertical marginLeft="30" marginRight="30" marginTop="180">
+		<vertical paddingTop='200' marginTop='100'>
+			<vertical paddingTop='200' marginLeft="30" marginRight="30">
 				<horizontal gravity="center">
 					<vertical marginRight="30">
 						<Switch id="autoService" text="无障碍服务" textStyle="bold" textColor="#000000" textSize="16sp" checked="{{auto.service!=null}}" />

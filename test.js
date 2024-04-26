@@ -11,33 +11,44 @@ const { KS } = require("./ks")
 const { LocalStorage } = require("./localStorage")
 
 
-function getKeysWordForWeb() {
-    let url = 'https://www.zgdypw.cn/data/searchDayBoxOffice.json?timestamp=' + new Date().getTime()
-    // log(url)
+// function getKeysWordForWeb() {
+//     let url = 'https://www.zgdypw.cn/data/searchDayBoxOffice.json?timestamp=' + new Date().getTime()
+//     // log(url)
 
-    let rsp = http.get(url)
+//     let rsp = http.get(url)
 
-    let topFilms = rsp.body.json().data.top10Films
+//     let topFilms = rsp.body.json().data.top10Films
 
-    let keywords = ""
+//     let keywords = ""
 
-    for (let film of topFilms) {
-        // log(film.filmName)
-        keywords += (film.filmName + ",")
-    }
+//     for (let film of topFilms) {
+//         // log(film.filmName)
+//         keywords += (film.filmName + ",")
+//     }
 
-    keywords = keywords.substring(0, keywords.length - 1)
-    log(keywords)
-    return keywords
-}
+//     keywords = keywords.substring(0, keywords.length - 1)
+//     log(keywords)
+//     return keywords
+// }
 
-log(getKeysWordForWeb())
+// log(getKeysWordForWeb())
 // log(LocalStorage.getConsoleYRange('快手'))
 
 // id("com.ss.android.ugc.aweme:id/tv_desc").findOne().click()
 
 // let eles=className("ImageView").visibleToUser(true).find()
 // log(eles.size())
+
+
+// {
+//     let h = device.height; //屏幕高
+//     let w = device.width; //屏幕宽
+//     let x = random((w * 2) / 5, (w * 3) / 5); //横坐标随机
+//     let h2 = (h * 5 / 6); //纵坐标6分之5处
+//     let h1 = h * 2 / 6; //纵坐标6分之2处
+//     swipe(x, h1, x, h2, 2000);
+// }
+
 
 
 // let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
@@ -112,4 +123,4 @@ log(getKeysWordForWeb())
 
 // text('EditText')
 
-id('editor').setText('xx')
+// id('editor').setText('xx')
