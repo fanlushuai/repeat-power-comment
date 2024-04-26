@@ -55,6 +55,12 @@ ui.clearCache.click(function () {
   LocalStorage.appStorage("抖音").clear();
   toast("缓存已经清除");
 });
+ui.resetConsole.click(function () {
+  log('控制台位置已重置')
+  LocalStorage.clearConsolePostion("快手")
+  LocalStorage.clearConsolePostion("抖音")
+  toast("控制台位置已重置");
+});
 
 let hasStart = false;
 

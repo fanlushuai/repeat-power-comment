@@ -66,6 +66,7 @@
 						<button id="boot" marginLeft="20" marginRight="10" bg="#23A9F2" text="启动" />
 					</horizontal>
 					<button id="clearCache" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="清除断点续评" />
+					<button id="resetConsole" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="重置控制台位置" />
 					<vertical marginTop="130" marginLeft="20">
 						<text>
 							使用说明：

@@ -83,7 +83,7 @@ const Douyin = {
     );
 
     let consoleY = t.bounds.bottom + 60;
-    LocalStorage.setConsoleMinY(consoleY);
+    LocalStorage.setConsoleMinY(consoleY,this.name);
   },
   search: function () {
     AutojsUtil.clickSelectorWithAutoRefresh(
@@ -125,7 +125,7 @@ const Douyin = {
 
     let consoleMaxY = ele.bounds().top - 60;
 
-    LocalStorage.setConsoleMaxY(consoleMaxY);
+    LocalStorage.setConsoleMaxY(consoleMaxY,this.name);
 
     log("点 %s", "评论tab");
     sleep(400);
@@ -207,7 +207,7 @@ const Douyin = {
     );
 
     let consoleMaxY = ele.bounds().top - 60;
-    LocalStorage.setConsoleMaxY(consoleMaxY);
+    LocalStorage.setConsoleMaxY(consoleMaxY,this.name);
 
     log("点 %s", "发送");
     sleep(400);
