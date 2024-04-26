@@ -3,17 +3,18 @@ const { AutojsUtil } = require("./autojsUtil");
 const KS = {
     name: "快手",
     intoSearch: function () {
-        // let focusEle=text('关注').findOne(2000)
-        // if(focusEle==null){
-        //     log("点击首页")
-        //     AutojsUtil.clickSelectorWithAutoRefresh(
-        //         id('search_btn').visibleToUser(true),
-        //         "搜索tab",
-        //         8,
-        //         this.name
-        //     );
-        // }
+        const ksActive = {
+            tabFind: () => {
+                app.startActivity({
+                    action: "android.intent.action.VIEW",
+                    data: "kwai://home/hot",
+                    packageName: "com.smile.gifmaker",
+                });
+            },
+        }
 
+        sleep(2000)
+        ksActive.tabFind()
 
         log("搜索tab")
         AutojsUtil.clickSelectorWithAutoRefresh(

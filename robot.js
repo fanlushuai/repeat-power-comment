@@ -82,9 +82,8 @@ const Robot = {
       toast("请输入关键字")
       return
     }
-    log("第一xx次，重启%s ", this.targetApp.name)
 
-
+    log("脚本启动次数 %s", LocalStorage.getBootTimes())
 
     // 只有第一次boot，为手动，才会手动。不然全部都是自动
     if (LocalStorage.getBootTimes() == 1 && !Config.autoInTargetApp) {

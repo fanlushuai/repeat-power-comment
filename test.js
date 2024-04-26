@@ -11,7 +11,17 @@ const { KS } = require("./ks")
 
 
 
+const ksActive = {
+    tabFind: () => {
+        app.startActivity({
+            action: "android.intent.action.VIEW",
+            data: "kwai://home/hot",
+            packageName: "com.smile.gifmaker",
+        });
+    },
+}
 
+ksActive.tabFind()
 
 
 // id("com.ss.android.ugc.aweme:id/tv_desc").findOne().click()
