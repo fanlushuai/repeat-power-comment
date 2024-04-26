@@ -35,13 +35,13 @@
 					<horizontal marginTop="14" gravity="left">
 						<input hint="例如：哈雷的移动城堡，千与千寻" text="" lines="4" gravity="center" inputType="textImeMultiLine" id="keywords" w="*" />
 					</horizontal>
-					<horizontal marginTop="14" gravity="left">
+					<horizontal marginTop="0" gravity="left">
 						<text text="自动评论" textStyle="bold" textColor="#000000" textSize="16sp" />
 						<input text="5" lines="1" maxLength="6" inputType="number" id="commentCountLimit" w="60" gravity="center" />
 						<text text="条相关视频" textStyle="bold" textColor="#000000" textSize="16sp" />
 						<text text=" *" textStyle="bold" textColor="red" textSize="16sp" />
 					</horizontal>
-					<horizontal marginTop="14" gravity="left">
+					<horizontal marginTop="0" gravity="left">
 						<text text="前" textStyle="bold" textColor="#000000" textSize="16sp" />
 						<input text="0" lines="1" maxLength="6" inputType="number" id="commentWithoutEmoCountLimit" w="60" gravity="center" />
 						<text text="条不带随机表情" textStyle="bold" textColor="#000000" textSize="16sp" />
@@ -51,9 +51,16 @@
 					<horizontal marginTop="14" gravity="left">
 						<input text="" hint="不填写，将使用自动抓取的热评" lines="4" gravity="center" inputType="textImeMultiLine" id="useComment" w="*" />
 					</horizontal>
-					<Switch id="autoInTargetApp" text="自动进入目标App" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
-					<Switch id="openKS" text="快手" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
-					<Switch id="openDY" text="抖音" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
+					<horizontal marginTop="14">
+						<text text="目标App" marginRight="30" textStyle="bold" textColor="#000000" textSize="16sp" />
+						<vertical gravity="center" marginRight="30">
+							<Switch id="openKS" text="快手" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
+						</vertical>
+						<vertical gravity="center">
+							<Switch id="openDY" text="抖音" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
+						</vertical>
+					</horizontal>
+					<Switch marginTop="14" id="autoInTargetApp" text="自动跳入" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
 					<horizontal marginTop="20" gravity="center" w="*" h="*">
 						<button id="save" marginLeft="10" marginRight="20" bg="#23A9F2" text="保存" />
 						<button id="boot" marginLeft="20" marginRight="10" bg="#23A9F2" text="启动" />
