@@ -83,7 +83,7 @@ const Douyin = {
     );
 
     let consoleY = t.bounds.bottom + 60;
-    LocalStorage.setConsoleMinY(consoleY,this.name);
+    LocalStorage.setConsoleMinY(consoleY, this.name);
   },
   search: function () {
     AutojsUtil.clickSelectorWithAutoRefresh(
@@ -125,7 +125,7 @@ const Douyin = {
 
     let consoleMaxY = ele.bounds().top - 60;
 
-    LocalStorage.setConsoleMaxY(consoleMaxY,this.name);
+    LocalStorage.setConsoleMaxY(consoleMaxY, this.name);
 
     log("点 %s", "评论tab");
     sleep(400);
@@ -207,7 +207,7 @@ const Douyin = {
     );
 
     let consoleMaxY = ele.bounds().top - 60;
-    LocalStorage.setConsoleMaxY(consoleMaxY,this.name);
+    LocalStorage.setConsoleMaxY(consoleMaxY, this.name);
 
     log("点 %s", "发送");
     sleep(400);
@@ -226,7 +226,7 @@ const Douyin = {
 
   },
   getBlankCloseXY: function () {
-    _getBlankClickXY()
+    this._getBlankClickXY()
   },
   _getBlankClickXY: function () {
     if (blankClickXY != null) {
