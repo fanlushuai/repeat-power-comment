@@ -1,4 +1,5 @@
 const { AutojsUtil } = require("./autojsUtil");
+const { LocalStorage } = require("./localStorage");
 
 const KS = {
     name: "快手",
@@ -49,22 +50,41 @@ const KS = {
     filterTab: function () {
         log("筛选tab");
         sleep(800)
-        AutojsUtil.clickSelectorWithAutoRefresh(
+        let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
             id('tab_filter_image').visibleToUser(true),
             "筛选tab",
             8,
             this.name
         );
+
+
+        if (!ele) {
+            return;
+        }
+
+        let minY = ele.bounds().bottom
+        LocalStorage.setConsoleMinY(minY, this.name)
+
+        log("点击筛选tab")
+        AutojsUtil.clickEle(ele)
     },
     filterMostStar: function () {
-        AutojsUtil.clickSelectorWithAutoRefresh(
+        let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
             text("点赞最多").visibleToUser(true),
             "筛选most star",
             8,
             this.name
         );
 
+        if (!ele) {
+            return;
+        }
 
+        let maxY = ele.bounds().bottom
+        LocalStorage.setConsoleMaxY(maxY, this.name)
+
+        log("点击most star")
+        AutojsUtil.clickEle(ele)
     },
     closeFitlerTab: function () {
         log("关闭过滤")

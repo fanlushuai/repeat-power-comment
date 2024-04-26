@@ -24,7 +24,7 @@ AutojsUtil.AddFloatContrlButton(function () {
 
   if (Config.openDY) {
     Robot.targetApp = Douyin
-   
+
     let consoleYRange = LocalStorage.getConsoleYRange(Robot.targetApp.name);
     if (consoleYRange) {
       let console = AutojsUtil.configBaseConsole("热评搬运");
@@ -37,6 +37,7 @@ AutojsUtil.AddFloatContrlButton(function () {
       let ch = consoleYRange.maxY - consoleYRange.minY - 60;
       console.setSize(cw, ch); //需要前面等待一会
       console.setPosition(dw - cw, consoleYRange.minY);
+      sleep(1500)
     }
 
     Robot.start();
@@ -57,6 +58,7 @@ AutojsUtil.AddFloatContrlButton(function () {
       let ch = consoleYRange.maxY - consoleYRange.minY - 60;
       console.setSize(cw, ch); //需要前面等待一会
       console.setPosition(dw - cw, consoleYRange.minY);
+      sleep(1500)
     }
 
 

@@ -6,6 +6,9 @@ const LocalStorage = {
   appStorage: function (apkName) {
     return storages.create(apkName);
   },
+  consoleStorage: function (apkName) {
+    return storages.create("console" + apkName);
+  },
   getLastTimeKeyword: function (appName, timeLimit) {
     let uniqueId = timeLimit; //简单的让次数作为唯一次数
     let localStorage = this.appStorage(appName);
@@ -19,16 +22,19 @@ const LocalStorage = {
     localStorage.put("lastTimeKeyword_timelimit", timeLimit);
   },
   setConsoleMinY: function (y, appName) {
-    let localStorage = this.appStorage(appName);
+
+    log("设置控制台最小高度 %s %s", appName, y);
+
+    let localStorage = this.consoleStorage(appName);
     if (localStorage.get("consoleMinY", -1) == -1) {
       localStorage.put("consoleMinY", y);
     }
   },
   //会设置最小的那个
   setConsoleMaxY: function (y, appName) {
-    log("设置控制台最大高度 %s", y);
+    log("设置控制台最大高度 %s %s", appName, y);
 
-    let localStorage = this.appStorage(appName);
+    let localStorage = this.consoleStorage(appName);
 
     let maxY = localStorage.get("consoleMaxY", -1)
     if (maxY == -1) {
@@ -40,11 +46,12 @@ const LocalStorage = {
     }
   },
   clearConsolePostion: function (appName) {
-    let localStorage = this.appStorage(appName);
+    let localStorage = this.consoleStorage(appName);
     localStorage.put("consoleMinY", -1);
   },
   getConsoleYRange: function (appName) {
-    let localStorage = this.appStorage(appName);
+    log("获取控制台高度范围 %s", appName)
+    let localStorage = this.consoleStorage(appName);
     let consoleMaxY = localStorage.get("consoleMaxY", -1);
     if (consoleMaxY > -1) {
       let consoleMinY = localStorage.get("consoleMinY", -1);

@@ -8,21 +8,11 @@
 
 const { AutojsUtil } = require("./autojsUtil")
 const { KS } = require("./ks")
+const { LocalStorage } = require("./localStorage")
 
 
 
-const ksActive = {
-    tabFind: () => {
-        app.startActivity({
-            action: "android.intent.action.VIEW",
-            data: "kwai://home/hot",
-            packageName: "com.smile.gifmaker",
-        });
-    },
-}
-
-ksActive.tabFind()
-
+log(LocalStorage.getConsoleYRange('快手'))
 
 // id("com.ss.android.ugc.aweme:id/tv_desc").findOne().click()
 
