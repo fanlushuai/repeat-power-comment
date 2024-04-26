@@ -136,7 +136,9 @@ const AutojsUtil = {
 
     threads.start(() => {
       // try {
-        taskFunc()
+      taskFunc()
+      // 运行结束，直接停掉当前脚本引擎
+      AutojsUtil.stopCurrentScriptEngine()
       // } catch (error) {
       //   log("结束")
       // }
@@ -214,7 +216,7 @@ const AutojsUtil = {
           AutojsUtil.refreshUI(appName);
         }
       }
-    }, 8);
+    }, 3);
 
     if (!ele) {
       // alert("选择器查找失败");
@@ -259,12 +261,9 @@ const AutojsUtil = {
       log("等待1分钟，再重启。等待工作人员前来查看日志");
       sleep(1.5 * 60 * 1000);
 
-      AutojsUtil.reloadApp("抖音");
-      sleep(2000);
-      // 重新开始执行
-      AutojsUtil.execScriptFile("./scriptTask.js", { delay: 5000 });
-
-      AutojsUtil.stopCurrentScriptEngine();
+      AutojsUtil.childReboot(appName)
+      sleep(2000)
+      AutojsUtil.stopCurrentScriptEngine()
       return;
     }
 
@@ -667,6 +666,7 @@ const AutojsUtil = {
       if (this.killApp(appName)) {
         break;
       }
+      sleep(2000);
     }
 
     log("启动 %s", appName);
@@ -742,6 +742,15 @@ const AutojsUtil = {
       }
     }
   },
+  stopOtherScriptEngine: function () {
+    log("停止其他所有脚本引擎");
+    engines.all().map((ScriptEngine) => {
+      if (engines.myEngine().toString() != ScriptEngine.toString()) {
+        log("停止引擎 %s", engines.myEngine().toString());
+        engines.myEngine().forceStop();
+      }
+    });
+  },
   stopCurrentScriptEngine: function () {
     log("开始停止当前脚本引擎");
     engines.all().map((ScriptEngine) => {
@@ -754,7 +763,7 @@ const AutojsUtil = {
   },
   execScriptFile: function (scriptFullPath, config) {
     exectuion = engines.execScriptFile(scriptFullPath, config); //简单的例子
-    sleep(2000);
+    // sleep(2000);
     return exectuion;
   },
   autoPermisionScreenCapture: once(function () {
@@ -920,6 +929,12 @@ const AutojsUtil = {
   },
   childStop: function () {
     events.broadcast.emit("childStop", "我要停了");
+  },
+  onChildReboot: function (func) {
+    events.broadcast.on("childReboot", func);
+  },
+  childReboot: function (type) {
+    events.broadcast.emit("childReboot", type);
   }
 };
 

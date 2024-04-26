@@ -5,6 +5,9 @@ const { LocalStorage } = require("./localStorage");
 const { Douyin } = require("./douyin.js");
 const { KS } = require("./ks.js");
 // AutojsUtil.keepScreen();
+
+LocalStorage.incBootTimes()
+
 device.keepScreenOn(3600 * 1000);
 
 // 在程序第二次运行的时候，就会开启控制台

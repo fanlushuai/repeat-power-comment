@@ -62,6 +62,17 @@ const LocalStorage = {
       return consoleYRange;
     }
   },
+  incBootTimes: function () {
+    let times = this.getBootTimes()
+    this.setBootTimes(times + 1)
+  },
+  getBootTimes: function () {
+    let localStorage = this.localStorage();
+    return localStorage.get('bootTimes', 0)
+  }, setBootTimes: function (times) {
+    let localStorage = this.localStorage();
+    localStorage.put('bootTimes', times)
+  }
 };
 
 module.exports = { LocalStorage };

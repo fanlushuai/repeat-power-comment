@@ -84,10 +84,10 @@ const Robot = {
     }
     log("第一xx次，重启%s ", this.targetApp.name)
 
-    if (Config.autoInTargetApp) {
-      log("第一次，重启%s ", this.targetApp.name)
-      AutojsUtil.reloadApp(this.targetApp.name);
-    } else {
+
+
+    // 只有第一次boot，为手动，才会手动。不然全部都是自动
+    if (LocalStorage.getBootTimes() == 1 && !Config.autoInTargetApp) {
       log("请手动切换到%s，主页面", this.targetApp.name)
       toast("请手动切换到%s，主页面", this.targetApp.name)
       desc("搜索").visibleToUser(true).waitFor()
@@ -95,6 +95,10 @@ const Robot = {
       log("已进入%s", this.targetApp.name)
       toast("已进入%s", this.targetApp.name)
       AutojsUtil.s(1.5, 1.5)
+
+    } else {
+      log("重启%s ", this.targetApp.name)
+      AutojsUtil.reloadApp(this.targetApp.name);
     }
 
     this.intoLocation();

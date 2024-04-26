@@ -3,6 +3,18 @@ const { AutojsUtil } = require("./autojsUtil");
 const KS = {
     name: "快手",
     intoSearch: function () {
+        // let focusEle=text('关注').findOne(2000)
+        // if(focusEle==null){
+        //     log("点击首页")
+        //     AutojsUtil.clickSelectorWithAutoRefresh(
+        //         id('search_btn').visibleToUser(true),
+        //         "搜索tab",
+        //         8,
+        //         this.name
+        //     );
+        // }
+
+
         log("搜索tab")
         AutojsUtil.clickSelectorWithAutoRefresh(
             id('search_btn').visibleToUser(true),

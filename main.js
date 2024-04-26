@@ -6,6 +6,9 @@ const { LocalStorage } = require("./localStorage");
 
 auto.waitFor();
 
+// 设置重启次数为0
+LocalStorage.setBootTimes(0)
+
 AutojsUtil.loadUI("./project.json", "./ui.xml");
 // 初始化界面数据
 Config.setLSConfig2UI();
@@ -20,6 +23,15 @@ AutojsUtil.onChildStop(function (msg) {
   log("接收到广播 %s", msg)
   AutojsUtil.buttonEnable(ui.boot, "启 动");
   hasStart = false;
+  AutojsUtil.stopOtherScriptEngine()
+  threads.shutDownAll()
+})
+
+AutojsUtil.onChildReboot(function (msg) {
+  log("接收到重启广播")
+
+  // 重新开始执行
+  AutojsUtil.execScriptFile("./scriptTask.js");
 })
 
 ui.emitter.on("resume", function () {
