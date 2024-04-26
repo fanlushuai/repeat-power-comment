@@ -11,8 +11,28 @@ const { KS } = require("./ks")
 const { LocalStorage } = require("./localStorage")
 
 
+function getKeysWordForWeb() {
+    let url = 'https://www.zgdypw.cn/data/searchDayBoxOffice.json?timestamp=' + new Date().getTime()
+    // log(url)
 
-log(LocalStorage.getConsoleYRange('快手'))
+    let rsp = http.get(url)
+
+    let topFilms = rsp.body.json().data.top10Films
+
+    let keywords = ""
+
+    for (let film of topFilms) {
+        // log(film.filmName)
+        keywords += (film.filmName + ",")
+    }
+
+    keywords = keywords.substring(0, keywords.length - 1)
+    log(keywords)
+    return keywords
+}
+
+log(getKeysWordForWeb())
+// log(LocalStorage.getConsoleYRange('快手'))
 
 // id("com.ss.android.ugc.aweme:id/tv_desc").findOne().click()
 

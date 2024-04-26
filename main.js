@@ -13,6 +13,8 @@ AutojsUtil.loadUI("./project.json", "./ui.xml");
 // 初始化界面数据
 Config.setLSConfig2UI();
 
+
+
 AutojsUtil.autoServiceCheck();
 
 function revoverBootButton() {
@@ -39,6 +41,39 @@ ui.emitter.on("resume", function () {
   hasStart = false;
 });
 
+ui.useCNMoive.click(function () {
+  threads.start(
+    function () {
+      function getKeysWordForWeb() {
+        let url = 'https://www.zgdypw.cn/data/searchDayBoxOffice.json?timestamp=' + new Date().getTime()
+        // log(url)
+
+        let rsp = http.get(url)
+
+        let topFilms = rsp.body.json().data.top10Films
+
+        let keywords = ""
+
+        for (let film of topFilms) {
+          // log(film.filmName)
+          keywords += (film.filmName + ",")
+        }
+
+        keywords = keywords.substring(0, keywords.length - 1)
+        log(keywords)
+        return keywords
+      }
+      let keywords = getKeysWordForWeb()
+      toastLog(keywords)
+      if (keywords && keywords.length >= 2) {
+        ui.run(function () {
+          ui.keywords.setText(keywords)
+        });
+      }
+    }
+  )
+
+});
 
 ui.save.click(function () {
   log("保存配置");

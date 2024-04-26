@@ -1,21 +1,5 @@
-<frame w="*" h="*" bg="#F6FFE3" gravity="center">
-	<vertical>
-		<horizontal marginTop="0" bg="#18181C" gravity="center">
-			<text textStyle="bold" textColor="#EA5217" textSize="26sp">
-				{Name1}
-			</text>
-			<text marginRight="5" textStyle="bold" textColor="#08BFF5" textSize="26sp">
-				{Name2}
-			</text>
-			<text textStyle="bold" textColor="#FC03FC" textSize="31sp">
-				{Name3}
-			</text>
-			<text textStyle="italic" textColor="#869093" textSize="26sp">
-				{Name4}
-			</text>
-		</horizontal>
-	</vertical>
-	<ScrollView marginTop="30">
+<frame w="*" h="*" bg="#9fa0a4" gravity="center">
+	<ScrollView>
 		<vertical marginTop="130">
 			<vertical marginLeft="30" marginRight="30" marginTop="180">
 				<horizontal gravity="center">
@@ -52,7 +36,8 @@
 						<input text="" hint="不填写，将使用自动抓取的热评" lines="4" gravity="center" inputType="textImeMultiLine" id="useComment" w="*" />
 					</horizontal>
 					<horizontal marginTop="14">
-						<text text="目标App" marginRight="30" textStyle="bold" textColor="#000000" textSize="16sp" />
+						<text text="目标App" textStyle="bold" textColor="#000000" textSize="16sp" />
+						<text text=" *" marginRight="30" textStyle="bold" textColor="red" textSize="16sp" />
 						<vertical gravity="center" marginRight="30">
 							<Switch id="openKS" text="快手" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
 						</vertical>
@@ -65,6 +50,7 @@
 						<button id="save" marginLeft="10" marginRight="20" bg="#23A9F2" text="保存" />
 						<button id="boot" marginLeft="20" marginRight="10" bg="#23A9F2" text="启动" />
 					</horizontal>
+					<button id="useCNMoive" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="使用中国电影数据" />
 					<button id="clearCache" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="清除断点续评" />
 					<button id="resetConsole" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="重置控制台位置" />
 					<vertical marginTop="130" marginLeft="20">
