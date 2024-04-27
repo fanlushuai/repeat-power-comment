@@ -1,15 +1,10 @@
-
-
-
-
 // let b = text("综合").visibleToUser(true).findOne()
 // // .parent().parent().parent().find(className("ImageView"))
 // log("%j", b)
 
-const { AutojsUtil } = require("./autojsUtil")
-const { KS } = require("./ks")
-const { LocalStorage } = require("./localStorage")
-
+const { AutojsUtil } = require("./autojsUtil");
+const { KS } = require("./ks");
+const { LocalStorage } = require("./localStorage");
 
 // function getKeysWordForWeb() {
 //     let url = 'https://www.zgdypw.cn/data/searchDayBoxOffice.json?timestamp=' + new Date().getTime()
@@ -39,7 +34,6 @@ const { LocalStorage } = require("./localStorage")
 // let eles=className("ImageView").visibleToUser(true).find()
 // log(eles.size())
 
-
 // {
 //     let h = device.height; //屏幕高
 //     let w = device.width; //屏幕宽
@@ -48,8 +42,6 @@ const { LocalStorage } = require("./localStorage")
 //     let h1 = h * 2 / 6; //纵坐标6分之2处
 //     swipe(x, h1, x, h2, 2000);
 // }
-
-
 
 // let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
 //     id('editor').visibleToUser(true),
@@ -119,7 +111,6 @@ const { LocalStorage } = require("./localStorage")
 
 // log(id('comment').findOne().getText())
 // log(id('comment').findOne().parent().parent().findOne(id("comment_bottom_tag")))
-
 
 // text('EditText')
 

@@ -124,25 +124,25 @@ const AutojsUtil = {
         // 执行停止操作
         // 停止所有子线程
         // 通过threads.start()启动的所有线程会在脚本被强制停止时自动停止。
-        threads.shutDownAll()
-        AutojsUtil.childStop()
+        threads.shutDownAll();
+        AutojsUtil.childStop();
         // sleep(2000)
       }
-
     }
 
     // 立即启动
-    log("开启worker 线程")
+    log("开启worker 线程");
 
     threads.start(() => {
       try {
-        taskFunc()
+        taskFunc();
         // 运行结束，直接停掉当前脚本引擎
-        AutojsUtil.stopCurrentScriptEngine()
+        threads.shutDownAll();
+        AutojsUtil.stopCurrentScriptEngine();
       } catch (error) {
-        log("结束")
+        log("结束");
       }
-    })
+    });
   },
   retryGet: function (func, retryLimit) {
     let tryCount = 0;
@@ -200,7 +200,6 @@ const AutojsUtil = {
     refreshMethod
   ) {
     let ele = this.retryGet(function () {
-
       log("查 %s", targetName);
       let e = selector.findOne(findTimeLimitSec * 1000);
       if (e) {
@@ -261,9 +260,11 @@ const AutojsUtil = {
       log("等待1分钟，再重启。等待工作人员前来查看日志");
       sleep(1.5 * 60 * 1000);
 
-      AutojsUtil.childReboot(appName)
-      sleep(2000)
-      AutojsUtil.stopCurrentScriptEngine()
+      AutojsUtil.childReboot(appName);
+      sleep(2000);
+      log("停止所有子线程");
+      threads.shutDownAll();
+      AutojsUtil.stopCurrentScriptEngine();
       return;
     }
 
@@ -390,8 +391,8 @@ const AutojsUtil = {
     return press(x, y, 1);
   },
   pressXY: function (x, y) {
-    log("点击 %s %s", x, y)
-    press(x, y, 1)
+    log("点击 %s %s", x, y);
+    press(x, y, 1);
   },
   press: function (ele) {
     let b = ele.bounds();
@@ -614,7 +615,7 @@ const AutojsUtil = {
     );
     w.setTouchable(false);
     w.setSize(-1, -1);
-    setInterval(() => { }, 1000);
+    setInterval(() => {}, 1000);
 
     let paint = new Paint();
     //设置画笔为填充，则绘制出来的图形都是实心的
@@ -775,67 +776,74 @@ const AutojsUtil = {
     console.log("自动申请截图权限");
     let Thread = threads.start(function () {
       if (auto.service == null) {
-        toast("无障碍未开启")
-        return
+        toast("无障碍未开启");
+        return;
       }
 
-      let ele = textMatches(/(.*录屏或投屏.*|.*录制或投射.*|允许|立即开始|统一)/).findOne(10 * 1000)
+      let ele = textMatches(
+        /(.*录屏或投屏.*|.*录制或投射.*|允许|立即开始|统一)/
+      ).findOne(10 * 1000);
 
       if (ele == null) {
         // toast("未能发现截图权限弹窗")
-        return
+        return;
       }
-      log("已经弹出权限确认界面")
+      log("已经弹出权限确认界面");
 
-      let eles = textMatches(/(.*录屏或投屏.*|.*录制或投射.*|允许|立即开始|统一)/).find()
+      let eles = textMatches(
+        /(.*录屏或投屏.*|.*录制或投射.*|允许|立即开始|统一)/
+      ).find();
 
       if (eles.empty()) {
         // toast("未能发现截图权限弹窗")
-        return
+        return;
       }
 
-      let notMiui14Style = false
+      let notMiui14Style = false;
       for (let e of eles) {
-        let text = e.text()
-        if (text.indexOf('立即开始') > 0 || text.indexOf('允许') > 0 || text.indexOf('统一')) {
-          notMiui14Style = true
-          break
+        let text = e.text();
+        if (
+          text.indexOf("立即开始") > 0 ||
+          text.indexOf("允许") > 0 ||
+          text.indexOf("统一")
+        ) {
+          notMiui14Style = true;
+          break;
         }
       }
 
       if (notMiui14Style) {
-        log("可以找到立即开始")
+        log("可以找到立即开始");
         let allowEle = textMatches(/(允许|立即开始|统一)/).findOne(10 * 1000);
         if (allowEle) {
-          sleep(1500)
+          sleep(1500);
           if (allowEle.clickable()) {
-            log("点击 元素")
+            log("点击 元素");
             let ok = allowEle.click();
             return ok;
           } else {
-            let b = allowEle.bounds()
-            log("按压 坐标")
-            return press(b.centerX(), b.centerY(), 1)
+            let b = allowEle.bounds();
+            log("按压 坐标");
+            return press(b.centerX(), b.centerY(), 1);
           }
         }
       } else {
         //  在miui 14中，立即开始，不可找到。使用推测的方式来处理
-        log("推测 立即开始 坐标")
+        log("推测 立即开始 坐标");
 
-        let cancel = text("取消").findOne(10 * 10000)
+        let cancel = text("取消").findOne(10 * 10000);
         if (cancel) {
-          log("取消 按钮 存在")
-          let x = device.width - cancel.bounds().centerX()
-          let y = cancel.bounds().centerY()
+          log("取消 按钮 存在");
+          let x = device.width - cancel.bounds().centerX();
+          let y = cancel.bounds().centerY();
 
-          log("点击 推测坐标 %s %s", x, y)
-          sleep(500)
-          press(x, y, 1)
+          log("点击 推测坐标 %s %s", x, y);
+          sleep(500);
+          press(x, y, 1);
         } else {
-          log("取消按钮不存在，推测失败")
+          log("取消按钮不存在，推测失败");
         }
       }
-
     });
 
     log("申请权限");
@@ -845,7 +853,6 @@ const AutojsUtil = {
       toast("请求截图权限失败");
       return false;
     } else {
-
       Thread.interrupt();
       log("已获得截图权限");
       hasGetCapturePremission = true;
@@ -903,39 +910,47 @@ const AutojsUtil = {
   },
   filterEles: function (eles, x, y, a, b) {
     if (eles.empty()) {
-      return
+      return;
     }
 
-    let okEles = []
+    let okEles = [];
     for (let e of eles) {
-      let bounds = e.bounds()
+      let bounds = e.bounds();
 
       // 横坐标两个都在范围内
       // 纵坐标两个都在范围内
       if (
-        (x <= bounds.left && a >= bounds.left && x <= bounds.right && a >= bounds.right)
-        &&
-        (y <= bounds.top && b >= bounds.top && y <= bounds.bottom && b >= bounds.bottom)
-
+        x <= bounds.left &&
+        a >= bounds.left &&
+        x <= bounds.right &&
+        a >= bounds.right &&
+        y <= bounds.top &&
+        b >= bounds.top &&
+        y <= bounds.bottom &&
+        b >= bounds.bottom
       ) {
-        okEles.push(e)
+        okEles.push(e);
       }
     }
 
-    return okEles
+    return okEles;
   },
   onChildStop: function (func) {
+    log("注册 接收到 子线程停止 广播");
     events.broadcast.on("childStop", func);
   },
   childStop: function () {
+    log("发出 子线程停止 广播");
     events.broadcast.emit("childStop", "我要停了");
   },
   onChildReboot: function (func) {
+    log("注册 接收到 子线程要求重启 广播");
     events.broadcast.on("childReboot", func);
   },
   childReboot: function (type) {
+    log("发送 子线程要求重启 广播");
     events.broadcast.emit("childReboot", type);
-  }
+  },
 };
 
 function once(fn, context) {

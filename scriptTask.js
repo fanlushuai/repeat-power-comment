@@ -6,24 +6,25 @@ const { Douyin } = require("./douyin.js");
 const { KS } = require("./ks.js");
 // AutojsUtil.keepScreen();
 
-LocalStorage.incBootTimes()
+AutojsUtil.onChildStop(function (msg) {
+  log("接收到广播 %s", msg);
+  threads.shutDownAll(); //显然，只能停止自己的子线程
+  AutojsUtil.stopOtherScriptEngine();
+});
+
+LocalStorage.incBootTimes();
 
 device.keepScreenOn(3600 * 1000);
 
 // 在程序第二次运行的时候，就会开启控制台
 // 动态确定控制台的位置
 
-
-
-
-
 // 内存隔离，重新加载配置
 Config.loadConfig();
 
 AutojsUtil.AddFloatContrlButton(function () {
-
   if (Config.openDY) {
-    Robot.targetApp = Douyin
+    Robot.targetApp = Douyin;
 
     let consoleYRange = LocalStorage.getConsoleYRange(Robot.targetApp.name);
     if (consoleYRange) {
@@ -37,14 +38,14 @@ AutojsUtil.AddFloatContrlButton(function () {
       let ch = consoleYRange.maxY - consoleYRange.minY - 60;
       console.setSize(cw, ch); //需要前面等待一会
       console.setPosition(dw - cw, consoleYRange.minY);
-      sleep(1500)
+      sleep(1500);
     }
 
     Robot.start();
   }
 
   if (Config.openKS) {
-    Robot.targetApp = KS
+    Robot.targetApp = KS;
 
     let consoleYRange = LocalStorage.getConsoleYRange(Robot.targetApp.name);
     if (consoleYRange) {
@@ -58,12 +59,9 @@ AutojsUtil.AddFloatContrlButton(function () {
       let ch = consoleYRange.maxY - consoleYRange.minY - 60;
       console.setSize(cw, ch); //需要前面等待一会
       console.setPosition(dw - cw, consoleYRange.minY);
-      sleep(1500)
+      sleep(1500);
     }
-
 
     Robot.start();
   }
-
-
 });

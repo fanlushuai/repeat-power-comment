@@ -7,13 +7,11 @@ const { LocalStorage } = require("./localStorage");
 auto.waitFor();
 
 // 设置重启次数为0
-LocalStorage.setBootTimes(0)
+LocalStorage.setBootTimes(0);
 
 AutojsUtil.loadUI("./project.json", "./ui.xml");
 // 初始化界面数据
 Config.setLSConfig2UI();
-
-
 
 AutojsUtil.autoServiceCheck();
 
@@ -22,19 +20,19 @@ function revoverBootButton() {
 }
 
 AutojsUtil.onChildStop(function (msg) {
-  log("接收到广播 %s", msg)
+  log("接收到广播 %s", msg);
   AutojsUtil.buttonEnable(ui.boot, "启 动");
   hasStart = false;
-  AutojsUtil.stopOtherScriptEngine()
-  threads.shutDownAll()
-})
+  threads.shutDownAll(); //显然，只能停止自己的子线程
+  AutojsUtil.stopOtherScriptEngine();
+});
 
 AutojsUtil.onChildReboot(function (msg) {
-  log("接收到重启广播")
+  log("接收到重启广播");
 
   // 重新开始执行
   AutojsUtil.execScriptFile("./scriptTask.js");
-})
+});
 
 ui.emitter.on("resume", function () {
   revoverBootButton();
@@ -42,37 +40,36 @@ ui.emitter.on("resume", function () {
 });
 
 ui.useCNMoive.click(function () {
-  threads.start(
-    function () {
-      function getKeysWordForWeb() {
-        let url = 'https://www.zgdypw.cn/data/searchDayBoxOffice.json?timestamp=' + new Date().getTime()
-        // log(url)
+  threads.start(function () {
+    function getKeysWordForWeb() {
+      let url =
+        "https://www.zgdypw.cn/data/searchDayBoxOffice.json?timestamp=" +
+        new Date().getTime();
+      // log(url)
 
-        let rsp = http.get(url)
+      let rsp = http.get(url);
 
-        let topFilms = rsp.body.json().data.top10Films
+      let topFilms = rsp.body.json().data.top10Films;
 
-        let keywords = ""
+      let keywords = "";
 
-        for (let film of topFilms) {
-          // log(film.filmName)
-          keywords += (film.filmName + ",")
-        }
-
-        keywords = keywords.substring(0, keywords.length - 1)
-        log(keywords)
-        return keywords
+      for (let film of topFilms) {
+        // log(film.filmName)
+        keywords += film.filmName + ",";
       }
-      let keywords = getKeysWordForWeb()
-      toastLog(keywords)
-      if (keywords && keywords.length >= 2) {
-        ui.run(function () {
-          ui.keywords.setText(keywords)
-        });
-      }
+
+      keywords = keywords.substring(0, keywords.length - 1);
+      log(keywords);
+      return keywords;
     }
-  )
-
+    let keywords = getKeysWordForWeb();
+    toastLog(keywords);
+    if (keywords && keywords.length >= 2) {
+      ui.run(function () {
+        ui.keywords.setText(keywords);
+      });
+    }
+  });
 });
 
 ui.save.click(function () {
@@ -91,17 +88,17 @@ ui.clearCache.click(function () {
   toast("缓存已经清除");
 });
 ui.resetConsole.click(function () {
-  log('控制台位置已重置')
-  LocalStorage.clearConsolePostion("快手")
-  LocalStorage.clearConsolePostion("抖音")
+  log("控制台位置已重置");
+  LocalStorage.clearConsolePostion("快手");
+  LocalStorage.clearConsolePostion("抖音");
   toast("控制台位置已重置");
 });
 
 let hasStart = false;
 
 ui.boot.click(function () {
-  // 用来提供测试版本 
-  var untilDate = new Date("2024-4-30 10:21:12")
+  // 用来提供测试版本
+  var untilDate = new Date("2024-4-30 10:21:12");
   if (new Date().getTime() > untilDate.getTime()) {
     alert("脚本异常,请联系开发者");
     return;
@@ -123,5 +120,3 @@ ui.boot.click(function () {
     engines.execScriptFile("./scriptTask.js"); //简单的例子
   }
 });
-
-
