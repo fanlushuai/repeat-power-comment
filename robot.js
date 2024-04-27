@@ -74,10 +74,6 @@ const Robot = {
     keywordsArr = unique(keywordsArr);
 
     log("关键词列表 %j", keywordsArr);
-    let lastTimeKeyword = LocalStorage.getLastTimeKeyword(
-      this.targetApp.name,
-      Config.commentCountLimit
-    );
 
     if (keywordsArr.length < 1) {
       toast("请输入关键字");
@@ -105,6 +101,11 @@ const Robot = {
     // 第一次重启，后面，都从界面内切换
     let hasPassFirst = false;
 
+    // 包含上一次的关键词。次数，和关键词，还有app。同时决定唯一性
+    let lastTimeKeyword = LocalStorage.getLastTimeKeyword(
+      this.targetApp.name,
+      Config.commentCountLimit
+    );
     if (keywordsArr.indexOf(lastTimeKeyword) > -1) {
       log("断点续搞");
       let arriveLastKeyword = false;
@@ -134,6 +135,7 @@ const Robot = {
         }
       }
     } else {
+      //正常遍历
       for (let keyword of keywordsArr) {
         log("开始关键词");
         log("%s", keyword);
