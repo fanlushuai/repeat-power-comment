@@ -1,4 +1,3 @@
-
 const LocalStorage = {
   localStorage: function () {
     return storages.create("xxxxjk23232");
@@ -22,7 +21,6 @@ const LocalStorage = {
     localStorage.put("lastTimeKeyword_timelimit", timeLimit);
   },
   setConsoleMinY: function (y, appName) {
-
     log("设置控制台最小高度 %s %s", appName, y);
 
     let localStorage = this.consoleStorage(appName);
@@ -36,11 +34,11 @@ const LocalStorage = {
 
     let localStorage = this.consoleStorage(appName);
 
-    let maxY = localStorage.get("consoleMaxY", -1)
+    let maxY = localStorage.get("consoleMaxY", -1);
     if (maxY == -1) {
       localStorage.put("consoleMaxY", y);
     } else {
-      if (y > maxY) {
+      if (y < maxY) {
         localStorage.put("consoleMaxY", y);
       }
     }
@@ -50,7 +48,7 @@ const LocalStorage = {
     localStorage.put("consoleMinY", -1);
   },
   getConsoleYRange: function (appName) {
-    log("获取控制台高度范围 %s", appName)
+    log("获取控制台高度范围 %s", appName);
     let localStorage = this.consoleStorage(appName);
     let consoleMaxY = localStorage.get("consoleMaxY", -1);
     if (consoleMaxY > -1) {
@@ -63,16 +61,17 @@ const LocalStorage = {
     return null;
   },
   incBootTimes: function () {
-    let times = this.getBootTimes()
-    this.setBootTimes(times + 1)
+    let times = this.getBootTimes();
+    this.setBootTimes(times + 1);
   },
   getBootTimes: function () {
     let localStorage = this.localStorage();
-    return localStorage.get('bootTimes', 0)
-  }, setBootTimes: function (times) {
+    return localStorage.get("bootTimes", 0);
+  },
+  setBootTimes: function (times) {
     let localStorage = this.localStorage();
-    localStorage.put('bootTimes', times)
-  }
+    localStorage.put("bootTimes", times);
+  },
 };
 
 module.exports = { LocalStorage };
