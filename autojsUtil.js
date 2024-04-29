@@ -125,7 +125,10 @@ const AutojsUtil = {
         // 停止所有子线程
         // 通过threads.start()启动的所有线程会在脚本被强制停止时自动停止。
         threads.shutDownAll();
-        AutojsUtil.childStop();
+
+        setTimeout(function () {
+          AutojsUtil.childStop();
+        }, 3000);
         // sleep(2000)
       }
     }
@@ -263,8 +266,9 @@ const AutojsUtil = {
       AutojsUtil.childReboot(appName);
       sleep(2000);
       log("停止所有子线程");
-      threads.shutDownAll();
-      AutojsUtil.stopCurrentScriptEngine();
+      // threads.shutDownAll();
+      // AutojsUtil.stopCurrentScriptEngine();
+      exit(); //这个是发中断，退出当前线程的
       return;
     }
 

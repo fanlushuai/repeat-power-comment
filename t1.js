@@ -31,9 +31,10 @@
 // // });
 
 engines.execScriptFile("t2.js");
-// while (1) {
-// log("t1");
-// sleep(5000);
+while (1) {
+  log("t1");
+  sleep(1000);
+}
 // threads.shutDownAll(); //只能控制线程，还不包含ui线程
 
 // engines.stopAll();
