@@ -2,6 +2,7 @@
 
 const { AutojsUtil } = require("./autojsUtil");
 const { Config } = require("./config");
+const { KS } = require("./ks");
 const { LocalStorage } = require("./localStorage");
 
 auto.waitFor();
@@ -37,6 +38,7 @@ AutojsUtil.onChildReboot(function (msg) {
 ui.emitter.on("resume", function () {
   revoverBootButton();
   hasStart = false;
+  AutojsUtil.stopOtherScriptEngine();
 });
 
 ui.useCNMoive.click(function () {
@@ -118,5 +120,13 @@ ui.boot.click(function () {
   if (!hasStart) {
     hasStart = true;
     engines.execScriptFile("./scriptTask.js"); //简单的例子
+  }
+});
+
+threads.start(function () {
+  log("启动辅助线程");
+  // 20s时间处理
+  while (1) {
+    KS.closePop();
   }
 });

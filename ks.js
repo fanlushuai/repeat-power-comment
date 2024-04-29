@@ -3,6 +3,49 @@ const { LocalStorage } = require("./localStorage");
 
 const KS = {
   name: "快手",
+  findKsTab: function (tab, timeout) {
+    timeout = timeout || 5000;
+    t = ["关注", "发现", "同城", "直播"];
+    b = ["精选", "首页", "消息", "我"];
+    if (t.indexOf(tab) > -1) {
+      if (tab == "直播") {
+        return desc(tab)
+          .visibleToUser(true)
+          .boundsInside(
+            device.width / 2,
+            0,
+            device.width,
+            device.height * (20 / 100)
+          )
+          .findOne(timeout);
+      }
+
+      return desc(tab)
+        .visibleToUser(true)
+        .boundsInside(0, 0, device.width, device.height * (20 / 100))
+        .findOne(timeout);
+    }
+
+    if (b.indexOf(tab) > -1) {
+      return desc(tab)
+        .visibleToUser(true)
+        .boundsInside(
+          0,
+          device.height * (70 / 100),
+          device.width,
+          device.height
+        )
+        .findOne(timeout);
+    }
+    log("desc 参数错误");
+  },
+  closePop: function () {
+    let e = text("朋友推荐").findOne(20000);
+    if (e != null) {
+      log("关闭朋友推荐弹窗");
+      AutojsUtil.clickSelector(id("close_btn"));
+    }
+  },
   intoSearch: function () {
     const ksActive = {
       tabFind: () => {
@@ -15,7 +58,13 @@ const KS = {
     };
 
     sleep(2000);
-    ksActive.tabFind();
+    // ksActive.tabFind();
+    let e = this.findKsTab("关注", 10000);
+    if (e == null) {
+      toastLog("请手动点击关注");
+    }
+    log("点击关注");
+    AutojsUtil.clickEle(e);
 
     log("搜索tab");
     AutojsUtil.clickSelectorWithAutoRefresh(

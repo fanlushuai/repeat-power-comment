@@ -746,6 +746,7 @@ const AutojsUtil = {
   stopOtherScriptEngine: function () {
     log("停止其他所有脚本引擎");
     engines.all().map((ScriptEngine) => {
+      log(engines.myEngine().toString());
       if (engines.myEngine().toString() != ScriptEngine.toString()) {
         log("停止引擎 %s", engines.myEngine().toString());
         engines.myEngine().forceStop();
