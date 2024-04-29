@@ -6,15 +6,12 @@ const { KS } = require("./ks");
 const { LocalStorage } = require("./localStorage");
 
 auto.waitFor();
+AutojsUtil.loadUI("./project.json", "./ui.xml");
+Config.setLSConfig2UI();
+AutojsUtil.autoServiceCheck();
 
 // 设置重启次数为0
 LocalStorage.setBootTimes(0);
-
-AutojsUtil.loadUI("./project.json", "./ui.xml");
-// 初始化界面数据
-Config.setLSConfig2UI();
-
-AutojsUtil.autoServiceCheck();
 
 function revoverBootButton() {
   AutojsUtil.buttonEnable(ui.boot, "启 动");
@@ -24,7 +21,7 @@ AutojsUtil.onChildStop(function (msg) {
   log("接收到广播 %s", msg);
   AutojsUtil.buttonEnable(ui.boot, "启 动");
   hasStart = false;
-  threads.shutDownAll(); //显然，只能停止自己的子线程
+  threads.shutDownAll(); //显然，只能停止当前脚本内部的由threads.start启动的所有线程。部分父子
   AutojsUtil.stopOtherScriptEngine();
 });
 

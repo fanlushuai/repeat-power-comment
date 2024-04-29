@@ -744,24 +744,23 @@ const AutojsUtil = {
     }
   },
   stopOtherScriptEngine: function () {
-    log("停止其他所有脚本引擎");
+    log("-->停止其他所有脚本引擎");
+    log("当前引擎 %s", engines.myEngine().toString());
     engines.all().map((ScriptEngine) => {
-      log(engines.myEngine().toString());
+      log("存在引擎 %s", ScriptEngine.toString());
+    });
+
+    engines.all().map((ScriptEngine) => {
       if (engines.myEngine().toString() != ScriptEngine.toString()) {
-        log("停止引擎 %s", engines.myEngine().toString());
-        engines.myEngine().forceStop();
+        log("停止其他引擎 %s", engines.myEngine().toString());
+        ScriptEngine.forceStop();
       }
     });
   },
   stopCurrentScriptEngine: function () {
-    log("开始停止当前脚本引擎");
-    engines.all().map((ScriptEngine) => {
-      log("存在的脚本引擎 %s", engines.myEngine().toString());
-      if (engines.myEngine().toString() == ScriptEngine.toString()) {
-        log("停止当前脚本引擎 %s", engines.myEngine().toString());
-        engines.myEngine().forceStop();
-      }
-    });
+    log("停止当前脚本引擎");
+    log("%s", engines.myEngine().toString());
+    engines.myEngine().forceStop();
   },
   execScriptFile: function (scriptFullPath, config) {
     exectuion = engines.execScriptFile(scriptFullPath, config); //简单的例子

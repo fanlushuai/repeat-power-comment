@@ -9,7 +9,7 @@ const { KS } = require("./ks.js");
 AutojsUtil.onChildStop(function (msg) {
   log("接收到广播 %s", msg);
   threads.shutDownAll(); //显然，只能停止自己的子线程
-  AutojsUtil.stopOtherScriptEngine();
+  // AutojsUtil.stopOtherScriptEngine();
 });
 
 LocalStorage.incBootTimes();
