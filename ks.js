@@ -59,7 +59,7 @@ const KS = {
 
     sleep(2000);
     // ksActive.tabFind();
-    let e = this.findKsTab("关注", 10000);
+    let e = this.findKsTab("关注", 20000);
     if (e == null) {
       toastLog("请手动点击关注");
     }

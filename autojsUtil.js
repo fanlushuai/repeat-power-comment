@@ -750,12 +750,16 @@ const AutojsUtil = {
       log("存在引擎 %s", ScriptEngine.toString());
     });
 
+    log("----");
+
     engines.all().map((ScriptEngine) => {
       if (engines.myEngine().toString() != ScriptEngine.toString()) {
         log("停止其他引擎 %s", engines.myEngine().toString());
         ScriptEngine.forceStop();
       }
     });
+
+    log("----");
   },
   stopCurrentScriptEngine: function () {
     log("停止当前脚本引擎");

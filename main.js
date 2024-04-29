@@ -21,8 +21,11 @@ AutojsUtil.onChildStop(function (msg) {
   log("接收到广播 %s", msg);
   AutojsUtil.buttonEnable(ui.boot, "启 动");
   hasStart = false;
+  log("3s之后，停止子脚本");
+  setTimeout(() => {
+    AutojsUtil.stopOtherScriptEngine();
+  }, 3000);
   threads.shutDownAll(); //显然，只能停止当前脚本内部的由threads.start启动的所有线程。部分父子
-  AutojsUtil.stopOtherScriptEngine();
 });
 
 AutojsUtil.onChildReboot(function (msg) {
@@ -33,9 +36,13 @@ AutojsUtil.onChildReboot(function (msg) {
 });
 
 ui.emitter.on("resume", function () {
+  // log("切换回界面就会执行这个");
+  // todo 判断子脚本引擎是否存在，然后在进行操作
+
   revoverBootButton();
   hasStart = false;
-  AutojsUtil.stopOtherScriptEngine();
+  // log("ssss");
+  // AutojsUtil.stopOtherScriptEngine();
 });
 
 ui.useCNMoive.click(function () {
