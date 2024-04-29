@@ -144,6 +144,7 @@ const AutojsUtil = {
         AutojsUtil.stopCurrentScriptEngine();
       } catch (error) {
         log("结束");
+        exit();
       }
     });
   },

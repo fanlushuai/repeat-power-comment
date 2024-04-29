@@ -1,6 +1,10 @@
 const { AutojsUtil } = require("./autojsUtil");
 const { LocalStorage } = require("./localStorage");
 
+function currentTime() {
+  return new Date().getTime();
+}
+
 const Tab = {
   waitInKs: function (location, timeout) {
     timeout = timeout || 5211314000; //默认一个超大值
@@ -300,9 +304,9 @@ const KS = {
 
     log("等待搜索结果");
     while (1) {
-      let e = id("com.smile.gifmaker:id/nick_name")
+      let e = idMatches(/(.*nick_name|.*tab)/)
         .visibleToUser(true)
-        .findOne(3000);
+        .findOne(5000);
       if (e != null) {
         log("出现结果");
         break;

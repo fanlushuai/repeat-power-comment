@@ -15,7 +15,13 @@ const { LocalStorage } = require("./localStorage");
 //     let topFilms = rsp.body.json().data.top10Films
 
 //     let keywords = ""
+// log(id("search_button").findOne());
 
+let e = idMatches(/(.*nick_name|.*tab)/)
+  .visibleToUser(true)
+  .findOne(5000);
+
+log(e);
 //     for (let film of topFilms) {
 //         // log(film.filmName)
 //         keywords += (film.filmName + ",")
