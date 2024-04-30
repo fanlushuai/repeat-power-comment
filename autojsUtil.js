@@ -893,7 +893,7 @@ const AutojsUtil = {
   getEleTextByOCR: function (ele) {
     let b = ele.bounds()
     // log("%s %s", device.width, device.height)
-    // log("%s %s %s %s", b.left, b.top, b.right, b.bottom)
+    log("%s %s %s %s", b.left, b.top, b.right, b.bottom)
     AutojsUtil.autoPermisionScreenCapture();
     var img = captureScreen(); // 截取当前屏幕图像
     // var clip = images.clip(img, 0, 0, device.width, device.height / 3); // 裁剪图像，只保留上半部分

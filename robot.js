@@ -148,7 +148,7 @@ const Robot = {
       for (let keyword of keywordsArr) {
         log("开始关键词");
         log("%s", keyword);
-        
+
         if (hasPassFirst) {
           log("从视频入口搜索");
           this.targetApp.clickSearchInVedio();
@@ -185,6 +185,13 @@ const Robot = {
 
       log("下一条");
       AutojsUtil.pageDownBySwipe();
+    }
+
+    if (hotComment == null || hotComment == '') {
+      log("本关键字不存在热评 %s", hotComment)
+      toast("本关键字不存在热评 %s", hotComment)
+      sleep(2000)
+      return
     }
 
     let commentWithoutEmoCount = 0;

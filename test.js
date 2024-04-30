@@ -9,9 +9,9 @@ const { LocalStorage } = require("./localStorage");
 
 
 
-
-id("com.smile.gifmaker:id/tv_like_count").visibleToUser(true).waitFor();
-let likeEls = id("tv_like_count").visibleToUser(true).find();
+// fullId("com.smile.gifmaker:id/cl_like")
+id("com.smile.gifmaker:id/cl_like").visibleToUser(true).waitFor();
+let likeEls = id("cl_like").visibleToUser(true).find();
 log(likeEls)
 let maxCountLikeEle;
 let maxCount = 0;

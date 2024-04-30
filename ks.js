@@ -422,6 +422,10 @@ const KS = {
       }
     }
 
+    if (maxCountLikeEle == null) {
+      return null;
+    }
+
     // log(maxCountLikeEle)
 
     let hotComment = maxCountLikeEle
