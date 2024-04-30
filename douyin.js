@@ -1,7 +1,7 @@
 const { AutojsUtil } = require("./autojsUtil");
 const { LocalStorage } = require("./localStorage");
 
-let blankClickXY = null
+let blankClickXY = null;
 
 const Douyin = {
   name: "抖音",
@@ -10,6 +10,13 @@ const Douyin = {
     app.launchApp(this.name);
     // 跳过广告
     desc("跳过").findOne(3000);
+  },
+  waitForInitLocation: function () {
+    desc("搜索").visibleToUser(true).waitFor();
+    text("关注").visibleToUser(true).waitFor();
+    log("已进入%s", this.name);
+    toast("已进入%s", this.name);
+    AutojsUtil.s(1.5, 1.5);
   },
   intoSearch: function () {
     AutojsUtil.clickSelectorWithAutoRefresh(
@@ -41,25 +48,30 @@ const Douyin = {
     // );
 
     // todo 如果未来不稳定，可以换imageviwe方式，加上坐标来同时过滤。
-    sleep(600)  //开始之前，确保，这个位置加载出来了
+    sleep(600); //开始之前，确保，这个位置加载出来了
     // 使用特殊算法，来兼容过滤的图标问题。直接使用id，有内存问题。
     // let b = text("综合").visibleToUser(true).findOne().parent().bounds()
 
     // let x = device.width - b.left - 2
     // let y = b.top + parseInt((b.bottom - b.top) / 2)
 
-
     // AutojsUtil.pressXY(x, y)
 
-    sleep(500)
-    let imageEles = className('ImageView').find()
-    log(imageEles.size())
-    let eles = AutojsUtil.filterEles(imageEles, device.width * 3 / 4, 0, device.width, device.height / 4)
-    log(eles.length)
+    sleep(500);
+    let imageEles = className("ImageView").find();
+    log(imageEles.size());
+    let eles = AutojsUtil.filterEles(
+      imageEles,
+      (device.width * 3) / 4,
+      0,
+      device.width,
+      device.height / 4
+    );
+    log(eles.length);
 
     if (eles.length > 0) {
-      let b = eles[0].bounds()
-      press(b.centerX(), b.centerY(), 1)
+      let b = eles[0].bounds();
+      press(b.centerX(), b.centerY(), 1);
     }
 
     sleep(1000);
@@ -88,7 +100,7 @@ const Douyin = {
   search: function () {
     AutojsUtil.clickSelectorWithAutoRefresh(
       // id("com.ss.android.ugc.aweme:id/yqq").visibleToUser(true),
-      text('搜索').visibleToUser(true),
+      text("搜索").visibleToUser(true),
       "搜索",
       8,
       this.name
@@ -98,8 +110,8 @@ const Douyin = {
   //   id("com.ss.android.ugc.aweme:id/y6g").waitFor();
   // },
   closeFitlerTab: function () {
-    log("关闭过滤")
-    this._zongheTab()
+    log("关闭过滤");
+    this._zongheTab();
   },
   // play: function () {
   //   id("com.ss.android.ugc.aweme:id/lug");
@@ -176,8 +188,7 @@ const Douyin = {
     // EditText
     AutojsUtil.clickSelectorWithAutoRefresh(
       // id("com.ss.android.ugc.aweme:id/dbx")
-      text('善语结善缘，恶言伤人心').className('EditText').visibleToUser(true)
-      ,
+      text("善语结善缘，恶言伤人心").className("EditText").visibleToUser(true),
       "评论框",
       8,
       this.name
@@ -185,8 +196,7 @@ const Douyin = {
     sleep(800);
     let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
       // id("com.ss.android.ugc.aweme:id/dbx").visibleToUser(true),
-      text('善语结善缘，恶言伤人心').className('EditText').visibleToUser(true)
-      ,
+      text("善语结善缘，恶言伤人心").className("EditText").visibleToUser(true),
       "评论框",
 
       8,
@@ -216,47 +226,44 @@ const Douyin = {
     // text('善语结善缘，恶言伤人心')
   },
   clickSearchInVedio: function () {
-
     ele = AutojsUtil.clickSelectorWithAutoRefresh(
-      text('搜索').visibleToUser(true),
+      text("搜索").visibleToUser(true),
       "搜索",
       8,
       this.name
     );
-
   },
   getBlankCloseXY: function () {
-    this._getBlankClickXY()
+    this._getBlankClickXY();
   },
   _getBlankClickXY: function () {
     if (blankClickXY != null) {
-      return blankClickXY
+      return blankClickXY;
     }
 
-    let ele = text('搜索').findOne()
-    let b = ele.bounds()
-    blankClickXY = { x: device.width / 2, y: b.bottom + 100 }
-    log("找到关闭坐标 %j", blankClickXY)
+    let ele = text("搜索").findOne();
+    let b = ele.bounds();
+    blankClickXY = { x: device.width / 2, y: b.bottom + 100 };
+    log("找到关闭坐标 %j", blankClickXY);
 
-    return blankClickXY
+    return blankClickXY;
   },
   closeCommentTab: function () {
     // let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(desc("关闭"), "关闭", 8, this.name)
     // AutojsUtil.press(ele)
 
     log("关闭评论Tab");
-    let xy = this._getBlankClickXY()
-    AutojsUtil.pressXY(xy.x, xy.y)
+    let xy = this._getBlankClickXY();
+    AutojsUtil.pressXY(xy.x, xy.y);
     AutojsUtil.s13();
 
     // 查看评论右侧图标
 
-    let ele = text('搜索').visibleToUser(true)
-      .findOnce();
+    let ele = text("搜索").visibleToUser(true).findOnce();
 
     if (ele == null) {
       // 点击两次，防止失败
-      AutojsUtil.pressXY(xy.x, xy.y)
+      AutojsUtil.pressXY(xy.x, xy.y);
     }
   },
 };

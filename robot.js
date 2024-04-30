@@ -85,12 +85,8 @@ const Robot = {
     // 只有第一次boot，为手动，才会手动。不然全部都是自动
     if (LocalStorage.getBootTimes() == 1 && !Config.autoInTargetApp) {
       log("请手动切换到%s，主页面", this.targetApp.name);
-      toast("请手动切换到%s，主页面", this.targetApp.name);
-      desc("搜索").visibleToUser(true).waitFor();
-      text("关注").visibleToUser(true).waitFor();
-      log("已进入%s", this.targetApp.name);
-      toast("已进入%s", this.targetApp.name);
-      AutojsUtil.s(1.5, 1.5);
+      toast("请手动切换到" + this.targetApp.name + "主页面");
+      this.targetApp.waitForInitLocation();
     } else {
       log("重启%s ", this.targetApp.name);
       AutojsUtil.reloadApp(this.targetApp.name);
@@ -136,7 +132,6 @@ const Robot = {
 
             this.task(keyword, Config.commentCountLimit);
             hasPassFirst = true;
-
           } else {
             log("跳过关键字 %s", keyword);
             continue;
@@ -187,11 +182,11 @@ const Robot = {
       AutojsUtil.pageDownBySwipe();
     }
 
-    if (hotComment == null || hotComment == '') {
-      log("本关键字不存在热评 %s", hotComment)
-      toast("本关键字不存在热评 %s", hotComment)
-      sleep(2000)
-      return
+    if (hotComment == null || hotComment == "") {
+      log("本关键字不存在热评 %s", hotComment);
+      toast("本关键字不存在热评 %s", hotComment);
+      sleep(2000);
+      return;
     }
 
     let commentWithoutEmoCount = 0;

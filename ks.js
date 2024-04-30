@@ -249,6 +249,12 @@ const Tab = {
 };
 const KS = {
   name: "快手",
+  waitForInitLocation: function () {
+    desc("发现").id("textView").waitFor();
+    log("已进入%s", this.name);
+    toast("已进入%s", this.name);
+    AutojsUtil.s(1.5, 1.5);
+  },
   closePop: function () {
     let e = text("朋友推荐").findOne(20000);
     if (e != null) {
@@ -335,7 +341,7 @@ const KS = {
     AutojsUtil.clickEle(ele);
   },
   filterMostStar: function () {
-    sleep(1500)
+    sleep(1500);
     let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
       text("点赞最多").visibleToUser(true),
       "筛选most star",
@@ -401,15 +407,14 @@ const KS = {
     //   .getText();
     // log("热评->", hotComment);
 
-
     id("com.smile.gifmaker:id/tv_like_count").visibleToUser(true).waitFor();
     let likeEls = id("tv_like_count").visibleToUser(true).find();
     // log(likeEls)
     let maxCountLikeEle;
     let maxCount = 0;
     for (let e of likeEls) {
-      let like_count = AutojsUtil.getEleTextByOCR(e)
-      log(like_count)
+      let like_count = AutojsUtil.getEleTextByOCR(e);
+      log(like_count);
 
       // 2.0万
       if (like_count.indexOf("万") > -1) {
