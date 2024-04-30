@@ -137,15 +137,15 @@ const AutojsUtil = {
     log("开启worker 线程");
 
     threads.start(() => {
-      try {
-        taskFunc();
-        // 运行结束，直接停掉当前脚本引擎
-        threads.shutDownAll();
-        AutojsUtil.stopCurrentScriptEngine();
-      } catch (error) {
-        log("结束");
-        exit();
-      }
+      // try {
+      taskFunc();
+      // 运行结束，直接停掉当前脚本引擎
+      threads.shutDownAll();
+      AutojsUtil.stopCurrentScriptEngine();
+      // } catch (error) {
+      //   log("结束");
+      exit();
+      // }
     });
   },
   retryGet: function (func, retryLimit) {
@@ -363,7 +363,7 @@ const AutojsUtil = {
     this.clickByShell(x, y);
   },
   clickEle: function (ele) {
-    if (ele == null || ele == undefined) {
+    if (ele == null) {
       log("无元素");
       return false;
     }
@@ -620,7 +620,7 @@ const AutojsUtil = {
     );
     w.setTouchable(false);
     w.setSize(-1, -1);
-    setInterval(() => {}, 1000);
+    setInterval(() => { }, 1000);
 
     let paint = new Paint();
     //设置画笔为填充，则绘制出来的图形都是实心的
@@ -890,11 +890,35 @@ const AutojsUtil = {
     captureScreen(path);
     return path;
   },
-  clickTextByOCR: function (text, x, y, a, b) {
+  getEleTextByOCR: function (ele) {
+    let b = ele.bounds()
+    // log("%s %s", device.width, device.height)
+    // log("%s %s %s %s", b.left, b.top, b.right, b.bottom)
     AutojsUtil.autoPermisionScreenCapture();
     var img = captureScreen(); // 截取当前屏幕图像
     // var clip = images.clip(img, 0, 0, device.width, device.height / 3); // 裁剪图像，只保留上半部分
-    var clip = images.clip(img, x, y, a, b); // 裁剪图像，只保留上半部分
+    var clip = images.clip(img, b.left, b.top, b.right - b.left, b.bottom - b.top); // 裁剪图像，只保留上半部分
+    let res = paddle.ocr(clip);
+    if (res[0]) {
+      return res[0].text
+    } else {
+      log("ocr 获取文本失败")
+      return ""
+    }
+  },
+  getPostionByOCR: function (x, y, w, h) {
+    AutojsUtil.autoPermisionScreenCapture();
+    var img = captureScreen(); // 截取当前屏幕图像
+    // var clip = images.clip(img, 0, 0, device.width, device.height / 3); // 裁剪图像，只保留上半部分
+    var clip = images.clip(img, x, y, w, h); // 裁剪图像，只保留上半部分
+    let res = paddle.ocr(clip);
+    return res
+  },
+  clickTextByOCR: function (text, x, y, w, h) {
+    AutojsUtil.autoPermisionScreenCapture();
+    var img = captureScreen(); // 截取当前屏幕图像
+    // var clip = images.clip(img, 0, 0, device.width, device.height / 3); // 裁剪图像，只保留上半部分
+    var clip = images.clip(img, x, y, w, h); // 裁剪图像，只保留上半部分
     let res = paddle.ocr(clip);
     // toastLog(JSON.stringify(res))
     for (let t of res) {

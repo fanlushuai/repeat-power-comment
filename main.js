@@ -127,10 +127,10 @@ ui.boot.click(function () {
   }
 });
 
-threads.start(function () {
-  log("启动辅助线程");
-  // 20s时间处理
-  while (1) {
-    KS.closePop();
-  }
-});
+// threads.start(function () {
+//   log("启动辅助线程");
+//   // 20s时间处理
+//   while (1) {
+//     KS.closePop();
+//   }
+// });

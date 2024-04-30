@@ -96,6 +96,7 @@ const Robot = {
       AutojsUtil.reloadApp(this.targetApp.name);
     }
 
+    // 第一次启动，位于搜索界面
     this.intoLocation();
 
     // 第一次重启，后面，都从界面内切换
@@ -127,7 +128,15 @@ const Robot = {
           if (lastTimeKeyword == keyword) {
             arriveLastKeyword = true;
             log("开始上次中断的关键词 %s", keyword);
+
+            if (hasPassFirst) {
+              log("从视频入口搜索");
+              this.targetApp.clickSearchInVedio();
+            }
+
             this.task(keyword, Config.commentCountLimit);
+            hasPassFirst = true;
+
           } else {
             log("跳过关键字 %s", keyword);
             continue;
@@ -139,6 +148,7 @@ const Robot = {
       for (let keyword of keywordsArr) {
         log("开始关键词");
         log("%s", keyword);
+        
         if (hasPassFirst) {
           log("从视频入口搜索");
           this.targetApp.clickSearchInVedio();
@@ -151,6 +161,7 @@ const Robot = {
 
     toastLog("机器人 " + this.targetApp.name + " 任务完成");
   },
+  // 位于搜索界面
   task: function (keyword, commentCountLimit) {
     LocalStorage.setThisTimeKeyword(
       this.targetApp.name,

@@ -6,6 +6,40 @@ const { AutojsUtil } = require("./autojsUtil");
 const { KS } = require("./ks");
 const { LocalStorage } = require("./localStorage");
 
+
+
+
+
+id("com.smile.gifmaker:id/tv_like_count").visibleToUser(true).waitFor();
+let likeEls = id("tv_like_count").visibleToUser(true).find();
+log(likeEls)
+let maxCountLikeEle;
+let maxCount = 0;
+for (let e of likeEls) {
+  let like_count = AutojsUtil.getEleTextByOCR(e)
+  log(like_count)
+
+  // 2.0万
+  if (like_count.indexOf("万") > -1) {
+    like_count = parseFloat(like_count.replace("万", "")) * 10000;
+  }
+
+  if (like_count > maxCount) {
+    maxCount = like_count;
+    maxCountLikeEle = e;
+  }
+}
+
+log(maxCountLikeEle)
+
+let hotComment = maxCountLikeEle
+  .parent()
+  .parent()
+  .parent()
+  .findOne(id("com.smile.gifmaker:id/comment"))
+  .getText();
+log("热评->", hotComment);
+
 // function getKeysWordForWeb() {
 //     let url = 'https://www.zgdypw.cn/data/searchDayBoxOffice.json?timestamp=' + new Date().getTime()
 //     // log(url)
@@ -17,11 +51,11 @@ const { LocalStorage } = require("./localStorage");
 //     let keywords = ""
 // log(id("search_button").findOne());
 
-let e = idMatches(/(.*nick_name|.*tab)/)
-  .visibleToUser(true)
-  .findOne(5000);
+// let e = idMatches(/(.*nick_name|.*tab)/)
+//   .visibleToUser(true)
+//   .findOne(5000);
 
-log(e);
+// log(e);
 //     for (let film of topFilms) {
 //         // log(film.filmName)
 //         keywords += (film.filmName + ",")

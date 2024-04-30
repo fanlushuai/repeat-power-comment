@@ -335,6 +335,7 @@ const KS = {
     AutojsUtil.clickEle(ele);
   },
   filterMostStar: function () {
+    sleep(1500)
     let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
       text("点赞最多").visibleToUser(true),
       "筛选most star",
@@ -381,16 +382,47 @@ const KS = {
     // 置顶不好处理，
     // 作者也不好排除
     // 那么使用点赞量，来决定，哪个评论更有价值
+    // id("com.smile.gifmaker:id/tv_like_count").visibleToUser(true).waitFor();
+    // let likeEls = id("com.smile.gifmaker:id/tv_like_count").find();
+    // let maxCountLikeEle;
+    // let maxCount = 0;
+    // for (let e of likeEls) {
+    //   if (parseInt(e.getText()) > maxCount) {
+    //     maxCount = parseInt(e.getText());
+    //     maxCountLikeEle = e;
+    //   }
+    // }
+
+    // let hotComment = maxCountLikeEle
+    //   .parent()
+    //   .parent()
+    //   .parent()
+    //   .findOne(id("com.smile.gifmaker:id/comment"))
+    //   .getText();
+    // log("热评->", hotComment);
+
+
     id("com.smile.gifmaker:id/tv_like_count").visibleToUser(true).waitFor();
-    let likeEls = id("com.smile.gifmaker:id/tv_like_count").find();
+    let likeEls = id("tv_like_count").visibleToUser(true).find();
+    // log(likeEls)
     let maxCountLikeEle;
     let maxCount = 0;
     for (let e of likeEls) {
-      if (parseInt(e.getText()) > maxCount) {
-        maxCount = parseInt(e.getText());
+      let like_count = AutojsUtil.getEleTextByOCR(e)
+      log(like_count)
+
+      // 2.0万
+      if (like_count.indexOf("万") > -1) {
+        like_count = parseFloat(like_count.replace("万", "")) * 10000;
+      }
+
+      if (like_count > maxCount) {
+        maxCount = like_count;
         maxCountLikeEle = e;
       }
     }
+
+    // log(maxCountLikeEle)
 
     let hotComment = maxCountLikeEle
       .parent()
@@ -399,6 +431,7 @@ const KS = {
       .findOne(id("com.smile.gifmaker:id/comment"))
       .getText();
     log("热评->", hotComment);
+
     return hotComment;
   },
   closeCommentTab: function () {
