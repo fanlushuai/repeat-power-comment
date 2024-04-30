@@ -104,7 +104,7 @@ let hasStart = false;
 
 ui.boot.click(function () {
   // 用来提供测试版本
-  var untilDate = new Date("2024-4-30 10:21:12");
+  var untilDate = new Date("2024-5-7 10:21:12");
   if (new Date().getTime() > untilDate.getTime()) {
     alert("脚本异常,请联系开发者");
     return;
