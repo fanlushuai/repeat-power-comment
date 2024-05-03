@@ -191,6 +191,8 @@ const Douyin = {
     }
 
     log("热评->%s", hotComment);
+    toastLog(hotComment);
+    sleep(2000)
     return hotComment;
   },
   comment: function (comment) {

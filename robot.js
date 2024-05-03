@@ -58,7 +58,7 @@ const Robot = {
     let hotComment = this.targetApp.getHotComment();
     this.targetApp.closeCommentTab();
 
-    if (douyinCommentRecent && this.targetApp.name == "抖音") {
+    if (Config.douyinCommentRecent && this.targetApp.name == "抖音") {
       // 返回到，最新的视频列表
       this.targetApp.clickSearchInVedio();
       this.intoRecentVedioBySearch(keyword)
