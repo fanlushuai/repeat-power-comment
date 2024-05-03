@@ -460,6 +460,47 @@ const AutojsUtil = {
     }
     return excuteOK;
   },
+  getUiComponentByXml: function (uiXmlPath) {
+
+    // const uiComponent = {
+    //   "checkIds": ['autoInTargetApp', 'openKS', 'openDY', 'douyinCommentRecent'],
+    //   "textIds": ["keywords", "useComment"],
+    //   "numberIds": ["commentCountLimit", 'commentWithoutEmoCountLimit']
+    // }
+    
+    let xmlString = files.read(uiXmlPath).toString();
+    let uiComponent = {
+      "checkIds": [],
+      "textIds": [],
+      "numberIds": []
+    }
+    let idRegex = /<(\S*).*id="([^"]*)".*\/>/g;
+    let match;
+    while (match = idRegex.exec(xmlString)) {
+      let tagName = match[1];
+      let idValue = match[2];
+      let content = match[0]; // 匹配到的整个标签内容
+      // console.log("Tag Name: " + tagName);
+      // console.log("ID: " + idValue);
+      // console.log("Content: " + content);
+      if (tagName === "Switch" || tagName === "checkbox" || tagName === "radio") {
+        if (idValue != 'autoService') {
+          // 排除自动服务
+          uiComponent.checkIds.push(idValue);
+        }
+      } else if (tagName === "input") {
+        if (content.indexOf("inputType=\"number\"") > -1) {
+          uiComponent.numberIds.push(idValue);
+        } else {
+          uiComponent.textIds.push(idValue);
+        }
+      } else {
+        // 非输入类型的id，不做处理
+      }
+    }
+
+    return uiComponent;
+  },
   loadUI: function (projectJsonPath, uiPath) {
     let projectJsonStr = files.read(projectJsonPath).toString();
     let projectData = JSON.parse(projectJsonStr);

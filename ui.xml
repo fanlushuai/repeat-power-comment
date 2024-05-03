@@ -1,8 +1,8 @@
 <frame w="*" h="*" bg="#9fa0a4" gravity="center">
 	<text text="" textStyle="bold" textColor="red" textSize="16sp" />
 	<ScrollView>
-		<vertical paddingTop='200' marginTop='100'>
-			<vertical paddingTop='200' marginLeft="30" marginRight="30">
+		<vertical paddingTop="200" marginTop="100">
+			<vertical paddingTop="200" marginLeft="30" marginRight="30">
 				<horizontal gravity="center">
 					<vertical marginRight="30">
 						<Switch id="autoService" text="无障碍服务" textStyle="bold" textColor="#000000" textSize="16sp" checked="{{auto.service!=null}}" />
@@ -46,6 +46,7 @@
 							<Switch id="openDY" text="抖音" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
 						</vertical>
 					</horizontal>
+					<Switch marginTop="14" id="douyinCommentRecent" text="抖音评论最新" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
 					<Switch marginTop="14" id="autoInTargetApp" text="自动跳入" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
 					<horizontal marginTop="20" gravity="center" w="*" h="*">
 						<button id="save" marginLeft="10" marginRight="20" bg="#23A9F2" text="保存" />

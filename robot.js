@@ -22,7 +22,27 @@ const Robot = {
     this.targetApp.search();
     // this.targetApp.zongheTab();
     this.targetApp.filterTab();
+
     this.targetApp.filterMostStar();
+    // toast("手动点击")
+    // AutojsUtil.s(10, 10)
+
+    this.targetApp.closeFitlerTab();
+    this.targetApp.video();
+
+    // 提前获取，空白坐标。
+    this.targetApp.getBlankCloseXY();
+  },
+  intoRecentVedioBySearch: function (keyWord) {
+    // keyWord = "哈雷的移动城堡"
+    this.targetApp.inputKeyWord(keyWord);
+
+    this.targetApp.search();
+    // this.targetApp.zongheTab();
+    this.targetApp.filterTab();
+
+    //最新发布
+    this.targetApp.filterRecent();
 
     // toast("手动点击")
     // AutojsUtil.s(10, 10)
@@ -33,10 +53,17 @@ const Robot = {
     // 提前获取，空白坐标。
     this.targetApp.getBlankCloseXY();
   },
-  getHotComment: function () {
+  getHotComment: function (keyword) {
     this.targetApp.commentTab();
     let hotComment = this.targetApp.getHotComment();
     this.targetApp.closeCommentTab();
+
+    if (douyinCommentRecent && this.targetApp.name == "抖音") {
+      // 返回到，最新的视频列表
+      this.targetApp.clickSearchInVedio();
+      this.intoRecentVedioBySearch(keyword)
+    }
+
     return hotComment;
   },
   comment: function (comment) {
@@ -175,7 +202,7 @@ const Robot = {
       hotComment = useComment;
     } else {
       log("抓取第一条视频热评");
-      hotComment = this.getHotComment();
+      hotComment = this.getHotComment(keyword);
       AutojsUtil.s(3, 5);
 
       log("下一条");

@@ -7,38 +7,79 @@ const { KS } = require("./ks");
 const { LocalStorage } = require("./localStorage");
 
 
-
-
-// fullId("com.smile.gifmaker:id/cl_like")
-id("com.smile.gifmaker:id/cl_like").visibleToUser(true).waitFor();
-let likeEls = id("cl_like").visibleToUser(true).find();
-log(likeEls)
-let maxCountLikeEle;
-let maxCount = 0;
-for (let e of likeEls) {
-  let like_count = AutojsUtil.getEleTextByOCR(e)
-  log(like_count)
-
-  // 2.0万
-  if (like_count.indexOf("万") > -1) {
-    like_count = parseFloat(like_count.replace("万", "")) * 10000;
+// log(xmlString)
+// 假设 xmlString 是你的 XML 字符串
+// "./ui.xml"
+function parseUiXml(uiPath) {
+  let xmlString = files.read(uiPath).toString();
+  let uiComponent = {
+    "checkIds": [],
+    "textIds": [],
+    "numberIds": []
+  }
+  let idRegex = /<(\S*).*id="([^"]*)".*\/>/g;
+  let match;
+  while (match = idRegex.exec(xmlString)) {
+    let tagName = match[1];
+    let idValue = match[2];
+    let content = match[0]; // 匹配到的整个标签内容
+    // console.log("Tag Name: " + tagName);
+    // console.log("ID: " + idValue);
+    // console.log("Content: " + content);
+    if (tagName === "Switch" || tagName === "checkbox" || tagName === "radio") {
+      if (idValue != 'autoService') {
+        // 排除自动服务
+        uiComponent.checkIds.push(idValue);
+      }
+    } else if (tagName === "input") {
+      if (content.indexOf("inputType=\"number\"") > -1) {
+        uiComponent.numberIds.push(idValue);
+      } else {
+        uiComponent.textIds.push(idValue);
+      }
+    } else {
+      // 非输入类型的id，不做处理
+    }
   }
 
-  if (like_count > maxCount) {
-    maxCount = like_count;
-    maxCountLikeEle = e;
-  }
+  return uiComponent;
 }
 
-log(maxCountLikeEle)
+log(parseUiXml("./ui.xml"))
 
-let hotComment = maxCountLikeEle
-  .parent()
-  .parent()
-  .parent()
-  .findOne(id("com.smile.gifmaker:id/comment"))
-  .getText();
-log("热评->", hotComment);
+
+
+
+// // fullId("com.smile.gifmaker:id/cl_like")
+// id("com.smile.gifmaker:id/cl_like").visibleToUser(true).waitFor();
+// let likeEls = id("cl_like").visibleToUser(true).find();
+// log(likeEls)
+// let maxCountLikeEle;
+// let maxCount = 0;
+// for (let e of likeEls) {
+//   let like_count = AutojsUtil.getEleTextByOCR(e)
+//   log(like_count)
+
+//   // 2.0万
+//   if (like_count.indexOf("万") > -1) {
+//     like_count = parseFloat(like_count.replace("万", "")) * 10000;
+//   }
+
+//   if (like_count > maxCount) {
+//     maxCount = like_count;
+//     maxCountLikeEle = e;
+//   }
+// }
+
+// log(maxCountLikeEle)
+
+// let hotComment = maxCountLikeEle
+//   .parent()
+//   .parent()
+//   .parent()
+//   .findOne(id("com.smile.gifmaker:id/comment"))
+//   .getText();
+// log("热评->", hotComment);
 
 // function getKeysWordForWeb() {
 //     let url = 'https://www.zgdypw.cn/data/searchDayBoxOffice.json?timestamp=' + new Date().getTime()
