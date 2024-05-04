@@ -48,10 +48,21 @@
 					</horizontal>
 					<Switch marginTop="14" id="douyinCommentRecent" text="最新发布-抖音" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
 					<Switch marginTop="14" id="autoInTargetApp" text="自动跳入" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
+					<Switch marginTop="14" id="douyinMultiMode" text="分身模式-抖音" textStyle="bold" textColor="#000000" textSize="16sp" checked="false" />
+					<text text="分身之间，号分割" textColor="red" />
+					<horizontal marginTop="14" gravity="left">
+						<input hint="例如：抖音,抖音分身，抖音分身1" text="" lines="1" gravity="center" inputType="textImeMultiLine" id="dyAppNames" w="*" />
+					</horizontal>
+					<Switch marginTop="14" id="kuaishouMultiMode" text="分身模式-快手" textStyle="bold" textColor="#000000" textSize="16sp" checked="false" />
+					<text text="分身之间，号分割" textColor="red" />
+					<horizontal marginTop="14" gravity="left">
+						<input hint="例如：快手，快手分身，抖音分身1" text="" lines="1" gravity="center" inputType="textImeMultiLine" id="ksAppNames" w="*" />
+					</horizontal>
 					<horizontal marginTop="20" gravity="center" w="*" h="*">
 						<button id="save" marginLeft="10" marginRight="20" bg="#23A9F2" text="保存" />
 						<button id="boot" marginLeft="20" marginRight="10" bg="#23A9F2" text="启动" />
 					</horizontal>
+					<button id="getAllAppNames" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="获取所有分身名字" />
 					<button id="useCNMoive" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="使用中国电影数据" />
 					<button id="clearCache" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="清除断点续评" />
 					<button id="resetConsole" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="重置控制台位置" />

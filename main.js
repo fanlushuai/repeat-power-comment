@@ -41,6 +41,27 @@ ui.emitter.on("resume", function () {
   // AutojsUtil.stopOtherScriptEngine();
 });
 
+ui.getAllAppNames.click(function () {
+  threads.start(function () {
+    // 启动快手
+    let ksNames = AutojsUtil.getAllAppNames("快手")
+    let ks = ksNames.join(",")
+    log("分身快手:" + ks)
+
+    // 启动抖音
+    let dyNames = AutojsUtil.getAllAppNames("抖音")
+    let dy = dyNames.join(",")
+    log("分身抖音:" + dy)
+
+    ui.run(function () {
+      ui.ksAppNames.setText(ks);
+      ui.dyAppNames.setText(dy);
+    });
+  })
+
+
+})
+
 ui.useCNMoive.click(function () {
   threads.start(function () {
     function getKeysWordForWeb() {

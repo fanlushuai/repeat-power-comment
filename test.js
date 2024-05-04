@@ -6,48 +6,58 @@ const { AutojsUtil } = require("./autojsUtil");
 const { KS } = require("./ks");
 const { LocalStorage } = require("./localStorage");
 
+// app.launchApp('ks1')
 
-// log(xmlString)
-// 假设 xmlString 是你的 XML 字符串
-// "./ui.xml"
-function parseUiXml(uiPath) {
-  let xmlString = files.read(uiPath).toString();
-  let uiComponent = {
-    "checkIds": [],
-    "textIds": [],
-    "numberIds": []
+function getAllAppNames(appName) {
+  app.launchApp(appName)
+  text("使用主应用打开，不再询问").waitFor()
+  sleep(500)
+  let apps = textMatches("/(" + appName + ".*)/").find()
+  for (let app of apps) {
+    log(app.getText())
   }
-  let idRegex = /<(\S*).*id="([^"]*)".*\/>/g;
-  let match;
-  while (match = idRegex.exec(xmlString)) {
-    let tagName = match[1];
-    let idValue = match[2];
-    let content = match[0]; // 匹配到的整个标签内容
-    // console.log("Tag Name: " + tagName);
-    // console.log("ID: " + idValue);
-    // console.log("Content: " + content);
-    if (tagName === "Switch" || tagName === "checkbox" || tagName === "radio") {
-      if (idValue != 'autoService') {
-        // 排除自动服务
-        uiComponent.checkIds.push(idValue);
-      }
-    } else if (tagName === "input") {
-      if (content.indexOf("inputType=\"number\"") > -1) {
-        uiComponent.numberIds.push(idValue);
-      } else {
-        uiComponent.textIds.push(idValue);
-      }
-    } else {
-      // 非输入类型的id，不做处理
-    }
-  }
-
-  return uiComponent;
+  back()
+  sleep(500)
 }
 
-log(parseUiXml("./ui.xml"))
+function launchx(appName, targetName) {
+  app.launchApp(appName)
+  text("使用主应用打开，不再询问").waitFor()
+  sleep(500)
+  let apps = textMatches("/(" + appName + ".*)/").find()
+  for (let app of apps) {
+    if (app.text() == targetName) {
+      AutojsUtil.clickEle(app)
+      break
+    }
+  }
+}
+
+// getAllAppNames("快手")
+
+AutojsUtil.refreshUIMutilApp("快手","快手(分身)")
+// launchx("快手","快手(分身)")
 
 
+// home()//回到桌面
+// sleep(3000)
+//   if (click("应用分身")) {
+//   //点击应用分身这个软件成功后
+//             toast("启动分身：" +启动分身)
+//            if(启动分身==0){
+//            //如果启动分身为初始的0,点击微博
+//                click("微博")
+//            }else{
+//            //否则,点击微博1,微博2,微博3...
+//             if (click("微博 "+启动分身)) {
+//                 sleep(5000)
+//             } else {
+//             //如果找不到,可能是因为该页没有.所以我们翻页
+//                 swipe(514, 1718, 514, 130, 1000)
+//                 sleep(2000)
+//             }
+//            }
+//         }
 
 
 // // fullId("com.smile.gifmaker:id/cl_like")
