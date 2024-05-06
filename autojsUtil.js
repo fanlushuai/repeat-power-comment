@@ -7,32 +7,32 @@ const { LocalStorage } = require("./localStorage");
 const AutojsUtil = {
   // oppo 手机没问题
   launchOne: function (appName, targetName) {
-    app.launchApp(appName)
-    text("使用主应用打开，不再询问").waitFor()
-    sleep(500)
-    let apps = textMatches("/(" + appName + ".*)/").find()
+    app.launchApp(appName);
+    text("使用主应用打开，不再询问").waitFor();
+    sleep(500);
+    let apps = textMatches("/(" + appName + ".*)/").find();
     for (let app of apps) {
       if (app.text() == targetName) {
-        AutojsUtil.clickEle(app)
-        break
+        AutojsUtil.clickEle(app);
+        break;
       }
     }
   },
   // oppo 手机没问题
   getAllAppNames: function (appName) {
-    app.launchApp(appName)
+    app.launchApp(appName);
     // 不用这个适应性，更强一些。还可以获取失败。
     // text("使用主应用打开，不再询问").waitFor()
-    sleep(2500)
-    let apps = textMatches("/(" + appName + ".*)/").find()
-    let appNames = []
+    sleep(2500);
+    let apps = textMatches("/(" + appName + ".*)/").find();
+    let appNames = [];
     for (let app of apps) {
       // log(app.getText())
-      appNames.push(app.getText())
+      appNames.push(app.getText());
     }
-    back()
-    sleep(500)
-    return appNames
+    back();
+    sleep(500);
+    return appNames;
   },
   randomSleep: function (maxSecend, minSecend) {
     // return;
@@ -150,6 +150,7 @@ const AutojsUtil = {
       let actionText = window.action.text();
 
       if (actionText === "停") {
+        toastLog("正在停止中");
         // 执行停止操作
         // 停止所有子线程
         // 通过threads.start()启动的所有线程会在脚本被强制停止时自动停止。
@@ -497,7 +498,6 @@ const AutojsUtil = {
     return excuteOK;
   },
   getUiComponentByXml: function (uiXmlPath) {
-
     // const uiComponent = {
     //   "checkIds": ['autoInTargetApp', 'openKS', 'openDY', 'douyinCommentRecent'],
     //   "textIds": ["keywords", "useComment"],
@@ -506,26 +506,30 @@ const AutojsUtil = {
 
     let xmlString = files.read(uiXmlPath).toString();
     let uiComponent = {
-      "checkIds": [],
-      "textIds": [],
-      "numberIds": []
-    }
+      checkIds: [],
+      textIds: [],
+      numberIds: [],
+    };
     let idRegex = /<(\S*).*id="([^"]*)".*\/>/g;
     let match;
-    while (match = idRegex.exec(xmlString)) {
+    while ((match = idRegex.exec(xmlString))) {
       let tagName = match[1];
       let idValue = match[2];
       let content = match[0]; // 匹配到的整个标签内容
       // console.log("Tag Name: " + tagName);
       // console.log("ID: " + idValue);
       // console.log("Content: " + content);
-      if (tagName === "Switch" || tagName === "checkbox" || tagName === "radio") {
-        if (idValue != 'autoService') {
+      if (
+        tagName === "Switch" ||
+        tagName === "checkbox" ||
+        tagName === "radio"
+      ) {
+        if (idValue != "autoService") {
           // 排除自动服务
           uiComponent.checkIds.push(idValue);
         }
       } else if (tagName === "input") {
-        if (content.indexOf("inputType=\"number\"") > -1) {
+        if (content.indexOf('inputType="number"') > -1) {
           uiComponent.numberIds.push(idValue);
         } else {
           uiComponent.textIds.push(idValue);
@@ -697,7 +701,7 @@ const AutojsUtil = {
     );
     w.setTouchable(false);
     w.setSize(-1, -1);
-    setInterval(() => { }, 1000);
+    setInterval(() => {}, 1000);
 
     let paint = new Paint();
     //设置画笔为填充，则绘制出来的图形都是实心的
@@ -968,19 +972,25 @@ const AutojsUtil = {
     return path;
   },
   getEleTextByOCR: function (ele) {
-    let b = ele.bounds()
+    let b = ele.bounds();
     // log("%s %s", device.width, device.height)
-    log("%s %s %s %s", b.left, b.top, b.right, b.bottom)
+    log("%s %s %s %s", b.left, b.top, b.right, b.bottom);
     AutojsUtil.autoPermisionScreenCapture();
     var img = captureScreen(); // 截取当前屏幕图像
     // var clip = images.clip(img, 0, 0, device.width, device.height / 3); // 裁剪图像，只保留上半部分
-    var clip = images.clip(img, b.left, b.top, b.right - b.left, b.bottom - b.top); // 裁剪图像，只保留上半部分
+    var clip = images.clip(
+      img,
+      b.left,
+      b.top,
+      b.right - b.left,
+      b.bottom - b.top
+    ); // 裁剪图像，只保留上半部分
     let res = paddle.ocr(clip);
     if (res[0]) {
-      return res[0].text
+      return res[0].text;
     } else {
-      log("ocr 获取文本失败")
-      return ""
+      log("ocr 获取文本失败");
+      return "";
     }
   },
   getPostionByOCR: function (x, y, w, h) {
@@ -989,7 +999,7 @@ const AutojsUtil = {
     // var clip = images.clip(img, 0, 0, device.width, device.height / 3); // 裁剪图像，只保留上半部分
     var clip = images.clip(img, x, y, w, h); // 裁剪图像，只保留上半部分
     let res = paddle.ocr(clip);
-    return res
+    return res;
   },
   clickTextByOCR: function (text, x, y, w, h) {
     AutojsUtil.autoPermisionScreenCapture();

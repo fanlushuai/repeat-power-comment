@@ -61,7 +61,7 @@ const Robot = {
     if (Config.douyinCommentRecent && this.targetApp.name == "抖音") {
       // 返回到，最新的视频列表
       this.targetApp.clickSearchInVedio();
-      this.intoRecentVedioBySearch(keyword)
+      this.intoRecentVedioBySearch(keyword);
     }
 
     return hotComment;
@@ -190,18 +190,34 @@ const Robot = {
       keyword,
       commentCountLimit
     );
+    let useComment = Config.useComment;
 
-    this.intoVedioBySearch(keyword);
+    let useCommentBySelfDefine = useComment != null && useComment != "";
+    if (useCommentBySelfDefine) {
+      log("使用自定义评论");
+      log("dddddddddddddddddddddddddddddddddddddd111111111s");
+      // Config.douyinCommentRecent && this.targetApp.name == "抖音"
+      if (Config.douyinCommentRecent && this.targetApp.name == "抖音") {
+        // 当，需要抖音最近，且自定义评论的时候。需要跳入，最近列表
+        log("最新发布");
+        this.intoRecentVedioBySearch(keyword);
+      }
+    } else {
+      log("dddddddddddddddddddddddddddddddddddddd");
+      // 默认直接进入视频。
+      this.intoVedioBySearch(keyword);
+    }
+
     AutojsUtil.s(2, 3);
 
     let tryCount = 0;
     let hotComment;
-    let useComment = Config.useComment;
     if (useComment != null && useComment != "") {
       log("使用指定评论 %s", useComment);
       hotComment = useComment;
     } else {
       log("抓取第一条视频热评");
+      // 对于抖音，抓到热评，还会返回,进入最近发布的。
       hotComment = this.getHotComment(keyword);
       AutojsUtil.s(3, 5);
 
