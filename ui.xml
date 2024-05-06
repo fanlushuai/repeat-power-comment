@@ -52,7 +52,6 @@
 						<button id="save" marginLeft="10" marginRight="20" bg="#23A9F2" text="保存" />
 						<button id="boot" marginLeft="20" marginRight="10" bg="#23A9F2" text="启动" />
 					</horizontal>
-					<button id="getAllAppNames" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="获取所有分身名字" />
 					<button id="useCNMoive" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="使用中国电影数据" />
 					<button id="clearCache" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="清除断点续评" />
 					<button id="resetConsole" marginTop="20" marginLeft="20" marginRight="10" bg="#FFA500" text="重置控制台位置" />
