@@ -5,6 +5,35 @@
 const { LocalStorage } = require("./localStorage");
 
 const AutojsUtil = {
+  // oppo 手机没问题
+  launchOne: function (appName, targetName) {
+    app.launchApp(appName)
+    text("使用主应用打开，不再询问").waitFor()
+    sleep(500)
+    let apps = textMatches("/(" + appName + ".*)/").find()
+    for (let app of apps) {
+      if (app.text() == targetName) {
+        AutojsUtil.clickEle(app)
+        break
+      }
+    }
+  },
+  // oppo 手机没问题
+  getAllAppNames: function (appName) {
+    app.launchApp(appName)
+    // 不用这个适应性，更强一些。还可以获取失败。
+    // text("使用主应用打开，不再询问").waitFor()
+    sleep(2500)
+    let apps = textMatches("/(" + appName + ".*)/").find()
+    let appNames = []
+    for (let app of apps) {
+      // log(app.getText())
+      appNames.push(app.getText())
+    }
+    back()
+    sleep(500)
+    return appNames
+  },
   randomSleep: function (maxSecend, minSecend) {
     // return;
     if (!minSecend) {
@@ -410,6 +439,13 @@ const AutojsUtil = {
     app.launchApp(appName);
     sleep(2000);
   },
+  refreshUIMutilApp: function (appName, targetName) {
+    log("刷新控件");
+    home();
+    sleep(2000);
+    this.launchOne(appName, targetName);
+    sleep(2000);
+  },
   testAndBack: function (testGetTargetFunc, timesLimit, backFunc) {
     log("无脑back");
     let retryTimes = timesLimit;
@@ -459,6 +495,47 @@ const AutojsUtil = {
       }
     }
     return excuteOK;
+  },
+  getUiComponentByXml: function (uiXmlPath) {
+
+    // const uiComponent = {
+    //   "checkIds": ['autoInTargetApp', 'openKS', 'openDY', 'douyinCommentRecent'],
+    //   "textIds": ["keywords", "useComment"],
+    //   "numberIds": ["commentCountLimit", 'commentWithoutEmoCountLimit']
+    // }
+
+    let xmlString = files.read(uiXmlPath).toString();
+    let uiComponent = {
+      "checkIds": [],
+      "textIds": [],
+      "numberIds": []
+    }
+    let idRegex = /<(\S*).*id="([^"]*)".*\/>/g;
+    let match;
+    while (match = idRegex.exec(xmlString)) {
+      let tagName = match[1];
+      let idValue = match[2];
+      let content = match[0]; // 匹配到的整个标签内容
+      // console.log("Tag Name: " + tagName);
+      // console.log("ID: " + idValue);
+      // console.log("Content: " + content);
+      if (tagName === "Switch" || tagName === "checkbox" || tagName === "radio") {
+        if (idValue != 'autoService') {
+          // 排除自动服务
+          uiComponent.checkIds.push(idValue);
+        }
+      } else if (tagName === "input") {
+        if (content.indexOf("inputType=\"number\"") > -1) {
+          uiComponent.numberIds.push(idValue);
+        } else {
+          uiComponent.textIds.push(idValue);
+        }
+      } else {
+        // 非输入类型的id，不做处理
+      }
+    }
+
+    return uiComponent;
   },
   loadUI: function (projectJsonPath, uiPath) {
     let projectJsonStr = files.read(projectJsonPath).toString();

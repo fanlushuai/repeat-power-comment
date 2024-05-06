@@ -340,6 +340,25 @@ const KS = {
     log("点击筛选tab");
     AutojsUtil.clickEle(ele);
   },
+  filterRecent: function () {
+    sleep(1500);
+    let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
+      text("最新发布").visibleToUser(true),
+      "筛选 最新发布",
+      8,
+      this.name
+    );
+
+    if (!ele) {
+      return;
+    }
+
+    // let maxY = ele.bounds().bottom;
+    // LocalStorage.setConsoleMaxY(maxY, this.name);
+
+    log("点击最近发布");
+    AutojsUtil.clickEle(ele);
+  },
   filterMostStar: function () {
     sleep(1500);
     let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
@@ -384,7 +403,7 @@ const KS = {
       this.name
     );
   },
-  getHotComment: function () {
+  getHotComment: function (keyword) {
     // 置顶不好处理，
     // 作者也不好排除
     // 那么使用点赞量，来决定，哪个评论更有价值

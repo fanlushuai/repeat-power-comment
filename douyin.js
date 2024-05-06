@@ -85,6 +85,15 @@ const Douyin = {
       this.name
     );
   },
+  filterRecent: function () {
+    let t = AutojsUtil.clickTextByOCR(
+      "最新发布",
+      0,
+      0,
+      device.width,
+      device.height / 2
+    );
+  },
   filterMostStar: function () {
     let t = AutojsUtil.clickTextByOCR(
       "最多点赞",
@@ -182,6 +191,8 @@ const Douyin = {
     }
 
     log("热评->%s", hotComment);
+    toastLog(hotComment);
+    sleep(2000)
     return hotComment;
   },
   comment: function (comment) {

@@ -10,9 +10,6 @@ AutojsUtil.loadUI("./project.json", "./ui.xml");
 Config.setLSConfig2UI();
 AutojsUtil.autoServiceCheck();
 
-// 设置重启次数为0
-LocalStorage.setBootTimes(0);
-
 function revoverBootButton() {
   AutojsUtil.buttonEnable(ui.boot, "启 动");
 }
@@ -20,6 +17,7 @@ function revoverBootButton() {
 AutojsUtil.onChildStop(function (msg) {
   log("接收到广播 %s", msg);
   AutojsUtil.buttonEnable(ui.boot, "启 动");
+
   hasStart = false;
   log("3s之后，停止子脚本");
   setTimeout(() => {
@@ -30,7 +28,6 @@ AutojsUtil.onChildStop(function (msg) {
 
 AutojsUtil.onChildReboot(function (msg) {
   log("接收到重启广播");
-
   // 重新开始执行
   AutojsUtil.execScriptFile("./scriptTask.js");
 });
@@ -38,12 +35,32 @@ AutojsUtil.onChildReboot(function (msg) {
 ui.emitter.on("resume", function () {
   // log("切换回界面就会执行这个");
   // todo 判断子脚本引擎是否存在，然后在进行操作
-
   revoverBootButton();
   hasStart = false;
   // log("ssss");
   // AutojsUtil.stopOtherScriptEngine();
 });
+
+ui.getAllAppNames.click(function () {
+  threads.start(function () {
+    // 启动快手
+    let ksNames = AutojsUtil.getAllAppNames("快手")
+    let ks = ksNames.join(",")
+    log("分身快手:" + ks)
+
+    // 启动抖音
+    let dyNames = AutojsUtil.getAllAppNames("抖音")
+    let dy = dyNames.join(",")
+    log("分身抖音:" + dy)
+
+    ui.run(function () {
+      ui.ksAppNames.setText(ks);
+      ui.dyAppNames.setText(dy);
+    });
+  })
+
+
+})
 
 ui.useCNMoive.click(function () {
   threads.start(function () {
@@ -104,13 +121,13 @@ let hasStart = false;
 
 ui.boot.click(function () {
   // 用来提供测试版本
-  var untilDate = new Date("2024-5-7 10:21:12");
-  if (new Date().getTime() > untilDate.getTime()) {
-    alert("脚本异常,请联系开发者");
-    return;
-  } else {
-    toast("当前处于测试版本");
-  }
+  // var untilDate = new Date("2024-5-7 10:21:12");
+  // if (new Date().getTime() > untilDate.getTime()) {
+  //   alert("脚本异常,请联系开发者");
+  //   return;
+  // } else {
+  //   toast("当前处于测试版本");
+  // }
 
   if (auto.service == null) {
     toastLog("请先开启无障碍服务！");
@@ -123,6 +140,10 @@ ui.boot.click(function () {
 
   if (!hasStart) {
     hasStart = true;
+
+    // 设置重启次数为0
+    LocalStorage.setBootTimes(0);
+
     engines.execScriptFile("./scriptTask.js"); //简单的例子
   }
 });
