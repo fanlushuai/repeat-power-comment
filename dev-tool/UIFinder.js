@@ -4,12 +4,16 @@ eles = find();
 
 for (ele of eles) {
   //   log("ddd");
-    // log(ele);
+  // log(ele);
   log(logEx(ele));
 }
 
 function logEx(ele) {
   //   let l = "className:" + ele.className();
+  if (ele == null || ele.className() == null) {
+    log("xx");
+    return;
+  }
   let l = "cN:" + ele.className().replace("android", "").replace("widget", "");
 
   if (ele.id()) {
