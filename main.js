@@ -142,6 +142,8 @@ ui.boot.click(function () {
     // 设置重启次数为0
     LocalStorage.setBootTimes(0);
 
+    LocalStorage.allowChild();
+
     engines.execScriptFile("./scriptTask.js"); //简单的例子
   }
 });

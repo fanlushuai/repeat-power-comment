@@ -159,6 +159,8 @@ const AutojsUtil = {
         setTimeout(function () {
           AutojsUtil.childStop();
         }, 3000);
+
+        LocalStorage.stopChild();
         // sleep(2000)
       }
     }
@@ -181,6 +183,8 @@ const AutojsUtil = {
   retryGet: function (func, retryLimit) {
     let tryCount = 0;
     while (1) {
+      LocalStorage.exitIfNotAllowChild();
+
       let result = func();
       if (result) {
         return result;
