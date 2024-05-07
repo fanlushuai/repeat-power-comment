@@ -438,6 +438,7 @@ const AutojsUtil = {
     return this.pressBounds(b);
   },
   refreshUI: function (appName) {
+    LocalStorage.exitIfNotAllowChild();
     log("刷新控件");
     home();
     sleep(2000);

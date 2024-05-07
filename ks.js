@@ -310,8 +310,8 @@ const KS = {
 
     log("等待搜索结果");
     while (1) {
-      let e = idMatches(/(.*nick_name|.*tab)/)
-        .visibleToUser(true)
+      let e = idMatches(/(.*nick_name|.*tab|.*play_.*)/)
+        // .visibleToUser(true)
         .findOne(5000);
       if (e != null) {
         log("出现结果");

@@ -16,6 +16,8 @@ const LocalStorage = {
     if (!this.isAllowChild()) {
       log("退出");
       exit();
+    } else {
+      // log("sssssssssssss");
     }
   },
   isAllowChild: function () {
