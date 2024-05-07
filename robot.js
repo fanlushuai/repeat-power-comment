@@ -193,17 +193,17 @@ const Robot = {
     let useComment = Config.useComment;
 
     let useCommentBySelfDefine = useComment != null && useComment != "";
-    if (useCommentBySelfDefine) {
+    if (
+      useCommentBySelfDefine &&
+      Config.douyinCommentRecent &&
+      this.targetApp.name == "抖音"
+    ) {
       log("使用自定义评论");
-      log("dddddddddddddddddddddddddddddddddddddd111111111s");
       // Config.douyinCommentRecent && this.targetApp.name == "抖音"
-      if (Config.douyinCommentRecent && this.targetApp.name == "抖音") {
-        // 当，需要抖音最近，且自定义评论的时候。需要跳入，最近列表
-        log("最新发布");
-        this.intoRecentVedioBySearch(keyword);
-      }
+      // 当，需要抖音最近，且自定义评论的时候。需要跳入，最近列表
+      log("最新发布");
+      this.intoRecentVedioBySearch(keyword);
     } else {
-      log("dddddddddddddddddddddddddddddddddddddd");
       // 默认直接进入视频。
       this.intoVedioBySearch(keyword);
     }
