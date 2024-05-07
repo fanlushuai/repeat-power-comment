@@ -3,23 +3,23 @@ const LocalStorage = {
     return storages.create("xxxxjk23232");
   },
   stopChild: function () {
-    this.localStorage.put("cs", true);
+    this.localStorage().put("cs", true);
     log("设置内存标记，停止线程");
     return;
   },
   allowChild: function () {
-    this.localStorage.put("cs", false);
+    this.localStorage().put("cs", false);
     log("设置内存标记，可以开启线程");
     return;
   },
   exitIfNotAllowChild: function () {
-    if (!this.allowChild()) {
+    if (!this.isAllowChild()) {
       log("退出");
       exit();
     }
   },
   isAllowChild: function () {
-    let cs = this.localStorage.get("cs", false);
+    let cs = this.localStorage().get("cs", false);
 
     return cs == false;
   },
