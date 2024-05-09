@@ -471,22 +471,30 @@ const KS = {
     );
   },
   comment: function (comment) {
-    AutojsUtil.clickSelectorWithAutoRefresh(
-      id("com.smile.gifmaker:id/editor_holder_text").visibleToUser(true),
-      "点击评论框",
-      8,
-      this.name
-    );
+    // 1.5s是首评，自动弹出时间。不是准确的。
+    let firstCommentELe = text("快来抢首评吧").findOne(1500);
+    if (firstCommentELe != null) {
+      log("首评视频");
+      log("设置首评 %s", comment);
+      firstCommentELe.setText(comment);
+    } else {
+      log("普通评论");
+      AutojsUtil.clickSelectorWithAutoRefresh(
+        id("com.smile.gifmaker:id/editor_holder_text").visibleToUser(true),
+        "点击评论框",
+        8,
+        this.name
+      );
+      let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
+        id("com.smile.gifmaker:id/editor").visibleToUser(true),
+        "评论输入框",
+        8,
+        this.name
+      );
 
-    let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
-      id("com.smile.gifmaker:id/editor").visibleToUser(true),
-      "评论输入框",
-      8,
-      this.name
-    );
-
-    log("设置评论 %s", comment);
-    ele.setText(comment);
+      log("设置评论 %s", comment);
+      ele.setText(comment);
+    }
 
     sleep(500);
 
