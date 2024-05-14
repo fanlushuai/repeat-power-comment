@@ -67,9 +67,22 @@ const Robot = {
     return hotComment;
   },
   comment: function (comment) {
-    this.targetApp.commentTab();
-    this.targetApp.comment(comment);
-    this.targetApp.closeCommentTab();
+    if (this.targetApp.name == '抖音') {
+      if (text('打开西瓜视频，发表评论').visibleToUser(true).findOne(3000) == null) {
+        this.targetApp.commentTab();
+        this.targetApp.comment(comment);
+        this.targetApp.closeCommentTab();
+      } else {
+        log("跳过，西瓜视频的视频")
+        AutojsUtil.pageDownBySwipe();
+        AutojsUtil.s(5, 8)
+        this.comment(comment)
+      }
+    } else {
+      this.targetApp.commentTab();
+      this.targetApp.comment(comment);
+      this.targetApp.closeCommentTab();
+    }
   },
   start: function () {
     log("机器人启动 %s", this.targetApp.name);
