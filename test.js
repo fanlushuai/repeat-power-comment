@@ -1,8 +1,17 @@
 const { AutojsUtil } = require("./autojsUtil");
-const { KS } = require("./ks");
+const { LocalStorage } = require("./localStorage");
+LocalStorage.allowChild()
 
 // KS.comment("Test");
 
+log("xxx")
+AutojsUtil.clickSelectorWithAutoRefresh(
+    idMatches(/(.*nick_name_layout.*|.*subject_op_title_newfeed|.*feed_card_op_like_tv.*)/).visibleToUser(true),
+    "进视频",
+    8,
+    this.name
+  );
 
-let ele=text('打开西瓜视频，发表评论').visibleToUser(true).findOne(3000) 
-log(ele)
+  log("xxx")
+  log(  idMatches(/(.*nick_name_layout.*|.*subject_op_title_newfeed|.*feed_card_op_like_tv.*)/).visibleToUser(true).findOne())
+  log("xxx")

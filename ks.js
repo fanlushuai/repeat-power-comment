@@ -389,7 +389,7 @@ const KS = {
   },
   video: function () {
     AutojsUtil.clickSelectorWithAutoRefresh(
-      id("com.smile.gifmaker:id/subject_op_title_newfeed").visibleToUser(true),
+      idMatches(/(.*nick_name_layout.*|.*subject_op_title_newfeed|.*feed_card_op_like_tv.*)/).visibleToUser(true),
       "进视频",
       8,
       this.name
