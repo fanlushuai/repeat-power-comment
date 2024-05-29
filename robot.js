@@ -63,6 +63,11 @@ const Robot = {
       this.targetApp.clickSearchInVedio();
       this.intoRecentVedioBySearch(keyword);
     }
+    if (Config.ksCommentRecent && this.targetApp.name == "快手") {
+      // 返回到，最新的视频列表
+      this.targetApp.clickSearchInVedio();
+      this.intoRecentVedioBySearch(keyword);
+    }
 
     return hotComment;
   },
@@ -216,9 +221,16 @@ const Robot = {
       // 当，需要抖音最近，且自定义评论的时候。需要跳入，最近列表
       log("最新发布");
       this.intoRecentVedioBySearch(keyword);
+    } else if (useCommentBySelfDefine &&
+      Config.ksCommentRecent &&
+      this.targetApp.name == "快手") {
+
+      log("最新发布");
+      this.intoRecentVedioBySearch(keyword);
     } else {
       // 默认直接进入视频。
       this.intoVedioBySearch(keyword);
+
     }
 
     AutojsUtil.s(2, 3);
