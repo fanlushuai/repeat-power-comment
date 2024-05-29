@@ -48,6 +48,7 @@
 					</horizontal>
 					<horizontal marginTop="14">
 						<text text="最新发布" textStyle="bold" textColor="#000000" textSize="16sp" />
+						<text text=" *" marginRight="30" textStyle="bold" textColor="red" textSize="16sp" />
 						<vertical gravity="center" marginRight="30">
 							<Switch id="ksCommentRecent" text="快手" textStyle="bold" textColor="#000000" textSize="16sp" checked="true" />
 						</vertical>
