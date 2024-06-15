@@ -192,14 +192,15 @@ const Douyin = {
 
     log("热评->%s", hotComment);
     toastLog(hotComment);
-    sleep(2000)
+    sleep(2000);
     return hotComment;
   },
   comment: function (comment) {
     // EditText
     AutojsUtil.clickSelectorWithAutoRefresh(
       // id("com.ss.android.ugc.aweme:id/dbx")
-      text("善语结善缘，恶言伤人心").className("EditText").visibleToUser(true),
+      // text("善语结善缘，恶言伤人心").className("EditText").visibleToUser(true),
+      className("EditText").visibleToUser(true),
       "评论框",
       8,
       this.name
@@ -207,7 +208,8 @@ const Douyin = {
     sleep(800);
     let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
       // id("com.ss.android.ugc.aweme:id/dbx").visibleToUser(true),
-      text("善语结善缘，恶言伤人心").className("EditText").visibleToUser(true),
+      // text("善语结善缘，恶言伤人心").className("EditText").visibleToUser(true),
+      className("EditText").visibleToUser(true),
       "评论框",
 
       8,
