@@ -4,7 +4,7 @@ eles = find();
 
 for (ele of eles) {
   //   log("ddd");
-  // log(ele);
+  // log(ele.desc());
   log(logEx(ele));
 }
 
@@ -24,8 +24,8 @@ function logEx(ele) {
     l += " - text: " + ele.text();
   }
 
-  if (ele.contentDescription) {
-    l += " - desc: " + ele.contentDescription;
+  if (ele.desc()) {
+    l += " - desc: " + ele.desc();
   }
 
   if (ele.clickable()) {

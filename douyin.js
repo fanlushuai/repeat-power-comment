@@ -29,7 +29,7 @@ const Douyin = {
   },
   inputKeyWord: function (keyWord) {
     let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
-      id("et_search_kw").visibleToUser(true),
+      className("EditText").id("et_search_kw"),
       "搜索输入框",
       8,
       this.name
@@ -40,47 +40,50 @@ const Douyin = {
     }
   },
   filterTab: function () {
-    // AutojsUtil.clickSelectorWithAutoRefresh(
-    //   id("com.ss.android.ugc.aweme:id/g6t").visibleToUser(true),
-    //   "筛选",
-    //   8,
-    //   this.name
-    // );
 
-    // todo 如果未来不稳定，可以换imageviwe方式，加上坐标来同时过滤。
-    sleep(600); //开始之前，确保，这个位置加载出来了
-    // 使用特殊算法，来兼容过滤的图标问题。直接使用id，有内存问题。
-    // let b = text("综合").visibleToUser(true).findOne().parent().bounds()
 
-    // let x = device.width - b.left - 2
-    // let y = b.top + parseInt((b.bottom - b.top) / 2)
 
-    // AutojsUtil.pressXY(x, y)
-
-    sleep(500);
-    let imageEles = className("ImageView").find();
-    log(imageEles.size());
-    let eles = AutojsUtil.filterEles(
-      imageEles,
-      (device.width * 3) / 4,
-      0,
-      device.width,
-      device.height / 4
+    AutojsUtil.clickSelectorWithAutoRefresh(
+      desc("筛选，按钮").visibleToUser(true),
+      "筛选",
+      8,
+      this.name
     );
-    log(eles.length);
 
-    if (eles.length > 0) {
-      let b = eles[0].bounds();
-      press(b.centerX(), b.centerY(), 1);
-    }
+    // // todo 如果未来不稳定，可以换imageviwe方式，加上坐标来同时过滤。
+    // sleep(600); //开始之前，确保，这个位置加载出来了
+    // // 使用特殊算法，来兼容过滤的图标问题。直接使用id，有内存问题。
+    // // let b = text("综合").visibleToUser(true).findOne().parent().bounds()
+
+    // // let x = device.width - b.left - 2
+    // // let y = b.top + parseInt((b.bottom - b.top) / 2)
+
+    // // AutojsUtil.pressXY(x, y)
+
+    // sleep(500);
+    // let imageEles = className("ImageView").find();
+    // log(imageEles.size());
+    // let eles = AutojsUtil.filterEles(
+    //   imageEles,
+    //   (device.width * 3) / 4,
+    //   0,
+    //   device.width,
+    //   device.height / 4
+    // );
+    // log(eles.length);
+
+    // if (eles.length > 0) {
+    //   let b = eles[0].bounds();
+    //   press(b.centerX(), b.centerY(), 1);
+    // }
 
     sleep(1000);
   },
   _zongheTab: function () {
     AutojsUtil.clickSelectorWithAutoRefresh(
-      text("综合").visibleToUser(true),
+      text("视频").visibleToUser(true),
       // id("com.ss.android.ugc.aweme:id/tg8").visibleToUser(true),
-      "综合",
+      "视频",
       8,
       this.name
     );
@@ -93,6 +96,10 @@ const Douyin = {
       device.width,
       device.height / 2
     );
+
+        // 用来关闭过滤界面
+    sleep(1500);
+    Douyin._zongheTab()
   },
   filterMostStar: function () {
     let t = AutojsUtil.clickTextByOCR(
@@ -105,15 +112,52 @@ const Douyin = {
 
     let consoleY = t.bounds.bottom + 60;
     LocalStorage.setConsoleMinY(consoleY, this.name);
+
+    // 用来关闭过滤界面
+    sleep(1500);
+    Douyin._zongheTab()
   },
   search: function () {
+    log("dsdd")
     AutojsUtil.clickSelectorWithAutoRefresh(
       // id("com.ss.android.ugc.aweme:id/yqq").visibleToUser(true),
-      text("搜索").visibleToUser(true),
+      desc("搜索").visibleToUser(true),
       "搜索",
       8,
       this.name
     );
+
+    log("等待搜索结果加载完成...");
+
+    while (text("视频").findOnce() == null) {
+      sleep(500)
+    }
+
+    AutojsUtil.clickSelectorWithAutoRefresh(
+      text("视频").visibleToUser(true),
+      "视频",
+      8,
+      this.name
+    );
+
+    let xx = text("综合").findOnce()
+    let min = xx.bounds().bottom + 500
+    let waitLoad = true
+    while (waitLoad) {
+
+      let eles = find()
+
+      for (let ele of eles) {
+        if (ele.text() != null && ele.text() != "" && ele.bounds().top > min) {
+          log("加载完成...")
+          waitLoad = false
+          break
+        }
+      }
+      if (waitLoad) {
+        sleep(1000)
+      }
+    }
   },
   // waitResult: function () {
   //   id("com.ss.android.ugc.aweme:id/y6g").waitFor();
@@ -127,14 +171,29 @@ const Douyin = {
   // },
   video: function () {
     // 多图，和视频，都可以
-    AutojsUtil.clickSelectorWithAutoRefresh(
-      // textMatches(/(点赞较多|点赞飙升)/).visibleToUser(true),
-      id("com.ss.android.ugc.aweme:id/tv_desc").visibleToUser(true),
-      // id("com.ss.android.ugc.aweme:id/ly1").visibleToUser(true),
-      "视频",
-      8,
-      this.name
-    );
+    // AutojsUtil.clickSelectorWithAutoRefresh(
+    //   // textMatches(/(点赞较多|点赞飙升)/).visibleToUser(true),
+    //   text("视频").visibleToUser(true),
+    //   // id("com.ss.android.ugc.aweme:id/ly1").visibleToUser(true),
+    //   "视频1",
+    //   8,
+    //   this.name
+    // );
+
+    log("加载中...")
+    while(descEndsWith("，按钮").visibleToUser(true).findOnce()==null){
+      sleep(1000)
+    }
+
+    let e=descEndsWith("，按钮").visibleToUser(true).clickable().find()
+    // log(e[i].desc())
+
+    let t=e[1].desc().replace("已点赞，喜欢","").replace("未点赞，喜欢","").replace("，按钮","")
+    log(t)
+    // e[1].parent().click()
+    let ee=text(t).findOne()
+    click(ee.bounds().centerX()-device.width/4,ee.bounds().centerY())
+    sleep(1000)
   },
   commentTab: function () {
     let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(
@@ -262,41 +321,46 @@ const Douyin = {
     return blankClickXY;
   },
   closeCommentTab: function () {
-    // let ele = AutojsUtil.getEleBySelectorWithAutoRefresh(desc("关闭"), "关闭", 8, this.name)
-    // AutojsUtil.press(ele)
+    Douyin.closeCommentTab1()
 
-    log("关闭评论Tab");
-    let xy = this._getBlankClickXY();
-    AutojsUtil.pressXY(xy.x, xy.y);
-    AutojsUtil.s13();
 
-    // 查看评论右侧图标
+    // log("关闭评论Tab");
+    // let xy = this._getBlankClickXY();
+    // AutojsUtil.pressXY(xy.x, xy.y);
+    // AutojsUtil.s13();
 
-    let ele = text("搜索").visibleToUser(true).findOnce();
+    // // 查看评论右侧图标
 
-    if (ele == null) {
-      // 点击两次，防止失败
-      AutojsUtil.pressXY(xy.x, xy.y);
-    }
+    // let ele = text("搜索").visibleToUser(true).findOnce();
+
+    // if (ele == null) {
+    //   // 点击两次，防止失败
+    //   AutojsUtil.pressXY(xy.x, xy.y);
+    // }
   },
+  closeCommentTab1: function () {
+    AutojsUtil.clickSelectorWithAutoRefresh(id("com.ss.android.ugc.aweme:id/back_btn").visibleToUser(true), "关闭", 8, this.name)
+  }
 };
 
 // Douyin.boot()
 // Douyin.intoSearch()
 // Douyin.inputKeyWord("xxxx")
+// log("dfsdfd")
 // Douyin.search()
 
+// Douyin.filterTab()
 // Douyin.filterMostStar()
-// Douyin.zongheTab()
-// Douyin.waitResult()
+
+
+// Douyin._zongheTab()
 
 // Douyin.video()
 // Douyin.commentTab()
 
 // Douyin.getHotComment()
 
-// Douyin.commentIt("haha")
-// Douyin.commentIt("haha")
-// Douyin.closeComment()
+// Douyin.comment("haha")
+// Douyin.closeCommentTab1()
 
 module.exports = { Douyin };
